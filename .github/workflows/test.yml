@@ -12,11 +12,11 @@ jobs:
 
     env:
 
-      MAJOR: 3
+      MAJOR: 2
 
       MINOR: 1
 
-      TEAM: teamX
+      TEAM: team5
 
       LOGLEVEL: info # Valid options are: error | info | debug
 
