@@ -3,3 +3,5 @@
 # This is the file "run": it runs the actual submission
 
 python test.py
+
+chmod u+x run
