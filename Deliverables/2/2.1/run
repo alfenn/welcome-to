@@ -2,6 +2,4 @@
 
 # This is the file "run": it runs the actual submission
 
-chmod u+x run
-
 python test.py
