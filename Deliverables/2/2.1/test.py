@@ -54,6 +54,7 @@ def driver():
         # json.loads() takes a string
         tokens[i] = json.loads(tokens[i])
     sort(tokens)
+    tokens = json.dumps(tokens)
     print(tokens)
 
 
