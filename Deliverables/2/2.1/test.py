@@ -43,8 +43,8 @@ Returns:
 
 
 def driver():
-    # input = sys.stdin.read()
-    input_str = open('input1.json', 'r').read()
+    input_str = sys.stdin.read()
+    # input_str = open('input1.json', 'r').read()
     tokens = input_str.split('{')
     tokens.pop(0)
     for i in range(len(tokens)):
