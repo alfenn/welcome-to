@@ -41,7 +41,10 @@ def parse_objects(json_str):
     for i in range(len(tokens)):
         # json.load() takes a filepath
         # json.loads() takes a string
-        tokens[i] = json.loads(tokens[i])
+        try:
+            tokens[i] = json.loads(tokens[i])
+        except:
+            sys.stderr.write(tokens[i])
     return tokens
 
 
