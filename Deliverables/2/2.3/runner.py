@@ -23,8 +23,8 @@ Returns:
 
 
 def front_end():
-    input_str = sys.stdin.read()
-    # input_str = open('input6.json', 'r').read()
+    # input_str = sys.stdin.read()
+    input_str = open('input7.json', 'r').read()
     tokens = input_str.split('{')
     tokens.pop(0)
 
@@ -40,7 +40,7 @@ def front_end():
     to_remove = []
     for t in tokens:
         #   python uses short-circuit evaluation when evaluating and/or statements
-        if (isinstance(t, dict)
+        if (not isinstance(t, dict)
                 or (t.keys() != {"content": 1}.keys())  # checks number of key-value pairs, and the keys
                 or not (1 <= t.get("content") <= 24)):
             to_remove.append(t)
