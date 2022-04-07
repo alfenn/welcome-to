@@ -23,8 +23,8 @@ Returns:
 
 
 def front_end():
-    # input_str = sys.stdin.read()
-    input_str = open('input7.json', 'r').read()
+    input_str = sys.stdin.read()
+    # input_str = open('input6.json', 'r').read()
     tokens = input_str.split('{')
     tokens.pop(0)
 
