@@ -1,5 +1,5 @@
 import sys, json
-from Deliverables.proj_lib.backend.sort import sort
+from sort import sort
 
 """
 Your test driver should read 10 special JSON objects from 

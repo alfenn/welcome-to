@@ -1,11 +1,7 @@
 import sys, json
 from pprint import pprint
 
-# append the path of the
-# parent directory
-
-from Deliverables.proj_lib.backend.sort import sort
-
+from sort import sort
 
 '''
 Reads JSON values from STDIN and, once STDIN is closed,
