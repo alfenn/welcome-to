@@ -1,32 +1,10 @@
 import sys, json
 from pprint import pprint
 
-'''
-Consumes a list of 10 special JSON objects and sorts them in 
-ascending order based on the numerical value of their content 
-member.
+# append the path of the
+# parent directory
 
-Args:
-    A list of 10 special JSON objects
-
-Returns:
-    None
-'''
-
-
-def sort(data):
-    # implement bubble sort
-    num_iter = 0
-
-    swapped = True
-    # stop looping if there's a run with no swaps (swapped == F)
-    while swapped:
-        swapped = False
-        for j in range(len(data) - num_iter - 1):
-            if data[j].get('content') > data[j + 1].get('content'):
-                data[j], data[j + 1] = data[j + 1], data[j]
-                swapped = True
-        num_iter += 1
+from Deliverables.proj_lib.backend.sort import sort
 
 
 '''
@@ -66,7 +44,8 @@ def front_end():
     to_remove = []
     for t in tokens:
         #   python uses short-circuit evaluation when evaluating and/or statements
-        if ((t.keys() != {"content": 1}.keys())  # checks number of key-value pairs, and the keys
+        if (isinstance(t, dict)
+                or (t.keys() != {"content": 1}.keys())  # checks number of key-value pairs, and the keys
                 or not (1 <= t.get("content") <= 24)):
             to_remove.append(t)
     tokens = [e for e in tokens if e not in to_remove]
