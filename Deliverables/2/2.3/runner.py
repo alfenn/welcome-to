@@ -78,7 +78,7 @@ def front_end():
     for t in tokens:
         #   python uses short-circuit evaluation when evaluating and/or statements
         if ((t.keys() != {"content": 1}.keys())  # checks number of key-value pairs, and the keys
-                or type(t.values()[0]) != int
+                or type(t.get("content")) != int
                 or not (1 <= t.get("content") <= 24)):
             to_remove.append(t)
     tokens = [e for e in tokens if e not in to_remove]
