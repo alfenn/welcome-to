@@ -20,9 +20,12 @@ def parse_objects(json_str):
     tokens = []
     reading_dict = False
     t = ''
+    num_nested_brackets = 0
     in_str = False
     for char in json_str:
         if char == '{':
+            if reading_dict and not in_str:
+                num_nested_brackets += 1
             reading_dict = True
         if reading_dict:
             t += char
@@ -32,19 +35,18 @@ def parse_objects(json_str):
             else:
                 in_str = False
         if char == '}':
-            if reading_dict and in_str is False:
+            if reading_dict and in_str is False and num_nested_brackets == 0:
                 tokens.append(t)
                 t = ''
                 reading_dict = False
+            elif in_str is False and reading_dict:
+                num_nested_brackets -= 1
 
     # Convert array of JSON objects into an array of dicts
     for i in range(len(tokens)):
         # json.load() takes a filepath
         # json.loads() takes a string
-        try:
-            tokens[i] = json.loads(tokens[i])
-        except:
-            sys.stderr.write(tokens[i])
+        tokens[i] = json.loads(tokens[i])
     return tokens
 
 
@@ -76,6 +78,7 @@ def front_end():
     for t in tokens:
         #   python uses short-circuit evaluation when evaluating and/or statements
         if ((t.keys() != {"content": 1}.keys())  # checks number of key-value pairs, and the keys
+                or type(t.values()) != int
                 or not (1 <= t.get("content") <= 24)):
             to_remove.append(t)
     tokens = [e for e in tokens if e not in to_remove]
