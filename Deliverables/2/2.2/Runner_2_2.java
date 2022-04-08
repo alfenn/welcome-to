@@ -7,8 +7,8 @@ import org.json.simple.parser.JSONParser;
 
 public class Runner_2_2 {
     public static void run() throws Exception {
-//        String json = readFileToString("src/input.txt");
-        String json = readInputToString();
+        String json = readFileToString("input.txt");
+//        String json = readInputToString();
         String[] tokens_s = json.split("\\{");
         for (int i = 0; i < tokens_s.length; i++) {
             tokens_s[i] = "{" + tokens_s[i];
@@ -17,7 +17,7 @@ public class Runner_2_2 {
         JSONParser jsonParser = new JSONParser();
         ArrayList<JSONObject> tokens_o = new ArrayList<>();
         for (int i = 1; i < tokens_s.length; i++) {
-            Object obj = jsonParser.parse(tokens_s[1]);
+            Object obj = jsonParser.parse(tokens_s[i]);
             tokens_o.add((JSONObject) obj);
         }
         sort(tokens_o);
@@ -55,13 +55,13 @@ public class Runner_2_2 {
     public static void sort(ArrayList<JSONObject> tokens){
         int numIter = 0;
         boolean swapped = true;
-//        for (JSONObject e : tokens) {
-//            if (e == null) {
-//                System.out.println("null");
-//            } else {
-//                System.out.println(e.toJSONString());
-//            }
-//        }
+        // for (JSONObject e : tokens) {
+        //     if (e == null) {
+        //         System.out.println("null");
+        //     } else {
+        //         System.out.println(e.toJSONString());
+        //     }
+        // }
         while (swapped) {
             swapped = false;
             for (int i = 0; i < tokens.size() - numIter - 1; i++) {
