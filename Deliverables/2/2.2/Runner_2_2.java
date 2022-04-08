@@ -7,8 +7,8 @@ import org.json.simple.parser.JSONParser;
 
 public class Runner_2_2 {
     public static void run() throws Exception {
-        String json = readFileToString("input.txt");
-//        String json = readInputToString();
+        // String json = readFileToString("input.txt");
+        String json = readInputToString();
         String[] tokens_s = json.split("\\{");
         for (int i = 0; i < tokens_s.length; i++) {
             tokens_s[i] = "{" + tokens_s[i];
