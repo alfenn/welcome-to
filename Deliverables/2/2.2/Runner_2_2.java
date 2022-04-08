@@ -22,11 +22,11 @@ public class Runner_2_2 {
         }
         sort(tokens_o);
         // Write JSON to stdout.
-        String out = "";
-        for (JSONObject obj : tokens_o) {
-            out += obj.toJSONString();
+        ArrayList<String> tokens_o_strings = new ArrayList<>();
+        for (int i = 0; i<tokens_o.size(); i++) {
+            tokens_o_strings.add(tokens_o.get(i).toJSONString());
         }
-        System.out.print(out);
+        System.out.print(tokens_o_strings.toString());
     }
 
     // Read everything from a file into a string.
