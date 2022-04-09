@@ -1,0 +1,4 @@
+#!/bin/bash
+export CLASSPATH="$CLASSPATH:json-simple-1.1.1.jar:..."
+javac Runner.java
+java Runner
