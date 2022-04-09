@@ -94,7 +94,8 @@ public class Runner_2_4 {
             if (readingDict) {
                 t += c;
             }
-            if (c == '"') {
+            // case  {object} "\"" {object} {"{"} {"\""}    input 3 team 2 test
+            if (c == '"' && readingDict) {
                 if (!inStr) {
                     inStr = true;
                 }

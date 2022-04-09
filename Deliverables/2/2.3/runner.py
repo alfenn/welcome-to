@@ -29,7 +29,7 @@ def parse_objects(json_str):
             reading_dict = True
         if reading_dict:
             t += char
-        if char == '"':
+        if char == '"' and reading_dict:
             if in_str is False:
                 in_str = True
             else:
@@ -70,8 +70,9 @@ Returns:
 
 
 def front_end():
+    # TODO
     tokens = parse_objects(sys.stdin.read())
-    # tokens = parse_objects(open('input1.json', 'r').read())
+    # tokens = parse_objects(open('test.txt', 'r').read())
 
     # Discard non-special JSON objects
     to_remove = []
@@ -87,6 +88,8 @@ def front_end():
     num_extra = len(tokens) % 10
     if num_extra != 0:
         tokens = tokens[: -num_extra]
+    # TODO
+    # print(tokens)
 
     # Group tokens into groups of 10
     grouped_tokens = []
