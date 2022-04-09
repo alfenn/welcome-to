@@ -71,8 +71,8 @@ Returns:
 
 def front_end():
     # TODO
-    tokens = parse_objects(sys.stdin.read())
-    # tokens = parse_objects(open('test.txt', 'r').read())
+    # tokens = parse_objects(sys.stdin.read())
+    tokens = parse_objects(open('test.txt', 'r').read())
 
     # Discard non-special JSON objects
     to_remove = []
@@ -82,7 +82,19 @@ def front_end():
                 or type(t.get("content")) != int
                 or not (1 <= t.get("content") <= 24)):
             to_remove.append(t)
-    tokens = [e for e in tokens if e not in to_remove]
+    # this has an issue, and tokens += e also has issue. need to use .append(e)
+    # tokens = [e for e in tokens if e not in to_remove]
+    tokens_copy = tokens
+    tokens = []
+    for e in tokens_copy:
+        if e not in to_remove:
+            tokens.append(e)
+
+    # TODO: see if this fixes
+    tokens.append(e)
+
+    # TODO
+    # print(tokens)
 
     # Discard extra elements
     num_extra = len(tokens) % 10
