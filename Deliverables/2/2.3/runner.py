@@ -71,8 +71,8 @@ Returns:
 
 def front_end():
     # TODO
-    # tokens = parse_objects(sys.stdin.read())
-    tokens = parse_objects(open('test.txt', 'r').read())
+    tokens = parse_objects(sys.stdin.read())
+    # tokens = parse_objects(open('test.txt', 'r').read())
 
     # Discard non-special JSON objects
     to_remove = []
