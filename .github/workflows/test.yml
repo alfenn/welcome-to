@@ -14,11 +14,11 @@ jobs:
 
       MAJOR: 2
 
-      MINOR: 3
+      MINOR: 4
 
       TEAM: team5
 
-      LOGLEVEL: debug # Valid options are: error | info | debug
+      LOGLEVEL: error # Valid options are: error | info | debug
 
     steps:
 
