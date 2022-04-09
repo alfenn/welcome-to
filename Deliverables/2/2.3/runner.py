@@ -87,11 +87,16 @@ def front_end():
     tokens_copy = tokens
     tokens = []
     for e in tokens_copy:
-        if e not in to_remove:
+        # this has an issue. it's saying the last input {1} is in to_remove when it's not
+        # if e not in to_remove:
+        in_to_remove = False
+        for r in to_remove:
+            # using == confuses 0 and 1 with F,T respectively. p sure that's the issue with 'in'
+            if e is r:
+                in_to_remove = True
+                break
+        if not in_to_remove:
             tokens.append(e)
-
-    # TODO: see if this fixes
-    tokens.append(e)
 
     # TODO
     # print(tokens)
