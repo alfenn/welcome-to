@@ -11,9 +11,10 @@ public class Runner_2_4 {
     }
 
     public static void frontend() throws IOException, ParseException {
-//        ArrayList<JSONObject> tokens = parseObjects(readFileToString("src/input.txt"));
+        // ArrayList<JSONObject> tokens = parseObjects(readFileToString("input.txt"));
         ArrayList<JSONObject> tokens = parseObjects(readInputToString());
-
+        // TODO
+        // testPrintTokens(tokens);
         // Discard non-special JSON objects
         ArrayList<JSONObject> toRemove = new ArrayList<>();
         for (JSONObject t : tokens) {
@@ -37,12 +38,16 @@ public class Runner_2_4 {
             }
             if (!bad) filteredTokens.add(t);
         }
+        // TODO: 
+        // testPrintTokens(filteredTokens);
 
         // Discard extra elements.
         int numExtra = filteredTokens.size() % 10;
         for (int i = 0; i<numExtra; i++) {
-            filteredTokens.remove(filteredTokens.size()/10);
+            filteredTokens.remove(filteredTokens.size()-1);
         }
+        // TODO:
+        // testPrintTokens(filteredTokens);
 
         // Group tokens into groups of 10.
         ArrayList<ArrayList<JSONObject>> groupedTokens = new ArrayList<>();
@@ -158,5 +163,13 @@ public class Runner_2_4 {
             }
             numIter ++;
         }
+    }
+
+    public static void testPrintTokens (ArrayList<JSONObject> tokens) {
+        ArrayList<String> ret = new ArrayList<>();
+        for (JSONObject t : tokens) {
+            ret.add(t.toJSONString());
+        }
+        System.out.println(ret);
     }
 }
