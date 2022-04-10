@@ -77,41 +77,55 @@ public class Runner_2_4 {
         System.out.println(out.toString());
     }
 
-    public static ArrayList<JSONObject> parseObjects(String in) throws ParseException {
+    public static ArrayList<JSONObject> parseObjects(String jsonStr) throws ParseException {
         ArrayList<JSONObject> tokens = new ArrayList<>();
         boolean readingDict = false;
         String t = "";
+        int numNestedBraces = 0;
         int numNestedBrackets = 0;
         boolean inStr = false;
-        for (int i = 0; i<in.length(); i++) {
-            char c = in.charAt(i);
-            if (c == '{') {
-                if (readingDict && !inStr) {
-                    numNestedBrackets ++;
-                }
-                readingDict = true;
+        boolean inArr = false;
+        for (int i = 0; i<jsonStr.length(); i++) {
+            char c = jsonStr.charAt(i);
+            // Set conditions for inStr.
+            if (c == '"') {
+                if (jsonStr.charAt(i-1) != '\\') {
+                    if (!inStr) inStr = true;
+                    else inStr = false;
+                };
             }
+            // Split the nested braces operations from readingDict case below so we don't count first '{' as nested
+            if (readingDict && !inStr) {
+                if (c == '{') numNestedBraces ++;
+            }
+
+            // If not currently reading a top-level dictionary.
+            if (!readingDict && !inStr) {
+                if (c == '[') {
+                    if (inArr) numNestedBraces ++;
+                    else inArr = true;
+                }
+                if (c == '{' && !inArr) readingDict = true;
+                if (c == '[') {
+                    if (numNestedBrackets != 0) numNestedBraces --;
+                    else inArr = false;
+                }
+            }
+
+            // If currently reading a top-level dictionary.
             if (readingDict) {
                 t += c;
-            }
-            // case  {object} "\"" {object} {"{"} {"\""}    input 3 team 2 test
-            if (c == '"' && readingDict) {
-                if (!inStr) {
-                    inStr = true;
-                }
-                else {
-                    inStr = false;
-                }
-            }
-            if (c == '}'){
-                if (readingDict && !inStr && numNestedBrackets==0) {
-                    JSONParser jsonParser = new JSONParser();
-                    tokens.add((JSONObject) jsonParser.parse(t));
-                    t = "";
-                    readingDict = false;
-                }
-                else if (!inStr && readingDict) {
-                    numNestedBrackets --;
+                // Split this from the numNestBraces++ case above so we include the '}' in it.
+                if (!inStr && c == '}') {
+                    if (numNestedBraces == 0) {
+                        JSONParser jsonParser = new JSONParser();
+                        tokens.add((JSONObject) jsonParser.parse(t));
+                        t = "";
+                        readingDict = false;
+                    }
+                    // Check != 0 so we don't count actual closing '}' as nested.
+                    // Put this under the previuos condition so { { {} } } doens't chop off the last '}'
+                    if (numNestedBraces != 0) numNestedBraces --;
                 }
             }
         }
