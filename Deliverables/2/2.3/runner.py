@@ -30,6 +30,8 @@ def parse_objects(json_str):
         # ... need to rethink logic here. you could either be in a nested array or a nested dict. we account for nested dicts already.
         # Set conditions for in_str.
         if char == '"':
+            # Fixed out of bounds in java, but python list indexing accepts negative indices.
+            #   Fine to leave like this because the last character of a valid .json can never be "\\".
             if json_str[i-1] != "\\":
                 if not in_str: in_str = True
                 else: in_str = False

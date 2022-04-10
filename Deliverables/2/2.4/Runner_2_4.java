@@ -89,9 +89,12 @@ public class Runner_2_4 {
             char c = jsonStr.charAt(i);
             // Set conditions for inStr.
             if (c == '"') {
-                // To avoid out of bounds error for checking jsonStr[(i=0)-1].
-                if (i != 0) {
-                    if (jsonStr.charAt(i-1) != '\\') {
+                // To avoid out of bounds error for checking jsonStr[(i=0)-1], add edge case for when input starts with string.
+                if (i == 0) {
+                    inStr = true;
+                } 
+                else {
+                    if (jsonStr.charAt(i-1) != '\\') {                        
                         if (!inStr) inStr = true;
                         else inStr = false;
                     }
