@@ -89,10 +89,13 @@ public class Runner_2_4 {
             char c = jsonStr.charAt(i);
             // Set conditions for inStr.
             if (c == '"') {
-                if (jsonStr.charAt(i-1) != '\\') {
-                    if (!inStr) inStr = true;
-                    else inStr = false;
-                };
+                // To avoid out of bounds error for checking jsonStr[(i=0)-1].
+                if (i != 0) {
+                    if (jsonStr.charAt(i-1) != '\\') {
+                        if (!inStr) inStr = true;
+                        else inStr = false;
+                    }
+                }                
             }
             // Split the nested braces operations from readingDict case below so we don't count first '{' as nested
             if (readingDict && !inStr) {
