@@ -20,27 +20,49 @@ def parse_objects(json_str):
     tokens = []
     reading_dict = False
     t = ''
+    num_nested_braces = 0
     num_nested_brackets = 0
     in_str = False
-    for char in json_str:
-        if char == '{':
-            if reading_dict and not in_str:
-                num_nested_brackets += 1
-            reading_dict = True
+    in_arr = False
+    for i in range(len(json_str)):
+        char = json_str[i]
+        # need to account for input3_team2 case where you have dictionaries as elements in an array
+        # ... need to rethink logic here. you could either be in a nested array or a nested dict. we account for nested dicts already.
+        # Set conditions for in_str.
+        if char == '"':
+            if json_str[i-1] != "\\":
+                if not in_str: in_str = True
+                else: in_str = False
+
+        # Split the nested braces operations from reading_dict case below so we don't count first '{' as nested
+        if reading_dict and not in_str:
+            if char == '{':
+                num_nested_braces += 1
+
+        # If NOT currently reading a top-level dictionary.
+        if not reading_dict and not in_str:
+            if char == '[':
+                if in_arr: num_nested_brackets += 1
+                else: in_arr = True
+            if char == '{' and not in_arr:
+                reading_dict = True
+            if char == ']':
+                if num_nested_brackets != 0: num_nested_brackets -= 1
+                else: in_arr = False
+
+        # If currently reading a top-level dictionary.
         if reading_dict:
             t += char
-        if char == '"' and reading_dict:
-            if in_str is False:
-                in_str = True
-            else:
-                in_str = False
-        if char == '}':
-            if reading_dict and in_str is False and num_nested_brackets == 0:
-                tokens.append(t)
-                t = ''
-                reading_dict = False
-            elif in_str is False and reading_dict:
-                num_nested_brackets -= 1
+            # Split this from the num_braces++ case above so we include the '}' in t.
+            if not in_str and char == '}':
+                if num_nested_braces == 0:
+                    tokens.append(t)
+                    t = ''
+                    reading_dict = False
+                # Check != 0 so we don't count actual closing '}' as nested.
+                # Put this under the previous condition so { { {} } } doesn't chop off the last '}'
+                if num_nested_braces != 0:
+                    num_nested_braces -= 1
 
     # Convert array of JSON objects into an array of dicts
     for i in range(len(tokens)):
@@ -99,7 +121,7 @@ def front_end():
             tokens.append(e)
 
     # TODO
-    # print(tokens)
+    # pprint(tokens)
 
     # Discard extra elements
     num_extra = len(tokens) % 10
