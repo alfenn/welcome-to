@@ -19,7 +19,6 @@ public class Runner_2_4 {
         ArrayList<JSONObject> toRemove = new ArrayList<>();
         for (JSONObject t : tokens) {
             JSONParser jsonParser = new JSONParser();
-//            if (t.keySet() != ((JSONObject) jsonParser.parse("{\"content\":1}")).keySet()
             if (t.keySet().size() != 1
                     || !t.containsKey("content")
                     || !(t.get("content") instanceof Long)
@@ -112,7 +111,7 @@ public class Runner_2_4 {
                     else inArr = true;
                 }
                 if (c == '{' && !inArr) readingDict = true;
-                if (c == '[') {
+                if (c == ']') {
                     if (numNestedBrackets != 0) numNestedBraces --;
                     else inArr = false;
                 }
