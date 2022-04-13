@@ -12,7 +12,7 @@
     "blank",
     "blank"
   ],
-  "refusals": 0,
+  "refusals": 2,
   "streets": [
     {
       "homes": [
@@ -45,141 +45,12 @@
         ],
         [
           false,
-          "blank",
+          11,
           false
         ],
         [
           false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ]
-      ],
-      "parks": 0,
-      "pools": [
-        false,
-        false,
-        false
-      ]
-    },
-    {
-      "homes": [
-        "blank",
-        false,
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ]
-      ],
-      "parks": 0,
-      "pools": [
-        false,
-        false,
-        false
-      ]
-    },
-    {
-      "homes": [
-        "blank",
-        false,
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          16,
-          false
-        ],
-        [
-          false,
-          17,
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
-          false
-        ],
-        [
-          false,
-          "blank",
+          12,
           false
         ],
         [
@@ -197,6 +68,135 @@
       "pools": [
         false,
         true,
+        true
+      ]
+    },
+    {
+      "homes": [
+        "blank",
+        false,
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ]
+      ],
+      "parks": 0,
+      "pools": [
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "homes": [
+        "blank",
+        false,
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
+        ]
+      ],
+      "parks": 0,
+      "pools": [
+        false,
+        false,
         false
       ]
     }

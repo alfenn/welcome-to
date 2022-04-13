@@ -9,24 +9,19 @@
   ],
   "city-plan-score": [
     "blank",
-    6,
-    3
+    "blank",
+    "blank"
   ],
-  "refusals": 0,
+  "refusals": 2,
   "streets": [
     {
       "homes": [
-        10,
+        "blank",
         false,
         [
           false,
-          7,
-          true
-        ],
-        [
-          false,
           "blank",
-          true
+          false
         ],
         [
           false,
@@ -35,13 +30,18 @@
         ],
         [
           false,
-          8,
-          true
+          "blank",
+          false
         ],
         [
           false,
-          10,
-          true
+          "blank",
+          false
+        ],
+        [
+          false,
+          "blank",
+          false
         ],
         [
           false,
@@ -64,7 +64,7 @@
           false
         ]
       ],
-      "parks": 2,
+      "parks": 0,
       "pools": [
         false,
         false,
@@ -183,13 +183,13 @@
           false
         ],
         [
-          false,
+          true,
           "blank",
           false
         ],
         [
           false,
-          "blank",
+          10,
           false
         ]
       ],

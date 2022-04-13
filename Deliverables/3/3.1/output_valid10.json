@@ -10,7 +10,7 @@
   "city-plan-score": [
     "blank",
     "blank",
-    "blank"
+    9
   ],
   "refusals": 0,
   "streets": [
@@ -125,17 +125,17 @@
         [
           false,
           11,
-          false
+          true
         ],
         [
           false,
           12,
-          false
+          true
         ],
         [
           false,
           13,
-          false
+          true
         ]
       ],
       "parks": 0,
