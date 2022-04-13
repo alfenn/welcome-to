@@ -12,9 +12,9 @@ jobs:
 
     env:
 
-      MAJOR: 2
+      MAJOR: 3
 
-      MINOR: 2
+      MINOR: 1
 
       TEAM: team5
 
