@@ -1,7 +1,6 @@
 {
   "agents": [0, 0, 0, 0, 0, 0],
-  "city-plan-score": ["blank", "blank", "blank"
-  ],
+  "city-plan-score": ["blank", "blank", "blank"],
   "refusals": 0,
   "streets": [
     {
@@ -16,7 +15,7 @@
         [false, "blank", false],
         [false, "blank", false]
       ],
-      "parks": 2,
+      "parks": 0,
       "pools": [false, false, false]
     },
     {
@@ -37,7 +36,7 @@
     },
     {
       "homes": ["blank", false,
-        [true, 2, true],
+        [true, 3, true],
         [true, 4, true],
         [false, "blank", true],
         [false, "blank", true],
@@ -49,7 +48,7 @@
         [false, "blank", false],
         [false, "blank", false]
       ],
-      "parks": 4,
+      "parks": 0,
       "pools": [false, false, false]
     }
   ],
