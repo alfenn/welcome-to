@@ -1,7 +1,7 @@
 {
   "agents": [
     1,
-    0,
+    2,
     0,
     0,
     0,
@@ -139,7 +139,7 @@
         false,
         [
           false,
-          "blank",
+          0,
           false
         ],
         [
@@ -189,15 +189,15 @@
         ],
         [
           false,
-          "blank",
+          17,
           false
         ]
       ],
       "parks": 0,
       "pools": [
         false,
-        false,
-        false
+        true,
+        true
       ]
     }
   ],
