@@ -16,7 +16,7 @@
         [false, "blank", false],
         [false, "blank", false]
       ],
-      "parks": 0,
+      "parks": 2,
       "pools": [false, false, false]
     },
     {
@@ -49,7 +49,7 @@
         [false, "blank", false],
         [false, "blank", false]
       ],
-      "parks": 0,
+      "parks": 5,
       "pools": [false, false, false]
     }
   ],
