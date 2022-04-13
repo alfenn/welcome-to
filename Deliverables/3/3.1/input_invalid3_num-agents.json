@@ -13,7 +13,7 @@
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
-        [false, "blank", false]],
+        [false, "blank", true]],
       "parks": 0,
       "pools": [false, false, false]
     },
@@ -28,7 +28,7 @@
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
-        [false, "blank", false]],
+        [false, "blank", true]],
       "parks": 0,
       "pools": [false, false, false]
     },
@@ -44,7 +44,7 @@
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
-        [false, "blank", false]],
+        [false, "blank", true]],
       "parks": 0,
       "pools": [false, false, false]
     }
