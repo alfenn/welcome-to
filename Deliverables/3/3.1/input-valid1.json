@@ -6,9 +6,9 @@
   "streets": [
     {
       "homes": ["blank", false,
+        [true, 8, false],
         [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
+        [true, 9, false],
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
@@ -37,19 +37,19 @@
     },
     {
       "homes": ["blank", false,
-        [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
-        [false, "blank", false],
+        [true, 2, true],
+        [true, 4, true],
+        [false, "blank", true],
+        [false, "blank", true],
+        [false, "blank", true],
+        [true, 11, true],
+        [true, 12, true],
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false]
       ],
-      "parks": 5,
+      "parks": 4,
       "pools": [false, false, false]
     }
   ],
