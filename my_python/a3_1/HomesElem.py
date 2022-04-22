@@ -1,4 +1,3 @@
-import contracts
 from contracts import *
 from my_python.a3_1.House import House
 

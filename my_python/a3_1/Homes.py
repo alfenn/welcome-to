@@ -71,9 +71,11 @@ class Homes:
         """
         all_homes = []
         bis_counter = 0
-        ## add blank checks
-        ## check bis_counter[1] and bis_counter[-1]
-        # Fill all_homes array with EVERY home (built, blank, bis)
+        ## MAYBE A FIX: store/update natural number in a var and check it
+            # against every succeeding bis to check if it matches.
+            # if it is a match, we can keep the bis counter = 0 but if it
+            # doesn't we increment
+            # Fill all_homes array with EVERY home (built, blank, bis)
         for i in range(self.get_num_houses()):
             curr_home = self.get(i).get_house()
             all_homes.append(curr_home)
