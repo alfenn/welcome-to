@@ -9,18 +9,18 @@ class House:
             :param in_house: Could be any of the three values that a house type could take
             :type in_house: valid_house
         """
-        self.is_bis = False
+        self.is_bis_var = False
         self.num = -1
 
         if isinstance(in_house, list):
-            self.is_bis = True
+            self.is_bis_var = True
             self.num = in_house[0]
         elif isinstance(in_house, int):
-            self.is_bis = False
+            self.is_bis_var = False
             self.num = in_house
         # Could just be an `else`
         elif isinstance(in_house, str):
-            self.is_bis = False
+            self.is_bis_var = False
             self.num = -1
 
     @contract
@@ -44,9 +44,9 @@ class House:
             :type: None
 
             :return: Valid_bis which represents whether the property is a 'bis'
-            :rtype: valid_bis
+            :rtype: bool
         """
-        return self.is_bis
+        return self.is_bis_var
 
     @contract
     def get_num(self):
@@ -55,7 +55,14 @@ class House:
 
             :type: None
 
-            :return: A Boolean that represents whether the house is built.
-            :rtype: bool
+            :return: A number representing the house number
+            :rtype: int
         """
         return self.num
+
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if isinstance(other, House):
+            return (self.is_bis_var == other.is_bis_var
+                    and self.num == other.num)
+        return False

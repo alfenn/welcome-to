@@ -18,6 +18,8 @@ class PlayerState:
             self.streets += Street(elem)
         self.temps = ps.get("temps")
 
+        assert streets[0]
+
     @contract
     def get_agents(self):
         """

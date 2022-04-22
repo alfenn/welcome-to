@@ -1,30 +1,31 @@
 from unittest import TestCase
-
 from contracts import ContractNotRespected
-
 from my_python.a3_1.House import House
 
 class TestHouse(TestCase):
+    def test_contracts(self):
+        self.assertRaises(ContractNotRespected, lambda: House("truck"))
+        self.assertRaises(ContractNotRespected, lambda: House([]))
+        self.assertRaises(ContractNotRespected, lambda: House([1, 2, 3]))
+        self.assertRaises(ContractNotRespected, lambda: House(-1))
+        self.assertRaises(ContractNotRespected, lambda: House(18))
+        self.assertRaises(ContractNotRespected, lambda: House([0, "truck"]))
+
     def test_is_built(self):
-        h_built1 = House([0, "bis"])
-        h_built2 = House([17, "bis"])
-        h_built3 = House(0)
-        h_built4 = House(17)
-        h_notbuilt1 = House("blank")
-        self.assertTrue(h_built1)
-        self.assertTrue(h_built2)
-        self.assertTrue(h_built3)
-        self.assertTrue(h_built4)
-        self.assertTrue(h_notbuilt1)
-        self.assertRaises(ContractNotRespected, House("truck"))
-        self.assertRaises(ContractNotRespected, House([]))
-        self.assertRaises(ContractNotRespected, House([1,2,3]))
-        self.assertRaises(ContractNotRespected, House(-1))
-        self.assertRaises(ContractNotRespected, House(18))
-        self.assertRaises(ContractNotRespected, House([0, "truck"]))
+        self.assertTrue(House([0, "bis"]).is_built())
+        self.assertTrue(House([17, "bis"]).is_built())
+        self.assertTrue(House(0).is_built())
+        self.assertTrue(House(17).is_built())
+        self.assertFalse(House("blank").is_built())
 
     def test_is_bis(self):
-        self.fail()
+        self.assertTrue(House([0, "bis"]).is_bis())
+        self.assertTrue(House([17, "bis"]).is_bis())
+        self.assertFalse(House(0).is_bis())
+        self.assertFalse(House(17).is_bis())
 
     def test_get_num(self):
-        self.fail()
+        self.assertEqual(House([0, "bis"]).get_num(), 0)
+        self.assertEqual(House([17, "bis"]).get_num(), 17)
+        self.assertEqual(House(0).get_num(), 0)
+        self.assertEqual(House("blank").get_num(), -1)

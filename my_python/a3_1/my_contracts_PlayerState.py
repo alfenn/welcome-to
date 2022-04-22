@@ -1,11 +1,13 @@
 from contracts import *
 
-def check_wrapper(s: str, v) -> bool: 
+
+def check_wrapper(s: str, v) -> bool:
     try:
         check(s, v)
         return True
     except:
         return False
+
 
 #################################
 ## Define the Player contracts ##
@@ -24,7 +26,7 @@ valid_house = new_contract('valid_house', lambda h: (check_wrapper('valid_bis', 
                                                      or check_wrapper('valid_nb', h)))
 
 #### Contracts for Homes ####
-valid_fence_or_not = new_contract('valid_fence', bool)
+valid_fence = new_contract('valid_fence', bool)
 valid_used_in_plan = new_contract('valid_used_in_plan', bool)
 valid_parks = new_contract('valid_parks', 'valid_natural')
 valid_pools = new_contract('valid_pools', lambda l: (isinstance(l, list)
@@ -39,6 +41,8 @@ valid_homes_val_list = new_contract('valid_homes_val_list', lambda l: (isinstanc
                                                                        and check_wrapper('valid_fence_or_not', l[0])
                                                                        and check_wrapper('valid_house', l[1])
                                                                        and check_wrapper('valid_used_in_plan', l[2])))
+
+
 def valid_homes_ind_ge_2_check_wrapper(l):
     for i in range(len(l) - 2):
         i += 2
@@ -47,11 +51,13 @@ def valid_homes_ind_ge_2_check_wrapper(l):
         except:
             return False
     return True
-valid_homes = new_contract('valid_home_val', lambda l: (isinstance(l, list)
-                                                        and len(l) >= 2
-                                                        and check_wrapper('valid_house', l[0])
-                                                        and check_wrapper('valid_used_in_plan', l[1])
-                                                        and valid_homes_ind_ge_2_check_wrapper(l)))
+
+
+valid_homes = new_contract('valid_homes', lambda l: (isinstance(l, list)
+                                                     and 11 <= len(l) <= 13
+                                                     and check_wrapper('valid_house', l[0])
+                                                     and check_wrapper('valid_used_in_plan', l[1])
+                                                     and valid_homes_ind_ge_2_check_wrapper(l)))
 
 #### Contracts for street ####
 valid_street = new_contract('valid_street', lambda d: (isinstance(d, dict)
@@ -76,20 +82,9 @@ valid_player_state = new_contract('valid_player_state', lambda d: (isinstance(d,
                                                                                     "streets": None,
                                                                                     "temps": None}.keys()
                                                                    and check_wrapper('valid_agents', d.get("agents"))
-                                                                   and check_wrapper('valid_city_plan_score', d.get("city-plan-score"))
-                                                                   and check_wrapper('valid_refusals', d.get("refusals"))
+                                                                   and check_wrapper('valid_city_plan_score',
+                                                                                     d.get("city-plan-score"))
+                                                                   and check_wrapper('valid_refusals',
+                                                                                     d.get("refusals"))
                                                                    and check_wrapper('valid_streets', d.get("streets"))
                                                                    and check_wrapper('valid_temps', d.get("temps"))))
-
-
-
-
-
-
-
-
-
-
-
-
-
