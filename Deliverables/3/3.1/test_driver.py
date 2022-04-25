@@ -1,7 +1,7 @@
 import json
 import sys
 
-from PlayerState import *
+from my_python.a3_1.PlayerState import *
 
 input_str = sys.stdin.read()
 # input_str = open('input1.json', 'r').read()

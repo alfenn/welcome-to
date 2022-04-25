@@ -2,6 +2,11 @@
 
 # This is the file "run": it runs the actual submission
 
-cd ../../../my_python/
-cd a3_1/
+python3 my_setup.py
 python3 test_driver.py
+
+# Downloading python package command that didn't work
+# pwd
+# cd ../../../my_python/
+# pwd
+# pip install -e .
