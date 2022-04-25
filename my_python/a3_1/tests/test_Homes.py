@@ -49,14 +49,24 @@ class TestHomes(TestCase):
                 [False, "blank", False],
                 [False, "blank", False]]
     invalid5 = ["blank", False,
-              [True, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False]]
+                [True, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False]]
+    invalid6 = [1, False,
+                [False, 1, False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False],
+                [False, "blank", False]]
     valid1 = ["blank", False,
               [True, "blank", False],
               [False, "blank", False],
@@ -81,43 +91,43 @@ class TestHomes(TestCase):
               [False, "blank", False]]
 
     valid_bis1 = [2, True,
-              [True, 3, True],
-              [True, 5, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, [10, "bis"], False],
-              [False, 10, False],
-              [False, "blank", False],
-              [False, [12, "bis"], True],
-              [False, 12, True],
-              [False, "blank", False],
-              [False, "blank", False]]
+                  [True, 3, True],
+                  [True, 5, False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, [10, "bis"], False],
+                  [False, 10, False],
+                  [False, "blank", False],
+                  [False, [12, "bis"], True],
+                  [False, 12, True],
+                  [False, "blank", False],
+                  [False, "blank", False]]
 
     valid_bis2 = [2, True,
-              [True, 3, True],
-              [True, 5, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, 10, False],
-              [False, [10, "bis"], False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False]]
+                  [True, 3, True],
+                  [True, 5, False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, 10, False],
+                  [False, [10, "bis"], False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False]]
 
     valid_bis3 = [[3, "bis"], True,
-              [True, 3, True],
-              [True, 5, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, 10, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False]]
+                  [True, 3, True],
+                  [True, 5, False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, 10, False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False]]
 
     valid_bis4 = [2, True,
                   [True, 3, True],
@@ -146,17 +156,17 @@ class TestHomes(TestCase):
                     [False, "blank", False]]
 
     invalid_bis2 = [[3, "bis"], True,
-              [True, 3, True],
-              [True, 5, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, 10, False],
-              [False, "blank", False],
-              [False, "blank", False],
-              [False, [10, "bis"], False],
-              [False, "blank", False],
-              [False, "blank", False]]
+                    [True, 3, True],
+                    [True, 5, False],
+                    [False, "blank", False],
+                    [False, "blank", False],
+                    [False, "blank", False],
+                    [False, 10, False],
+                    [False, "blank", False],
+                    [False, "blank", False],
+                    [False, [10, "bis"], False],
+                    [False, "blank", False],
+                    [False, "blank", False]]
 
     invalid_bis3 = [[3, "bis"], True,
                     [True, [3, "bis"], True],
@@ -210,10 +220,97 @@ class TestHomes(TestCase):
                     [False, 9, False],
                     [False, 10, False]]
 
+    invalid_bis7 = ["blank", False,
+                    [True, 3, True],
+                    [True, [3, "bis"], False],
+                    [False, [3, "bis"], False],
+                    [False, 4, False],
+                    [False, [4, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, 8, False],
+                    [False, 9, False],
+                    [False, 10, False]]
+
+    invalid_ascending1 = [10, False,
+                          [False, 1, False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False]]
+
+    invalid_ascending2 = [10, False,
+                          [False, 1, False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, "blank", False],
+                          [False, 3, False],
+                          [False, 4, False],
+                          [False, 5, False],
+                          [False, 6, False]]
+
+    invalid_dup1 = ["blank", False,
+                    [True, 3, True],
+                    [True, [3, "bis"], False],
+                    [False, [3, "bis"], False],
+                    [False, 4, False],
+                    [False, 4, False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, 8, False],
+                    [False, 9, False],
+                    [False, 10, False]]
+
+    invalid_dup2 = ["blank", False,
+                    [True, 3, True],
+                    [True, [3, "bis"], False],
+                    [False, [3, "bis"], False],
+                    [False, 4, False],
+                    [False, "blank", False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, [5, "bis"], False],
+                    [False, 8, False],
+                    [False, 10, False],
+                    [False, 10, False]]
+
+    fence_btwn_bis_valid1 = [2, True,
+                  [True, 3, True],
+                  [True, 5, False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [False, "blank", False],
+                  [True, 10, False],
+                  [False, [10, "bis"], False],
+                  [True, "blank", False],
+                  [False, "blank", False],
+                  [True, 13, False],
+                  [False, [13, "bis"], False]]
+
+    fence_btwn_bis_invalid1 = ["blank", False,
+                             [True, 3, True],
+                             [True, [3, "bis"], False],
+                             [True, [3, "bis"], False],
+                             [False, 4, False],
+                             [False, "blank", False],
+                             [False, [5, "bis"], False],
+                             [False, [5, "bis"], False],
+                             [False, [5, "bis"], False],
+                             [False, 8, False],
+                             [False, 10, False],
+                             [False, 10, False]]
+
     def test_contracts(self):
         self.assertRaises(AssertionError, lambda: Homes(self.assertionerror1))
         self.assertRaises(ContractNotRespected, lambda: Homes(self.invalid1))
-        self.assertRaises(ContractNotRespected, lambda: Homes(self.invalid2))
+        self.assertRaises(AssertionError, lambda: Homes(self.invalid2))
         self.assertRaises(ContractNotRespected, lambda: Homes(self.invalid3))
         self.assertRaises(ContractNotRespected, lambda: Homes(self.invalid4))
         self.assertRaises(ContractNotRespected, lambda: Homes(self.invalid5))

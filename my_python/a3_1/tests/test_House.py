@@ -8,7 +8,7 @@ class TestHouse(TestCase):
         self.assertRaises(ContractNotRespected, lambda: House([]))
         self.assertRaises(ContractNotRespected, lambda: House([1, 2, 3]))
         self.assertRaises(ContractNotRespected, lambda: House(-1))
-        self.assertRaises(ContractNotRespected, lambda: House(18))
+        self.assertRaises(AssertionError, lambda: House(18))
         self.assertRaises(ContractNotRespected, lambda: House([0, "truck"]))
 
     def test_is_built(self):

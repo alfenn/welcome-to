@@ -1,5 +1,4 @@
-from contracts import *
-from Homes import *
+from my_python.a3_1.Homes import *
 
 class Street:
     pool_indices = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
@@ -21,9 +20,9 @@ class Street:
         assert 10 <= self.homes.get_num_houses() <= 12, "invalid num of houses on the street"
         ### Set street number we're on ###
         self.street_num = -1
-        if self.homes.get_num_houses == 10:
+        if self.homes.get_num_houses() == 10:
             self.street_num = 0            # first street
-        elif self.homes.get_num_houses == 11:
+        elif self.homes.get_num_houses() == 11:
             self.street_num = 1            # second street
         else:
             self.street_num = 2            # third street
@@ -43,6 +42,9 @@ class Street:
         ### Validate the parks ###
         num_parks_for_curr_street = self.park_indices[self.street_num]
         assert 0 <= self.parks <= num_parks_for_curr_street, "Invalid number of parks for current street"
+
+        ### Validate that num of parks is <= num of non-bis built houses ###
+        assert self.get_parks() <= self.homes.get_num_non_bis_houses(), "num of parks is not <= num non-built houses"
 
     @contract
     def get_parks(self):
@@ -74,3 +76,14 @@ class Street:
         :return: 0, 1, 2
         """
         return self.street_num
+
+    def get_num_built_houses(self) -> int:
+        """
+            Get the number of houses that are built (bis and non-bis) on the street
+            :return: int representing the number of built (non-"blank") houses
+        """
+        count = 0
+        for i in range(self.homes.get_num_houses()):
+            curr_house = self.homes.get(i).get_house()
+            if curr_house.is_built(): count += 1
+        return count

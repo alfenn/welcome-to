@@ -15,7 +15,7 @@ def check_wrapper(s: str, v) -> bool:
 
 #### Contracts for House ####
 valid_natural = new_contract('valid_natural', lambda n: (isinstance(n, int)
-                                                         and 0 <= n <= 17))
+                                                         and 0 <= n))
 valid_nb = new_contract('valid_nb', lambda nb: (check_wrapper('valid_natural', nb)
                                                 or nb == "blank"))
 valid_bis = new_contract('valid_bis', lambda b: (isinstance(b, list)

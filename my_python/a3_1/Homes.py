@@ -21,24 +21,13 @@ class Homes:
                 # self.rest_homes += HomesElem(homes_val[i][0], homes_val[i][1], homes_val[i][2])
         self.homes_and_fences.append(True)
 
-        ### Validate the ascending order of houses ###
-
-
-        # for i in range
-        # if house is bis, check house before and after
-        # if bis house does not match a number of before or after, error
-        # 2nd case: bis next to bis
-
-
-        ### Validate that bis's are next to a house of the same number ###
-
-        ### Validate that there are no duplicate houses ###
-            ## add every house that is not a blank to the array
-            ## outside the loop, check if array is sorted lowest to (or equal) biggest
-
-
-        ### Validate that there are no fences separating "duplicate" houses ###
-
+        ### Run methods for validation ###
+        # trust it works because of testing for individual methods
+        #   comment this for method testing
+        #self.validate_bis()
+        #self.validate_ascending_order()
+        #self.validate_no_dups()
+        #self.validate_no_fences_between_bis()
 
     @contract
     def get(self, i: int) -> HomesElem:
@@ -144,25 +133,82 @@ class Homes:
     def validate_ascending_order(self) -> bool:
         """
             Validate ascending order of the built houses.
-            :return: True if order is ascending, False if it's not ascending
+            :return: True if order is ascending, Error if it's not ascending
         """
         # Get built houses
         built_houses = []
         for i in range(self.get_num_houses()):
             curr_house = self.get(i).get_house()
-            if curr_house.is_bis():
+            if curr_house.is_built():
                 built_houses.append(curr_house)
         i = 1
         while i < len(built_houses):
-            house1 = self.get(i).get_house()
-            house2 = self.get(i-1).get_house()
-            # If either house is a bis
-            if house1.is_bis() or house2.is_bis():
-                # Return False if the pair of Houses doesn't satisfy the <= condition
-                if house1.get_num() <= house2.get_num(): raise AssertionError("the pair of homes (at least one is a bis) doesn't satisfy the <= condition")
-            # If neither house is a bis
-            else:
-                if house1.get_num() < house2.get_num(): raise AssertionError("the pair of homes (neither is a bis) doesn't satisfy the < condition")
+            house1 = built_houses[i]
+            house2 = built_houses[i-1]
+            # house1 = self.get(i).get_house()
+            # house2 = self.get(i-1).get_house()
+            if house1.get_num() < house2.get_num(): raise AssertionError("the pair of homes (neither is a bis) doesn't satisfy the < condition")
             i += 1
         return True
 
+    @contract
+    def validate_no_dups(self) -> bool:
+        """
+            Validate that there are no duplicate regular houses.
+            :return: True if there are no duplicate houses, AssertionError otherwise.
+        """
+        # Get built non-bis houses
+        built_non_bis_houses = []
+        for i in range(self.get_num_houses()):
+            curr_house = self.get(i).get_house()
+            if curr_house.is_built() and not curr_house.is_bis():
+                # Iterate through the built_non_bis_houses and check if curr_house
+                #   is a duplicate of any houses we already added.
+                for j in range(len(built_non_bis_houses)):
+                    if curr_house == built_non_bis_houses[j]: raise AssertionError("duplicate non-bis houses found")
+                # If no duplicates were found, add curr_house to built_non_bis_houses
+                built_non_bis_houses.append(curr_house)
+        return True
+
+    ### Validate that there are no fences separating "duplicate" houses ###
+    @contract
+    def validate_no_fences_between_bis(self) -> bool:
+        """
+            Validate that there are no fences in between bis'd houses
+            :return: True if there are no fences between bis'd houses, AssertionError otherwise.
+        """
+        i = 3   # Because of the first house
+        while i < len(self.homes_and_fences):
+            house1 = self.homes_and_fences[i].get_house()
+            house2 = self.homes_and_fences[i - 2].get_house()
+            # TODO: figure out how to make "has_fence_left/right" methods on the House class.
+            if house1.is_bis() and house2.is_bis():
+                assert self.homes_and_fences[i - 1] is False, "cannot be fence between two bis's"
+            i += 2
+        return True
+
+    @contract
+    def get_num_non_bis_houses(self) -> int:
+        """
+            Get the number of non-bis houses
+            :return: int representing the number of non-bis houses.
+        """
+        num_built_non_bis_houses = 0
+        for i in range(self.get_num_houses()):
+            curr_house = self.get(i).get_house()
+            if curr_house.is_built() and not curr_house.is_bis():
+                num_built_non_bis_houses += 1
+        return num_built_non_bis_houses
+
+    @contract
+    def get_num_built_fences(self) -> int:
+        """
+            Get the number of built fences
+            :return: int representing the number of built fences.
+        """
+        i = 0
+        count_built_fences = 0
+        while i < len(self.homes_and_fences):
+            if self.homes_and_fences[i] is True: count_built_fences += 1
+            i += 2
+        return count_built_fences

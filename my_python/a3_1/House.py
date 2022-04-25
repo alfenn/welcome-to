@@ -23,6 +23,9 @@ class House:
             self.is_bis_var = False
             self.num = -1
 
+        if self.is_built():
+            assert 0 <= self.get_num() <= 17, "a valid_house number must be between 0 and 17"
+
     @contract
     def is_built(self):
         """
