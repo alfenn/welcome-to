@@ -3,6 +3,5 @@
 # This is the file "run": it runs the actual submission
 
 cd ../../../my_python/
-pip install -e .
 cd a3_1/
-python test_driver.py
+python3 test_driver.py
