@@ -4,5 +4,6 @@ install-python run:
 	# dash allows the next line to fail without stopping the build, e.g. if Python is already installed
 	pip install PyContracts
 	cd ../../../my_python/
+	pwd
 	pip install -e .
 	-sudo apt-get install -y python3
