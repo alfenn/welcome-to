@@ -16,8 +16,6 @@ class Street:
         self.parks = st.get("parks")
         self.pools = st.get("pools")
 
-        ### Validate the number of houses on the street ###
-        assert 10 <= self.homes.get_num_houses() <= 12, "invalid num of houses on the street"
         ### Set street number we're on ###
         self.street_num = -1
         if self.homes.get_num_houses() == 10:
@@ -72,8 +70,8 @@ class Street:
 
     def get_street_num(self) -> int:
         """
-        Get index of which street this is (0, 1, 2)
-        :return: 0, 1, 2
+            Get index of which street this is (0, 1, 2)
+            :return: 0, 1, 2
         """
         return self.street_num
 

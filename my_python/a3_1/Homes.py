@@ -60,76 +60,90 @@ class Homes:
         """
         all_homes = []
         bis_counter = 0
-        ## MAYBE A FIX: store/update natural number in a var and check it
-            # against every succeeding bis to check if it matches.
-            # if it is a match, we can keep the bis counter = 0 but if it
-            # doesn't we increment
-            # Fill all_homes array with EVERY home (built, blank, bis)
+
         for i in range(self.get_num_houses()):
             curr_home = self.get(i).get_house()
             all_homes.append(curr_home)
 
         for i in range(len(all_homes)):
-            temp_bis_counter = 0
             # Define current_house, house before current_house, and house after current_house
             curr_home = self.get(i).get_house()
             if i > 0:
                 curr_home_bef = self.get(i - 1).get_house()
             if i < self.get_num_houses() - 1:
                 curr_home_aft = self.get(i + 1).get_house()
+
+            # if the current_house is NOT a bis and is not "blank", save the current_house
+            curr_not_bis_house = None
+            if not curr_home.is_bis() and curr_home.is_built():
+                curr_not_bis_house = curr_home.get_num()
+                continue
+
             # EDGE 1: If the current home is a bis and we are on the first home
             if curr_home.is_bis() and i == 0:
                 # if the current home is the same number as the home after it, continue
                 if curr_home.get_num() == curr_home_aft.get_num():
                     # if house after current is a bis, increment bis_counter; else, set bis_counter = 0
                     if curr_home_aft.is_bis():
-                        temp_bis_counter += 1
-                    else:
-                        temp_bis_counter = 0
+                        # if the current_house's num equals the last saved not bis'd house,
+                        #   keep counter at 0; else, add 1 to counter
+                            bis_counter += 1
                     continue
                 # else, error
                 else:
-                    raise AssertionError
+                    raise AssertionError("current bis'd home does not match the house before or after")
+
             # MAIN: If the current home is not the first or last home and is a bis
             if curr_home.is_bis():
                 # if the current home is the same number as the home before or after it, continue
                 if curr_home.get_num() == curr_home_bef.get_num():
                     # if house after current is a bis, increment bis_counter; else, set bis_counter = 0
                     if curr_home_bef.is_bis():
-                        temp_bis_counter += 1
-                    else:
-                        temp_bis_counter = 0
+                        # if the current_house's num equals the last saved not bis'd house,
+                        #   keep counter at 0; else, add 1 to counter
+                        if curr_home.get_num() == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
+                        continue
                     continue
                 elif curr_home.get_num() == curr_home_aft.get_num():
                     # if house after current is a bis, increment bis_counter; else, set bis_counter = 0
                     if curr_home_aft.is_bis():
-                        temp_bis_counter += 1
-                    else:
-                        temp_bis_counter = 0
+                        # if the current_house's num equals the last saved not bis'd house,
+                        #   keep counter at 0; else, add 1 to counter
+                        if curr_home.get_num() == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
+                        continue
                     continue
                 # else, error
                 else:
-                    raise AssertionError
+                    raise AssertionError("current bis'd home does not match the house before or after")
 
             # EDGE 2: If the current home is a bis and we are on the last home
             if curr_home.is_bis() and i == self.get_num_houses - 1:
                 # if the current home is the same number as the home after it, continue
                 if curr_home.get_num() == curr_home_bef.get_num():
-                    # if we have not hit a house that is not a bis yet, we increment bis_counter
-                        # EDGE: this is to catch the case where all houses are bis'd
-                    if curr_home_bef.is_bis() and bis_counter > 0:
-                        raise AssertionError
+                    # if the current_house's num equals the last saved not bis'd house,
+                    #   keep counter at 0; else, add 1 to counter
+                    if curr_home_bef.is_bis():
+                        if curr_home.get_num() == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
                     continue
                 # else, error
                 else:
-                    raise AssertionError
-            bis_counter += temp_bis_counter
+                    raise AssertionError("current bis'd home does not match the house before or after")
         # EDGE 3: If there are no normal houses, aka there are only bis'd houses, we error
         if bis_counter > 0:
-            raise AssertionError
+            raise AssertionError("all homes cannot be bis")
 
         return True
 
+    @contract
     def validate_ascending_order(self) -> bool:
         """
             Validate ascending order of the built houses.

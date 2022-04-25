@@ -279,7 +279,16 @@ class TestStreet(TestCase):
         self.assertRaises(AssertionError, lambda: Street(pool_1_3_invalid))
 
     def test_get_parks(self):
-        self.fail()
+        self.assertEqual(Street(valid_num_houses1).get_parks(), 0)
+        self.assertEqual(Street(valid_num_houses2).get_parks(), 0)
+        self.assertEqual(Street(valid_parks1).get_parks(), 3)
+        self.assertEqual(Street(valid_parks2).get_parks(), 4)
+        self.assertEqual(Street(valid_parks3).get_parks(), 5)
+        self.assertEqual(Street(valid_parks4).get_parks(), 2)
+        self.assertRaises(AssertionError, lambda: Street(invalid_parks1).get_parks())
+        self.assertRaises(AssertionError, lambda: Street(invalid_parks2).get_parks())
 
-    def test_get_pools(self):
-        self.fail()
+    # def test_get_pools(self):
+    #     self.assertEqual()
+
+

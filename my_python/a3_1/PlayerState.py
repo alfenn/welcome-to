@@ -18,8 +18,8 @@ class PlayerState:
         self.city_plan_score = ps.get("city-plan-score")
         self.refusals = ps.get("refusals")
         self.streets = []
-        for elem in streets:
-            self.streets += Street(elem)
+        for elem in ps.get("streets"):
+            self.streets.append(Street(elem))
         self.temps = ps.get("temps")
 
         ### Validate that street[0] is len 10, ... , street[2] is len 12
