@@ -48,7 +48,8 @@ class PlayerState:
             self.count_total_built_houses += street.get_num_built_houses()
         for nb in self.city_plan_score:
             if nb != "blank": self.count_total_claimed_city_plan_scores += 1
-        assert self.count_total_built_houses >= self.count_total_claimed_city_plan_scores, "# of built houses is not >= # of claimed city plans"
+        # JK don't need this
+        # assert self.count_total_built_houses >= self.count_total_claimed_city_plan_scores, "# of built houses is not >= # of claimed city plans"
 
         ### Validate city plan scores are >= 0 if not "blank" ###
         for i in range(len(self.city_plan_score)):
