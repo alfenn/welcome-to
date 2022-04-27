@@ -1,5 +1,5 @@
 from typing import List
-from Street import *
+from my_python.a3_1.Street import *
 
 class PlayerState:
     valid_agent_values = [1, 2, 3, 4, 4, 4]
