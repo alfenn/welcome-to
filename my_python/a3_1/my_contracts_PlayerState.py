@@ -1,6 +1,5 @@
 from contracts import *
 
-
 def check_wrapper(s: str, v) -> bool:
     try:
         check(s, v)
