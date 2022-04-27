@@ -14,6 +14,7 @@ class Homes:
         self.homes_and_fences.append(HomesElem(homes_val[0], homes_val[1]))
         for i in range(len(homes_val)):
             if i >= 2:
+                assert isinstance(homes_val[i][0], bool), "fences must be bools"
                 self.homes_and_fences.append(homes_val[i][0])
                 self.homes_and_fences.append(HomesElem(homes_val[i][1], homes_val[i][2]))
                 # DO NOT USE += BECAUSE IT EXPECTS THE THING AFTER IT TO BE AN ITERABLE
