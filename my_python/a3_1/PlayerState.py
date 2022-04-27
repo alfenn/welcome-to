@@ -57,7 +57,7 @@ class PlayerState:
                 assert curr_city_plan_score >= 0, "index " + i + " city plan score is non-blank and not >= 0"
 
         ### Comment this out when unit testing ###
-        self.validate_num_built_houses_geq_misc()
+        # self.validate_num_built_houses_geq_misc()
 
 
     @contract
