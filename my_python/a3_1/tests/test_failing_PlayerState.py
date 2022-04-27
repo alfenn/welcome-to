@@ -206,6 +206,6 @@ class TestFailingPlayerState(TestCase):
     def test_agents(self): 
         ### self.assertTrue(PlayerState(self.input_agents_g_1_robby))
         ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_1_robby))
-        self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_4_robby))
-        self.assertTrue(self.input_bis_g_5_robby)
-        # self.assertTrue(PlayerState(self.input_cityplan_g_1_robby))
+        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_4_robby))
+        ### self.assertTrue(self.input_bis_g_5_robby)
+        self.assertTrue(PlayerState(self.input_cityplan_g_1_robby))
