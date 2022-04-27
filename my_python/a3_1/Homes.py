@@ -196,7 +196,7 @@ class Homes:
             house1 = self.homes_and_fences[i].get_house()
             house2 = self.homes_and_fences[i - 2].get_house()
             # TODO: figure out how to make "has_fence_left/right" methods on the House class.
-            if house1.is_bis() and house2.is_bis():
+            if house1.get_num() == house2.get_num():
                 assert self.homes_and_fences[i - 1] is False, "cannot be fence between two bis's"
             i += 2
         return True
