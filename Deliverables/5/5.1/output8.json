@@ -9,11 +9,11 @@
                 [true,"blank",false],
                 [false,3,false],
                 [false,4,false],
-                [false,7,false],
-                [true,"blank",false],
+                [false,"blank",false],
+                [true,7,false],
                 [true,"blank",false],
                 [true,10,false]],
-        "parks":0,
+        "parks":2,
         "pools":[false,false,false]},
       {"homes":[1,false,
         [false,2,false],
@@ -30,8 +30,8 @@
         "pools":[true,true,false]},
       {"homes":[1,false,
         [false,2,false],
-        [false,"blank",false],
-        [false,"blank",false],
+        [false,[2, "bis"],false],
+        [false,[2,"bis"],false],
         [false,3,false],
         [false,"blank",false],
         [false,"blank",false],
@@ -42,5 +42,5 @@
         [false,16,false]],
         "parks":4,
         "pools":[false,false,false]}],
-    "temps":10
+    "temps":1
   }
