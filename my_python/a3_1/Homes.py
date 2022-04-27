@@ -24,10 +24,10 @@ class Homes:
         ### Run methods for validation ###
         # trust it works because of testing for individual methods
         #   comment this for method testing
-        #self.validate_bis()
-        #self.validate_ascending_order()
-        #self.validate_no_dups()
-        #self.validate_no_fences_between_bis()
+        self.validate_bis()
+        self.validate_ascending_order()
+        self.validate_no_dups()
+        self.validate_no_fences_between_bis()
 
     @contract
     def get(self, i: int) -> HomesElem:
@@ -60,6 +60,7 @@ class Homes:
         """
         all_homes = []
         bis_counter = 0
+        curr_not_bis_house = None
 
         for i in range(self.get_num_houses()):
             curr_home = self.get(i).get_house()
@@ -74,7 +75,6 @@ class Homes:
                 curr_home_aft = self.get(i + 1).get_house()
 
             # if the current_house is NOT a bis and is not "blank", save the current_house
-            curr_not_bis_house = None
             if not curr_home.is_bis() and curr_home.is_built():
                 curr_not_bis_house = curr_home.get_num()
                 continue
