@@ -861,4 +861,5 @@ class TestFailingPlayerState(TestCase):
         ### self.assertRaises(AssertionError, lambda: PlayerState(self.test_assert_line17_homes))
         ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_incorrect_3_team_1))
         ### self.assertRaises(AssertionError, lambda: PlayerState(self.input18_team10_exp_False))
-        self.assertRaises(AssertionError, lambda: PlayerState(self.input15_team2))
+        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input15_team2))
+        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input17_team19))

@@ -11,6 +11,8 @@ class Homes:
             :type homes_val: valid_homes
         """
         self.homes_and_fences = [True]  # leftmost fence exists
+        assert not isinstance(homes_val[0], bool) and isinstance(homes_val[0], int) \
+               and 0 <= homes_val[0] <= 17, "first house's num is not valid"
         self.homes_and_fences.append(HomesElem(homes_val[0], homes_val[1]))
         for i in range(len(homes_val)):
             if i >= 2:
