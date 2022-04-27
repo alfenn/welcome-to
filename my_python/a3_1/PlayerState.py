@@ -29,12 +29,12 @@ class PlayerState:
 
         ### Validate that agent[0] is between [0, valid_agent_values[0]]... ###
         assert len(self.get_agents()) == 6, "length of agents array is not 6"
-        assert 0 <= self.get_agents()[0] <= self.valid_agent_values[0], "agent index 0 is not between [0,1]"
-        assert 0 <= self.get_agents()[1] <= self.valid_agent_values[1], "agent index 1 is not between [0,2]"
-        assert 0 <= self.get_agents()[2] <= self.valid_agent_values[2], "agent index 2 is not between [0,3]"
-        assert 0 <= self.get_agents()[3] <= self.valid_agent_values[3], "agent index 3 is not between [0,4]"
-        assert 0 <= self.get_agents()[4] <= self.valid_agent_values[4], "agent index 4 is not between [0,4]"
-        assert 0 <= self.get_agents()[5] <= self.valid_agent_values[5], "agent index 5 is not between [0,4]"
+        assert not isinstance(self.get_agents()[0], bool) and 0 <= self.get_agents()[0] <= self.valid_agent_values[0], "agent index 0 is not between [0,1]"
+        assert not isinstance(self.get_agents()[1], bool) and 0 <= self.get_agents()[1] <= self.valid_agent_values[1], "agent index 1 is not between [0,2]"
+        assert not isinstance(self.get_agents()[2], bool) and 0 <= self.get_agents()[2] <= self.valid_agent_values[2], "agent index 2 is not between [0,3]"
+        assert not isinstance(self.get_agents()[3], bool) and 0 <= self.get_agents()[3] <= self.valid_agent_values[3], "agent index 3 is not between [0,4]"
+        assert not isinstance(self.get_agents()[4], bool) and 0 <= self.get_agents()[4] <= self.valid_agent_values[4], "agent index 4 is not between [0,4]"
+        assert not isinstance(self.get_agents()[5], bool) and 0 <= self.get_agents()[5] <= self.valid_agent_values[5], "agent index 5 is not between [0,4]"
 
         ### Validate refusals ###
         assert 0 <= self.get_refusals() <= 3, "refusals are not between [0,3]"
