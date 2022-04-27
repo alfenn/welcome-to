@@ -1,4 +1,4 @@
-from my_python.a3_1.my_contracts_PlayerState import *
+from my_python.a3.my_contracts_PlayerState import *
 
 class House:
     @contract

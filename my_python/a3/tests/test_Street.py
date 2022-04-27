@@ -1,5 +1,5 @@
 from unittest import TestCase
-from my_python.a3_1.Street import *
+from my_python.a3.Street import *
 from contracts import ContractNotRespected
 
 

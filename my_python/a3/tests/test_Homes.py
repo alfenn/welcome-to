@@ -1,7 +1,7 @@
 from unittest import TestCase
 from contracts import ContractNotRespected
-from my_python.a3_1.Homes import Homes
-from my_python.a3_1.HomesElem import HomesElem
+from my_python.a3.Homes import Homes
+from my_python.a3.HomesElem import HomesElem
 
 class TestHomes(TestCase):
     assertionerror1 = ["blank", True,

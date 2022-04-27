@@ -1,6 +1,6 @@
 from unittest import TestCase
 # from contracts import ContractNotRespected
-from my_python.a3_1.PlayerState import *
+from my_python.a3.PlayerState import *
 
 class TestPlayerState(TestCase):
     empty_valid = {

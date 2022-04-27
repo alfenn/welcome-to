@@ -1,7 +1,7 @@
 from unittest import TestCase
 from contracts import ContractNotRespected
-from my_python.a3_1.HomesElem import HomesElem
-from my_python.a3_1.House import House
+from my_python.a3.HomesElem import HomesElem
+from my_python.a3.House import House
 
 class TestHomesElem(TestCase):
     def test_contracts(self):
