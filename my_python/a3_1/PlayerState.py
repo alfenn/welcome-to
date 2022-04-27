@@ -14,6 +14,8 @@ class PlayerState:
         """
         self.agents = ps.get("agents")
         self.city_plan_score = ps.get("city-plan-score")
+        ### Validate that refusals are natural numbers
+        assert ps.get("refusals") >= 0 and isinstance(ps.get("refusals"), int) and not isinstance(ps.get("refusals"), bool), "refusals must be natural numbers"
         self.refusals = ps.get("refusals")
         self.streets = []
         for elem in ps.get("streets"):

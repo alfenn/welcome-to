@@ -37,7 +37,7 @@ valid_pools = new_contract('valid_pools', lambda l: (isinstance(l, list)
 #### Contracts for homes ####
 valid_homes_val_list = new_contract('valid_homes_val_list', lambda l: (isinstance(l, list)
                                                                        and len(l) == 3
-                                                                       and check_wrapper('valid_fence_or_not', l[0])
+                                                                       and check_wrapper('valid_fence', l[0])
                                                                        and check_wrapper('valid_house', l[1])
                                                                        and check_wrapper('valid_used_in_plan', l[2])))
 
