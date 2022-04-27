@@ -1,4 +1,4 @@
-from Homes import *
+from my_python.a3_1.Homes import *
 
 class Street:
     pool_indices = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
