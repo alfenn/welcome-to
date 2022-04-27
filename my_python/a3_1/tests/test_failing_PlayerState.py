@@ -848,18 +848,223 @@ class TestFailingPlayerState(TestCase):
     input15_team2 = {
         "agents":[0,0,0,0,0,True],
         "city-plan-score":["blank","blank","blank"],"refusals":0,"streets":[{"homes":["blank",False,[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False]],"parks":0,"pools":[False,False,False]},{"homes":["blank",False,[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False]],"parks":0,"pools":[False,False,False]},{"homes":["blank",False,[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False],[False,"blank",False]],"parks":0,"pools":[False,False,False]}],"temps":0}
-
+    input_correct_6_test_team1 = {
+  "agents": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "city-plan-score": [
+    "blank",
+    "blank",
+    "blank"
+  ],
+  "refusals": 0,
+  "streets": [
+    {
+      "homes": [
+        [0, "bis"],
+        False,
+        [
+          False,
+          0,
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          17,
+          False
+        ],
+        [
+          False,
+          [17, "bis"],
+          False
+        ]
+      ],
+      "parks": 0,
+      "pools": [
+        False,
+        False,
+        False
+      ]
+    },
+    {
+      "homes": [
+        [2, "bis"],
+        False,
+        [
+          False,
+          2,
+          False
+        ],
+        [
+          False,
+          [2, "bis"],
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          15,
+          False
+        ],
+        [
+          False,
+          [15, "bis"],
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ]
+      ],
+      "parks": 0,
+      "pools": [
+        False,
+        False,
+        False
+      ]
+    },
+    {
+      "homes": [
+        "blank",
+        False,
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ],
+        [
+          False,
+          "blank",
+          False
+        ]
+      ],
+      "parks": 0,
+      "pools": [
+        False,
+        False,
+        False
+      ]
+    }
+  ],
+  "temps": 0
+}
 
     def test_agents(self):
-        ### self.assertTrue(PlayerState(self.input_agents_g_1_robby))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_1_robby))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_4_robby))
-        ### self.assertTrue(PlayerState(self.input_bis_g_5_robby))
-        ### self.assertTrue(PlayerState(self.input_cityplan_g_1_robby))
-        ### self.assertTrue(PlayerState(self.input_correct_2_test_team1))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_row_count_b_10_robby))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.test_assert_line17_homes))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input_incorrect_3_team_1))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input18_team10_exp_False))
-        ### self.assertRaises(AssertionError, lambda: PlayerState(self.input15_team2))
+        self.assertTrue(PlayerState(self.input_agents_g_1_robby))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_1_robby))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input_bis_b_4_robby))
+        self.assertTrue(PlayerState(self.input_bis_g_5_robby))
+        self.assertTrue(PlayerState(self.input_cityplan_g_1_robby))
+        self.assertTrue(PlayerState(self.input_correct_2_test_team1))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input_row_count_b_10_robby))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.test_assert_line17_homes))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input_incorrect_3_team_1))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input18_team10_exp_False))
+        self.assertRaises(AssertionError, lambda: PlayerState(self.input15_team2))
         self.assertRaises(AssertionError, lambda: PlayerState(self.input17_team19))
+        self.assertTrue(PlayerState(self.input_correct_6_test_team1))

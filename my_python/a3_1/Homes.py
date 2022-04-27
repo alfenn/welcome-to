@@ -14,7 +14,13 @@ class Homes:
         assert ((not isinstance(homes_val[0], bool)
                  and isinstance(homes_val[0], int)
                  and 0 <= homes_val[0] <= 17)
-               or homes_val[0] == "blank") \
+               or homes_val[0] == "blank"
+               or (isinstance(homes_val[0], list)
+                   and len(homes_val[0]) == 2
+                   and (not isinstance(homes_val[0][0], bool)
+                        and isinstance(homes_val[0][0], int)
+                        and 0 <= homes_val[0][0] <= 17)
+                   and homes_val[0][1] == "bis")) \
                , "first house's num is not valid"
         self.homes_and_fences.append(HomesElem(homes_val[0], homes_val[1]))
         for i in range(len(homes_val)):
