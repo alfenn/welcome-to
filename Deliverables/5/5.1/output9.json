@@ -8,7 +8,7 @@
                 [false,"blank",false],
                 [true,"blank",false],
                 [false,3,false],
-                [false,5,false],
+                [false,[3, "bis"],false],
                 [false,"blank",false],
                 [false,"blank",false],
                 [false,9,false],
