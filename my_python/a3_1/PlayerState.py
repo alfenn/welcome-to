@@ -1,7 +1,5 @@
-import json
 from typing import List
-# from contracts import *
-from my_python.a3_1.Street import *
+from Street import *
 
 class PlayerState:
     valid_agent_values = [1, 2, 3, 4, 4, 4]

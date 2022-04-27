@@ -1,5 +1,5 @@
 from contracts import *
-from my_python.a3_1.HomesElem import HomesElem
+from HomesElem import HomesElem
 
 class Homes:
     @contract

@@ -1,5 +1,6 @@
 import json
 import sys
+sys.path.append('../../../')
 
 from my_python.a3_1.PlayerState import *
 
