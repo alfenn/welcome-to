@@ -21,7 +21,7 @@ def validate_construction_card(card) -> bool:
            and (validate_natural(card[0])
                 and 1 <= card[0] <= 15) \
            and validate_effect(card[1]), \
-        "a construction card must be a [natural,effect]"
+        "a construction card must be a [natural [1,15],effect]"
     return True
 
 
