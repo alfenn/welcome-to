@@ -92,7 +92,7 @@ class Homes:
             # if the current_house is NOT a bis and is not "blank", save the current_house
             if not curr_home.is_bis() and curr_home.is_built():
                 curr_not_bis_house = curr_home.get_num()
-                if (0 < i < self.get_num_houses() - 1) and (curr_not_bis_house == curr_home_bef.get_num() or curr_not_bis_house == curr_home_aft.get_num()) and bis_counter > 0:
+                if (0 < i <= self.get_num_houses() - 1) and (curr_not_bis_house == curr_home_bef.get_num() or curr_not_bis_house == curr_home_aft.get_num()) and bis_counter > 0:
                     bis_counter = 0
                 continue
 
