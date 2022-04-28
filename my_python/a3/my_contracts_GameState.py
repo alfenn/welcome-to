@@ -18,7 +18,8 @@ def validate_effect(eff) -> bool:
 
 def validate_construction_card(card) -> bool:
     assert len(card) == 2 \
-           and validate_natural(card[0]) \
+           and (validate_natural(card[0])
+                and 1 <= card[0] <= 15) \
            and validate_effect(card[1]), \
         "a construction card must be a [natural,effect]"
     return True
