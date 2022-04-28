@@ -22,6 +22,11 @@ class GameState:
                 CityPlan(in_gs.get("city-plans")[i])
             except: raise AssertionError(
                 "ind " + str(i) + " city-plans in game-state dict is not valid")
+        # Ensure that there is only one 1,2, and 3 in position
+        city_plan_positions = []
+        for i in range(len(in_gs.get("city-plans"))):
+            city_plan_positions.append(in_gs.get("city-plans")[i].get("position"))
+        assert sorted(city_plan_positions) == [1,2,3], "city-plans must have positions that are exactly 1,2,3"
 
         ## Validate city-plans-won
         assert isinstance(in_gs.get("city-plans-won"), list) \
