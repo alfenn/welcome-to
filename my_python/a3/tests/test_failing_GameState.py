@@ -67,3 +67,4 @@ class TestFailingGameState(TestCase):
     def test_inputs(self):
         self.assertRaises(AssertionError, lambda: GameState(city_plans_b_1_robby))
         self.assertTrue(GameState(input_basics_g_1_robby))
+        self.assertRaises(AssertionError, lambda: GameState(input_city_plan_b_7_robby))
