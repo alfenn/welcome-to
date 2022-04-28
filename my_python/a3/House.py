@@ -63,6 +63,15 @@ class House:
         """
         return self.num
 
+    def get_val(self):
+        """
+            Gets the value for a house (either it's number, or "blank", or [num, "bis"])
+            :return: int or "blank" or [num, "bis"]
+        """
+        if self.num == -1: return "blank"
+        if self.is_bis_var: return [self.num, "bis"]
+        return self.num
+
     def __eq__(self, other):
         """Overrides the default implementation"""
         if isinstance(other, House):

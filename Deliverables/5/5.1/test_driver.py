@@ -1,3 +1,14 @@
-print("""
-{"agents":[0,0,0,2,0,4],"city-plan-score":["blank",6,"blank"],"refusals":0,"streets":[{"homes":[2,false,[false,10,false],[true,"blank",false],[false,11,false],[false,"blank",false],[true,13,false],[false,[13,"bis"],false],[false,15,false],[false,16,false],[true,"blank",false]],"parks":1,"pools":[false,false,true]},{"homes":[5,false,[false,"blank",false],[false,"blank",false],[false,"blank",false],[false,6,false],[false,10,false],[false,"blank",false],[true,11,false],[false,[11,"bis"],false],[false,[12,"bis"],false],[false,12,false]],"parks":3,"pools":[true,false,false]},{"homes":["blank",false,[false,1,false],[false,2,false],[false,3,false],[true,11,false],[false,12,false],[false,"blank",false],[false,"blank",false],[false,13,false],[false,14,false],[false,15,false],[false,16,false]],"parks":5,"pools":[false,false,false]}],"temps":3}
-""")
+import sys
+sys.path.append('../../../')
+from my_python.a5.GenValidMove import *
+
+inp_lst = json.loads(input())
+inp_gs = inp_lst[0]
+inp_ps = inp_lst[1]
+gs = GameState(inp_gs)
+ps = PlayerState(inp_ps)
+
+# returns a player state: either with the valid move,
+#   or incrementing refusals.
+print(GenValidMove(gs, ps))
+

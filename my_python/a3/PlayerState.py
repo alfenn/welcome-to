@@ -1,3 +1,4 @@
+import json
 from typing import List
 from my_python.a3.Street import *
 
@@ -148,12 +149,10 @@ class PlayerState:
                                                           " + #temps + #agents + #claimed plans"
         return True
 
-    # def validate_fences_geq_num_city_plans_claimed(self) -> bool:
-    #     """
-    #         Validate that the number of fences is at least the number of claimed plans + 1
-    #         :return: true if the condition holds, AssertionError otherwise
-    #     """
-    #     assert self.get_total_built_fences() >= self.count_total_claimed_city_plan_scores + 1, "total number of " \
-    #                                                                                            "fences is not geq num " \
-    #                                                                                            "claimed city plans + 1"
-    #     return True
+    def __str__(self):
+        ret = {"agents": self.agents,
+               "city-plan-score": self.city_plan_score,
+               "refusals": self.refusals,
+               "streets": str(self.streets),
+               "temps": self.temps}
+        return json.dumps(ret)

@@ -1,3 +1,5 @@
+import json
+
 from my_python.a3.Homes import *
 
 class Street:
@@ -85,3 +87,9 @@ class Street:
             curr_house = self.homes.get(i).get_house()
             if curr_house.is_built(): count += 1
         return count
+
+    def __str__(self):
+        ret = {"homes": str(self.homes),
+               "parks": self.parks,
+               "pools": self.pools}
+        return json.dumps(ret)

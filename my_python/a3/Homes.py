@@ -1,3 +1,5 @@
+import json
+
 from contracts import *
 from my_python.a3.HomesElem import HomesElem
 
@@ -241,3 +243,36 @@ class Homes:
             if self.homes_and_fences[i] is True: count_built_fences += 1
             i += 2
         return count_built_fences
+
+    def has_left_fence(self, h_i: int) -> bool:
+        """
+            Tells us whether the given house has a left fence.
+
+            :param h_i: index for the house in question
+            :return: if the left fence exists (aka the left fence value)
+        """
+        return self.homes_and_fences[h_i * 2]
+
+    def has_right_fence(self, h_i: int) -> bool:
+        """
+            Tells us whether the given house has a right fence.
+
+            :param h_i: index for the house in question
+            :return: if the right fence exists (aka the right fence value)
+        """
+        return self.homes_and_fences[h_i * 2 + 2]
+
+    def __str__(self):
+        ret = []
+        for i in range(self.get_num_houses()):
+            curr_home = self.get(0)
+            # First house
+            if i == 0:
+                ret.append(curr_home.house.get_val())
+                ret.append(curr_home.used_in_plan)
+            # Non-first house
+            else:
+                ret.append([self.has_left_fence(i),
+                            curr_home.house.get_val(i),
+                            curr_home.used_in_plan])
+        return json.dumps(ret)
