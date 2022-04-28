@@ -26,7 +26,7 @@ def validate_construction_card(card) -> bool:
 
 
 def validate_criteria(cri) -> bool:
-    assert type(cri) == list and len(cri) > 0, "criteria must be a list of len > 0"
+    assert type(cri) == list, "criteria must be a list of len > 0"
     for ea in cri:
         try:
             validate_natural(ea)
