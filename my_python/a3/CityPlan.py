@@ -15,7 +15,7 @@ class CityPlan:
         try: validate_criteria(in_cp.get("criteria"))
         except: raise AssertionError("criteria in city-plan dict is not valid")
         ## Validate that the criteria scores are in sorted order
-        assert in_cp.get("criteria") == in_cp.get("criteria").sort()
+        assert in_cp.get("criteria") == sorted(in_cp.get("criteria")), "criteria elements aren't sorted"
         ## Validate position
         try: validate_position(in_cp.get("position"))
         except: raise AssertionError("position in city-plan dict is not valid")
