@@ -1,15 +1,42 @@
-from contracts import *
-
 ###############################
 ## Define the Game contracts ##
 ###############################
-valid_construction_card = new_contract('valid_construction_card', lambda c: (isinstance(c, list)
-                                                                             and len(c) == 2
-                                                                             and check('valid_natural', c[0])
-                                                                             and check('valid_effect', c[1])))
-valid_effect = new_contract('valid_effect', lambda s: (s == "surveyor"
-                                                       or s == "agent"
-                                                       or s == "landscaper"
-                                                       or s == "pool"
-                                                       or s == "temp"
-                                                       or s == "bis"))
+def validate_natural(nat) -> bool:
+    assert isinstance(nat, int) \
+           and not isinstance(nat, bool) \
+           and nat >= 0, \
+        "natural must be an integer geq 0"
+    return True
+
+
+def validate_effect(eff) -> bool:
+    assert type(eff) == str, "effect must be a string"
+    poss_effects = ["surveyor", "agent", "landscaper", "pool", "temp", "bis"]
+    assert poss_effects.count(eff) > 0, 'effect must be either "surveyor", "agent", "landscaper", "pool", "temp", "bis"'
+    return True
+
+
+def validate_construction_card(card) -> bool:
+    assert len(card) == 2 \
+           and validate_natural(card[0]) \
+           and validate_effect(card[1]), \
+        "a construction card must be a [natural,effect]"
+    return True
+
+
+def validate_criteria(cri) -> bool:
+    assert type(cri) == list and len(cri) > 0, "criteria must be a list of len > 0"
+    for ea in cri:
+        try:
+            validate_natural(ea)
+        except:
+            raise AssertionError("each element in the criteria array must be a valid natural")
+    return True
+
+
+def validate_position(pos) -> bool:
+    assert (isinstance(pos, int)
+            and not isinstance(pos, bool)) \
+           and (pos == 1 or pos == 2 or pos == 3), \
+        "a position must be 1, 2, or 3"
+    return True
