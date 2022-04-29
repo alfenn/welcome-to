@@ -79,7 +79,6 @@ class GenValidMove:
         ################### Initialize valid move field
         self.vm: PlayerState = ps
         ################### Algorithm for generating a valid move
-        street_1_homes = ps.streets[0].homes
         card_played = False
         # Loop through all the streets
         for i in range(3):
