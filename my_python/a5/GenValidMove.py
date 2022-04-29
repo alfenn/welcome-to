@@ -53,7 +53,7 @@ def vm_construction_card_index(cc: List[List], exclusive_range: Tuple[int]) -> i
             return valid_index
     return valid_index
 
-def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int):
+def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int) -> PlayerState:
     """
         Updates a given PlayerState by building a house using the given card
         at the given index.
@@ -64,6 +64,7 @@ def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int):
         :param h_i: the index for the house we're building the house on
     """
     ps.streets[st_i].homes.get(h_i).house.num = cc[0]
+    return ps
 
 
 class GenValidMove:
@@ -82,6 +83,7 @@ class GenValidMove:
         card_played = False
         # Loop through all the streets
         for i in range(3):
+            if card_played: break
             # Loop through all the houses in the street
             for j in range(ps.streets[i].homes.get_num_houses()):
                 curr_house: House = ps.streets[i].homes.get(j).house
@@ -96,7 +98,7 @@ class GenValidMove:
                     if vm_card_ind == -1: continue
                     # Else a valid cc exists for this blank spot...
                     #   update the `vm` PlayerState to play the construction card
-                    update_ps_w_valid_card(cc=gs.construction_cards[vm_card_ind],
+                    self.vm = update_ps_w_valid_card(cc=gs.construction_cards[vm_card_ind],
                                            ps=self.vm,
                                            st_i=i,
                                            h_i=j)

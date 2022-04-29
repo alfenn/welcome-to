@@ -14,7 +14,7 @@ ps = PlayerState(inp_ps)
 print(GenValidMove(gs, ps))
 
 # open('../../../my_python/a5/test_output.json', 'w').\
-#     write(str(GenValidMove(gs, ps)))
+#    write(str(GenValidMove(gs, ps)))
 
-# PlayerState(json.loads(str(GenValidMove(gs,ps))))
+PlayerState(json.loads(str(GenValidMove(gs,ps))))
 
