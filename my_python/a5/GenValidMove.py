@@ -87,7 +87,7 @@ class GenValidMove:
                 curr_house: House = ps.streets[i].homes.get(j).house
                 # If the house is built...
                 if not curr_house.is_built():
-                    excl_range = get_exclusive_range(street_1_homes, j)
+                    excl_range = get_exclusive_range(ps.streets[i], j)
                     # If the difference between the returned "max" and "min" is equal to 1,
                     #   skip to the next street
                     if excl_range[1] - excl_range[0] == 1: continue
