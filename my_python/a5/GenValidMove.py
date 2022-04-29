@@ -16,18 +16,20 @@ def get_exclusive_range(h: Homes, i: int) -> Tuple:
         :param i: the house index representing the current house we are on in the Homes
         :return: Tuple of length 2
     """
+    i_is_first = i==0
+    i_is_last = i==Homes.get_num_houses()-1
     min_house_num = -1
     max_house_num = 18
     j = i-1
     # Iterate to the front (min = largest value on left) -> find "largest min"
-    while j >= 0:
+    while j >= 0 and not i_is_first:
         curr_home = h.get(j)
         if curr_home.house.is_built():
             if curr_home.house.num > min_house_num: min_house_num = curr_home.house.num
         j -= 1
     j = i+1
     # Iterate to the back (max = smallest value on the right) -> find "smallest max"
-    while j <= h.get_num_houses() - 1:
+    while j <= h.get_num_houses() - 1 and not i_is_last:
         curr_home = h.get(j)
         if curr_home.house.is_built():
             if curr_home.house.num < max_house_num: max_house_num = curr_home.house.num
