@@ -89,8 +89,9 @@ class Street:
         return count
 
     def return_literal(self):
-        homes_val = [self.homes.has_left_fence(0), self.homes.get(0).house.get_val()]
+        homes_val = [self.homes.get(0).house.get_val(), self.homes.get(0).used_in_plan]
         for i in range(self.homes.get_num_houses()):
+            if i == 0: continue
             homes_val.append([
                 self.homes.has_left_fence(i),
                 self.homes.get(i).house.get_val(),
