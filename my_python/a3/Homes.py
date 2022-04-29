@@ -273,6 +273,6 @@ class Homes:
             # Non-first house
             else:
                 ret.append([self.has_left_fence(i),
-                            curr_home.house.get_val(i),
+                            curr_home.house.get_val(),
                             curr_home.used_in_plan])
         return json.dumps(ret)

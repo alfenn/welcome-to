@@ -153,6 +153,8 @@ class PlayerState:
         ret = {"agents": self.agents,
                "city-plan-score": self.city_plan_score,
                "refusals": self.refusals,
-               "streets": str(self.streets),
+               "streets": "[" + str(self.streets[0]) + ","
+                              + str(self.streets[1]) + ","
+                              + str(self.streets[2]) + "]",
                "temps": self.temps}
         return json.dumps(ret)
