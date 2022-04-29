@@ -88,6 +88,19 @@ class Street:
             if curr_house.is_built(): count += 1
         return count
 
+    def return_literal(self):
+        homes_val = [self.homes.has_left_fence(0), self.homes.get(0).house.get_val()]
+        for i in range(self.homes.get_num_houses()):
+            homes_val.append([
+                self.homes.has_left_fence(i),
+                self.homes.get(i).house.get_val(),
+                self.homes.get(i).used_in_plan
+            ])
+        ret = {"homes": homes_val,
+               "parks": self.parks,
+               "pools": self.pools}
+        return ret
+
     def __str__(self):
         ret = {"homes": self.homes.__str__(),
                "parks": self.parks,
