@@ -17,7 +17,7 @@ def get_exclusive_range(h: Homes, i: int) -> Tuple:
         :return: Tuple of length 2
     """
     i_is_first = i==0
-    i_is_last = i==Homes.get_num_houses()-1
+    i_is_last = i==h.get_num_houses()-1
     min_house_num = -1
     max_house_num = 18
     j = i-1
