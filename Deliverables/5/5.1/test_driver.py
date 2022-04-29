@@ -2,7 +2,8 @@ import sys
 sys.path.append('../../../')
 from my_python.a5.GenValidMove import *
 
-inp_lst = json.loads(input())
+inp_lst = json.loads(sys.stdin.read())
+# inp_lst = json.loads(open('../../../my_python/a5/test.json', 'r').read())
 inp_gs = inp_lst[0]
 inp_ps = inp_lst[1]
 gs = GameState(inp_gs)
