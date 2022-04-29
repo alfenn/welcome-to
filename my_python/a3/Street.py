@@ -89,7 +89,7 @@ class Street:
         return count
 
     def __str__(self):
-        ret = {"homes": str(self.homes),
+        ret = {"homes": self.homes.__str__(),
                "parks": self.parks,
                "pools": self.pools}
         return json.dumps(ret)
