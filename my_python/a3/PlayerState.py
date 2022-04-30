@@ -178,6 +178,7 @@ def calc_score(ps: PlayerState, other_temps: List[int]) -> int:
 
     def calc_temp_score(curr_temp_count: int, other_temp_counts: List[int]) -> int:
         """Calculates the temp score one should get given a temp count and list of other players' temp counts"""
+        if curr_temp_count == 0: return 0 # Special case
         temp_scores = [7, 4, 1]
         # Initialize total_temp_counts
         other_temp_counts.append(curr_temp_count)
