@@ -252,6 +252,105 @@ pool_1_3_invalid = {
     "parks": 0,
     "pools": [True, True, True]
 }
+num_estates_0_valid = {
+    "homes": ["blank", False,
+          [False, "blank", False],
+          [True, 1, False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_0_1_valid = {
+    "homes": ["blank", False,
+          [False, "blank", False],
+          [True, 1, False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, 2, True]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_1_valid = {
+    "homes": ["blank", False,
+          [False, "blank", False],
+          [True, 1, False],
+          [False, "blank", False],
+          [False, 2, False],
+          [True, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [True, 3, False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_2_valid = {
+    "homes": ["blank", False,
+          [False, "blank", False],
+          [True, 1, False],
+          [False, 2, False],
+          [False, 3, False],
+          [True, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [True, 4, False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_3_valid = {
+    "homes": ["blank", False,
+          [False, "blank", False],
+          [True, 1, False],
+          [True, 2, False],
+          [False, 3, False],
+          [True, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [False, "blank", False],
+          [True, 4, False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_46_valid = {
+    "homes": [1, False,
+          [False, 2, False],
+          [False, 3, False],
+          [False, 4, False],
+          [True, 5, False],
+          [False, 6, False],
+          [False, 7, False],
+          [False, 8, False],
+          [False, 9, False],
+          [False, 10, False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+num_estates_0_2_valid = {
+    "homes": [1, False,
+          [False, 2, False],
+          [False, 3, False],
+          [False, 4, False],
+          [False, 5, False],
+          [False, 6, False],
+          [False, 7, False],
+          [False, 8, False],
+          [False, 9, False],
+          [False, 10, False]],
+    "parks": 0,
+    "pools": [False, False, False]
+}
+
 
 class TestStreet(TestCase):
     # {"homes": homes, "parks": natural, "pools": [bool, bool, bool]}
@@ -287,6 +386,19 @@ class TestStreet(TestCase):
         self.assertEqual(Street(valid_parks4).get_parks(), 2)
         self.assertRaises(AssertionError, lambda: Street(invalid_parks1).get_parks())
         self.assertRaises(AssertionError, lambda: Street(invalid_parks2).get_parks())
+
+    def test_get_num_bis(self):
+        self.assertEqual(Street(valid_num_houses1).get_num_bis(), 0)
+        self.assertEqual(Street(pool_2_2_valid).get_num_bis(), 1)
+
+    def test_get_num_estates(self):
+        self.assertEqual(Street(num_estates_0_valid).get_num_estates(), [None, 0,0,0,0,0,0])
+        self.assertEqual(Street(num_estates_0_1_valid).get_num_estates(), [None, 0, 0, 0, 0, 0, 0])
+        self.assertEqual(Street(num_estates_1_valid).get_num_estates(), [None, 1, 0, 0, 0, 0, 0])
+        self.assertEqual(Street(num_estates_2_valid).get_num_estates(), [None, 1, 0, 1, 0, 0, 0])
+        self.assertEqual(Street(num_estates_3_valid).get_num_estates(), [None, 2, 1, 0, 0, 0, 0])
+        self.assertEqual(Street(num_estates_46_valid).get_num_estates(), [None, 0, 0, 0, 1, 0, 1])
+        self.assertEqual(Street(num_estates_0_2_valid).get_num_estates(), [None, 0, 0, 0, 0, 0, 0])
 
     # def test_get_pools(self):
     #     self.assertEqual()

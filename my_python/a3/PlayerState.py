@@ -161,3 +161,111 @@ class PlayerState:
                "temps": self.temps
             }
         return json.dumps(ret)
+
+
+def calc_score(ps: PlayerState, other_temps: List[int]) -> int:
+    """
+        Calculates the score of the current PlayerState.
+        :return: integer score
+    """
+
+    def park_score(st_num: int, num_parks: int) -> int:
+        parks_vals_s0 = [0, 2, 4, 10]
+        parks_vals_s1 = [0, 2, 4, 6, 14]
+        parks_vals_s2 = [0, 2, 4, 6, 8, 18]
+        parks_vals = [parks_vals_s0, parks_vals_s1, parks_vals_s2]
+        return parks_vals[st_num][num_parks]
+
+    def calc_temp_score(curr_temp_count: int, other_temp_counts: List[int]) -> int:
+        """Calculates the temp score one should get given a temp count and list of other players' temp counts"""
+        temp_scores = [7, 4, 1]
+        # Initialize total_temp_counts
+        other_temp_counts.append(curr_temp_count)
+        total_temp_counts = other_temp_counts
+        # Remove duplicates from the list of all the temps
+        no_dup_total_temp_counts = []
+        [no_dup_total_temp_counts.append(el) for el in total_temp_counts if el not in no_dup_total_temp_counts]
+        # See which "place" the curr_temp_count slots in at
+        no_dup_total_temp_counts = sorted(no_dup_total_temp_counts, reverse=True)
+        place = (len(no_dup_total_temp_counts)) - 1
+        for i in range(len(no_dup_total_temp_counts)):
+            if no_dup_total_temp_counts[i] == curr_temp_count: place = i
+        # Return the corresponding temp score based on the place
+        try:
+            return temp_scores[place]
+        except IndexError:
+            return 0
+
+    def calc_agent_score(agents_ind: int, agents_val: int) -> int:
+        """Calculates the agent score for a given agent index and agent value."""
+        agent_scores = [
+            [1,3],
+            [2,3,4],
+            [3,4,5,6],
+            [4,5,6,7,8],
+            [5,6,7,8,10],
+            [6,7,8,10,12]
+        ]
+        return agent_scores[agents_ind][agents_val]
+
+    def calc_bis_penalty(num_built_bis: int) -> int:
+        bis_penalties = [0, 1, 3, 6, 9, 12, 16, 20, 24, 28]
+        return bis_penalties[num_built_bis]
+
+    def count_total_player_estates(ps: PlayerState) -> List:
+        """Returns a direct-addressing dictionary of format [None, int, int, int, int, int, int]
+        corresponding to number of index-size estates."""
+        total_estates_dict = [None, 0,0,0,0,0,0]
+        for st in ps.streets:
+            curr_street_estate_dict = st.get_num_estates()
+            for i in range(7):
+                if i != 0:
+                    total_estates_dict[i] = total_estates_dict[i] + curr_street_estate_dict[i]
+        return total_estates_dict
+
+    rscore = 0
+    ##### Add up the claimed city plan scores
+    for nb in ps.city_plan_score:
+        if nb != "blank": rscore += nb
+    # print('claimed city plan scores', rscore, '--------CHECK---------')
+    fooo = rscore
+    ##### Add up the parks scores
+    for i in range(3):
+        curr_street = ps.streets[i]
+        rscore += park_score(i, curr_street.parks)
+    # print('park scores', rscore - fooo, '--------CHECK---------')
+    fooo = rscore
+    ##### Add up the pools scores
+    total_built_pools = 0
+    for ea in ps.streets:
+         total_built_pools += ea.get_num_built_pools()
+    rscore += [0,3,6,9,13,17,21,26,31,36][total_built_pools]
+    # print('pool score', rscore - fooo)
+    foooo = rscore
+    ##### Add up the temps score
+    rscore += calc_temp_score(ps.temps, other_temps)
+    ##### Add up the agent scores
+    agent_score_multipliers = []
+    for i in range(len(ps.agents)):
+        agent_score_multipliers.append(calc_agent_score(i, ps.agents[i]))
+    # Add (score for size-n estate)*(num size-n estates) for each size-n estate
+    total_player_estates = count_total_player_estates(ps)
+    foo = 0
+    for i in range(6):
+        rscore += agent_score_multipliers[i] * total_player_estates[i + 1]
+        foo += agent_score_multipliers[i] * total_player_estates[i + 1]
+
+    ##### Subtract bis penalty
+    total_bis = 0
+    # Iterate through each street and add the bis's to the total count
+    for st in ps.streets:
+        total_bis += st.get_num_bis()
+    rscore -= calc_bis_penalty(total_bis)
+    ##### Subtract the refusals penalty
+    refusal_scores = [0,0,3,5]
+    rscore -= refusal_scores[ps.refusals]
+
+    return rscore
+
+
+

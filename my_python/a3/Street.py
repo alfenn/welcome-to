@@ -1,6 +1,8 @@
 import json
+from typing import List
 
 from my_python.a3.Homes import *
+
 
 class Street:
     pool_indices = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
@@ -21,11 +23,11 @@ class Street:
         ### Set street number we're on ###
         self.street_num = -1
         if self.homes.get_num_houses() == 10:
-            self.street_num = 0            # first street
+            self.street_num = 0  # first street
         elif self.homes.get_num_houses() == 11:
-            self.street_num = 1            # second street
+            self.street_num = 1  # second street
         else:
-            self.street_num = 2            # third street
+            self.street_num = 2  # third street
 
         ### Validate the pools ###
         pool_indices_for_curr_street = self.pool_indices[self.street_num]
@@ -36,7 +38,8 @@ class Street:
                 #   instead of creating the HomesElem class (were defining
                 #   internal representation from json, which we realized
                 #   could have been simplified)
-                assert not self.homes.get(pot_house_w_pool_i).get_house().is_bis(), "A house that is a bis cannot have a pool"
+                assert not self.homes.get(
+                    pot_house_w_pool_i).get_house().is_bis(), "A house that is a bis cannot have a pool"
                 assert self.homes.get(pot_house_w_pool_i).get_house().is_built(), "House that has a pool must be built"
 
         ### Validate the parks ###
@@ -101,6 +104,44 @@ class Street:
                "parks": self.parks,
                "pools": self.pools}
         return ret
+
+    def get_num_built_pools(self) -> int:
+        ret = 0
+        for ea in self.pools:
+            if ea is True: ret += 1
+        return ret
+
+    def get_num_bis(self) -> int:
+        ret = 0
+        for i in range(self.homes.get_num_houses()):
+            if self.homes.get(i).house.is_bis(): ret += 1
+        return ret
+
+    def get_num_estates(self) -> List[int]:
+        estate_count_dict = [None,0,0,0,0,0,0]
+        counting_houses = False
+        size_of_curr_house = 0
+        for i in range(self.homes.get_num_houses()):
+            if counting_houses is False and self.homes.has_left_fence(i) \
+                    and self.homes.get(i).house.is_built():
+                counting_houses = True
+                size_of_curr_house = 1
+            elif counting_houses is True and not self.homes.has_left_fence(i) \
+                    and self.homes.get(i).house.is_built():
+                size_of_curr_house += 1
+            if counting_houses is True and self.homes.has_right_fence(i) \
+                    and self.homes.get(i).house.is_built():
+                counting_houses = False
+                # To catch estates that are size >6
+                try:
+                    estate_count_dict[size_of_curr_house] += 1
+                except IndexError:
+                    pass
+                size_of_curr_house = 0
+            if not self.homes.get(i).house.is_built():
+                counting_houses = False
+                size_of_curr_house = 0
+        return estate_count_dict
 
     def __str__(self):
         ret = {"homes": self.homes.__str__(),
