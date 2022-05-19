@@ -50,6 +50,8 @@ class Street:
         self._check_parks()
         ## Check: bis
         self._check_bis()
+        ## Check: no fences between bis's
+        self._check_fence_btwn_same_num()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.homes = kwargs["homes"]
@@ -147,6 +149,17 @@ class Street:
 
         if bis_counter > 0:
             raise InvalidPlayerState("All homes cannot be bis'd")
+
+    def _check_fence_btwn_same_num(self) -> None:
+        i = 1
+        while i < len(self.homes):
+            house1: House = self.homes[i]
+            house2: House = self.homes[i-1]
+            if (house1.num == house2.num
+                    and house1.is_built and house2.is_built):
+                if house2.r_fence.exists:
+                    raise InvalidPlayerState("Cannot be a fence between houses of the same num")
+            i += 1
 
     def __sub__(self, other):
         if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")
