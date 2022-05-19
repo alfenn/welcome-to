@@ -85,6 +85,67 @@ class Street:
         if not self.parks <= park_max_curr_st:
             raise InvalidPlayerState("Parks value is not less than max for the given street length.")
 
+    def _check_bis(self) -> None:
+        bis_counter = 0
+        curr_not_bis_house = None
+
+        for i in range(len(self.homes)):
+            curr_house: House = self.homes[i]
+            if i > 0:
+                curr_house_bef: House = self.homes[i-1]
+            if i < len(self.homes) - 1:
+                curr_house_aft: House = self.homes[i+1]
+
+            if not curr_house.is_bis and curr_house.is_built:
+                curr_not_bis_house = curr_house.num
+                if (0 < i <= (len(self.homes) - 1)) and (curr_not_bis_house == curr_house_bef.num or curr_not_bis_house == curr_house_aft.num) and bis_counter > 0:
+                    bis_counter = 0
+                continue
+
+            if curr_house.is_bis and i == 0:
+                if curr_house.num == curr_house_aft.num:
+                    if curr_house_aft.is_bis:
+                        bis_counter += 1
+                    continue
+                else:
+                    raise InvalidPlayerState("Current bis'd house does not match the house before or after")
+
+            if curr_house.is_bis:
+                if curr_house.num == curr_house_bef.num:
+                    if curr_house_bef.is_bis:
+                        if curr_house.num == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
+                        continue
+                    continue
+                elif curr_house.num == curr_house_aft.num:
+                    if curr_house_aft.is_bis:
+                        if curr_house.num == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
+                        continue
+                    continue
+
+                else:
+                    raise InvalidPlayerState("Current bis'd house does not match the house before or after")
+
+            if curr_house.is_bis and i == (len(self.homes) - 1):
+                if curr_house.num == curr_house_bef.num:
+                    if curr_house_bef.is_bis:
+                        if curr_house.num == curr_not_bis_house:
+                            bis_counter = 0
+                        else:
+                            bis_counter += 1
+                    continue
+
+                else:
+                    raise InvalidPlayerState("Current bis'd house does not match the house before or after")
+
+        if bis_counter > 0:
+            raise InvalidPlayerState("All homes cannot be bis'd")
+
     def __sub__(self, other):
         if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")
         temp_homes = []
