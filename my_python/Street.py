@@ -48,6 +48,8 @@ class Street:
         ##  Note: We are not putting this in the "street_contract" for the same reason as above--
         ##      we need fields across the entire Street object.
         self._check_parks()
+        ## Check: bis
+        self._check_bis()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.homes = kwargs["homes"]
