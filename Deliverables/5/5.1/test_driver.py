@@ -1,6 +1,5 @@
 import sys
 sys.path.append('../../../')
-from my_python.a5.GenValidMove import *
 
 inp_lst = json.loads(sys.stdin.read())
 # inp_lst = json.loads(open('../../../my_python/a5/test.json', 'r').read())

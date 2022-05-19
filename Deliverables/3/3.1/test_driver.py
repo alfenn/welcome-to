@@ -1,8 +1,7 @@
-import json
 import sys
 sys.path.append('../../../')
-
-from my_python.a3.PlayerState import *
+from my_python.PlayerState import PlayerState
+import json
 
 input_str = sys.stdin.read()
 # input_str = open('input1.json', 'r').read()
