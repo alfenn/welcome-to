@@ -50,7 +50,7 @@ def homes_contract(inp) -> bool:
     for i in range(len(inp)):
         # Case: validate the first house
         if i == 0 or i == 1:
-            if not house_contract(inp[0]) and type(inp[1]) == bool: return False
+            if not (house_contract(inp[0]) and type(inp[1]) == bool): return False
         # Case: validate non-first homes (aka. [fence-or-not, house, used-in-plan])
         else:
             curr_elem = inp[i]
