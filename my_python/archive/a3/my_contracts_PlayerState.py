@@ -36,7 +36,7 @@ valid_pools = new_contract('valid_pools', lambda l: (isinstance(l, list)
                                                      and isinstance(l[1], bool)
                                                      and isinstance(l[2], bool)))
 
-#### Contracts for houses ####
+#### Contracts for homes ####
 valid_homes_val_list = new_contract('valid_homes_val_list', lambda l: (isinstance(l, list)
                                                                        and len(l) == 3
                                                                        and check_wrapper('valid_fence', l[0])
@@ -62,10 +62,10 @@ valid_homes = new_contract('valid_homes', lambda l: (isinstance(l, list)
 
 #### Contracts for street ####
 valid_street = new_contract('valid_street', lambda d: (isinstance(d, dict)
-                                                       and d.keys() == {"houses": None,
+                                                       and d.keys() == {"homes": None,
                                                                         "parks": None,
                                                                         "pools": None}.keys()
-                                                       and check_wrapper('valid_homes', d.get("houses"))
+                                                       and check_wrapper('valid_homes', d.get("homes"))
                                                        and check_wrapper('valid_natural', d.get("parks"))
                                                        and check_wrapper('valid_pools', d.get("pools"))))
 

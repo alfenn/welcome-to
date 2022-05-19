@@ -44,14 +44,14 @@ def pools_contract(inp) -> bool:
     return True
 
 
-def houses_contract(inp) -> bool:
-    # Check: type and length of "houses" input
+def homes_contract(inp) -> bool:
+    # Check: type and length of "homes" input
     if not (type(inp) == list and 11 <= len(inp) <= 13): return False
     for i in range(len(inp)):
         # Case: validate the first house
         if i == 0 or i == 1:
             if not house_contract(inp[0]) and type(inp[1]) == bool: return False
-        # Case: validate non-first houses (aka. [fence-or-not, house, used-in-plan])
+        # Case: validate non-first homes (aka. [fence-or-not, house, used-in-plan])
         else:
             curr_elem = inp[i]
             if not (type(curr_elem) == list
@@ -69,8 +69,8 @@ def houses_contract(inp) -> bool:
 def street_contract(inp) -> bool:
     ## Check: format of input
     return (type(inp) == dict  # Check: dict, and dict keys
-            and sorted(list(inp.keys())) == sorted(["houses", "parks", "pools"])
-            and houses_contract(inp["houses"])  # Check: "houses" format
+            and sorted(list(inp.keys())) == sorted(["homes", "parks", "pools"])
+            and homes_contract(inp["homes"])  # Check: "homes" format
             and natural_contract(inp["parks"])  # Check: "parks" format
             and pools_contract(inp["pools"]))  # Check: "pools" format
 
@@ -118,7 +118,7 @@ def streets_contract(inp) -> bool:
     for i in range(3):
         curr_street = inp[i]
         if not street_contract(curr_street): return False
-        if not (len(curr_street["houses"]) == valid_street_lengths[i] + 1): return False
+        if not (len(curr_street["homes"]) == valid_street_lengths[i] + 1): return False
     return True
 
 

@@ -11,7 +11,7 @@ class TestPlayerState(TestCase):
         self.assertTrue(PlayerState(inp_ps=empty_valid))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=street_lens_invalid))
 
-        # NOTE: didn't account for having a claimed score but no built houses in our validators
+        # NOTE: didn't account for having a claimed score but no built homes in our validators
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=city_plan_invalid_score_built_houses))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=agents_invalid_len))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=agents_invalid_vals))
@@ -23,15 +23,15 @@ class TestPlayerState(TestCase):
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=agents_invalid_ind4))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=city_plan_invalid_geq_zero))
 
-        # NOTE: didn't account for built fence but no built houses (same as below)
+        # NOTE: didn't account for built fence but no built homes (same as below)
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=get_total_built_fences_invalid1))
-        # NOTE: didn't account for number of effects played being checked against number of built houses
+        # NOTE: didn't account for number of effects played being checked against number of built homes
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=misc_sum_invalid))
 
         self.assertTrue(PlayerState(inp_ps=get_total_built_fences_valid2))
         self.assertTrue(PlayerState(inp_ps=misc_sum_valid))
 
-        # NOTE: didn't account for built fence but no built houses
+        # NOTE: didn't account for built fence but no built homes
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=misc_sum_invalid_fences))
 
     def test_sub(self):

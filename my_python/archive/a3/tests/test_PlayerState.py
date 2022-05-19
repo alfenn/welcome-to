@@ -9,7 +9,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -23,7 +23,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -38,7 +38,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -63,7 +63,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -77,7 +77,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -92,7 +92,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -115,7 +115,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -129,7 +129,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -144,7 +144,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -168,7 +168,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -182,7 +182,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -197,7 +197,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -221,7 +221,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -235,7 +235,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -250,7 +250,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -274,7 +274,7 @@ class TestPlayerState(TestCase):
         "refusals": -1,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -288,7 +288,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -303,7 +303,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -327,7 +327,7 @@ class TestPlayerState(TestCase):
         "refusals": 4,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -341,7 +341,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -356,7 +356,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -380,7 +380,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -394,7 +394,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -409,7 +409,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -433,7 +433,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -447,7 +447,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -462,7 +462,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -486,7 +486,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -500,7 +500,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -515,7 +515,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -539,7 +539,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -553,7 +553,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -568,7 +568,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -592,7 +592,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -606,7 +606,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -621,7 +621,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -646,7 +646,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [True, "blank", False],
                           [True, "blank", False],
                           [False, "blank", False],
@@ -660,7 +660,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -675,7 +675,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [True, "blank", False],
                           [False, "blank", False],
@@ -695,7 +695,7 @@ class TestPlayerState(TestCase):
     }
     # misc sum = 1 agent + 3 claimed city plans + 1 pool on third street + 4 temps
     #          = 9
-    # num built houses = 7 on ind0 st. + 1 on ind2 st.
+    # num built homes = 7 on ind0 st. + 1 on ind2 st.
     #          = 8
     misc_sum_invalid = {
         "agents": [1, 0, 0, 0, 0, 0],
@@ -703,7 +703,7 @@ class TestPlayerState(TestCase):
         "refusals": 1,
         "streets": [
             {
-                "houses": [1, False,
+                "homes": [1, False,
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
@@ -717,7 +717,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -732,7 +732,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -756,7 +756,7 @@ class TestPlayerState(TestCase):
         "refusals": 1,
         "streets": [
             {
-                "houses": [1, False,
+                "homes": [1, False,
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
@@ -770,7 +770,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -785,7 +785,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -809,7 +809,7 @@ class TestPlayerState(TestCase):
         "refusals": 1,
         "streets": [
             {
-                "houses": [1, False,
+                "homes": [1, False,
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
                           [False, [1, "bis"], False],
@@ -823,7 +823,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": [1, False,
+                "homes": [1, False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -838,7 +838,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -862,7 +862,7 @@ class TestPlayerState(TestCase):
         "refusals": 0,
         "streets": [
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [True, "blank", False],
@@ -876,7 +876,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],
@@ -891,7 +891,7 @@ class TestPlayerState(TestCase):
                 "pools": [False, False, False]
             },
             {
-                "houses": ["blank", False,
+                "homes": ["blank", False,
                           [False, "blank", False],
                           [False, "blank", False],
                           [False, "blank", False],

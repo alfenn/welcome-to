@@ -5,7 +5,7 @@ class HomesElem:
     @contract
     def __init__(self, h, uip):
         """
-            Initialize HomesElem object (element in Homes) for each home in a houses list.
+            Initialize HomesElem object (element in Homes) for each home in a homes list.
 
             :param h: House object representing the house on the home's property.
             :type h: valid_house

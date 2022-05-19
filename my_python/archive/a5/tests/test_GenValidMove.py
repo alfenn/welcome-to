@@ -55,7 +55,7 @@ vm_cc2 = [
 ]
 
 ps_empty = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", "blank"], "refusals": 0, "streets": [{
-                                                                                                                         "houses": [
+                                                                                                                         "homes": [
                                                                                                                              "blank",
                                                                                                                              False,
                                                                                                                              [
@@ -100,7 +100,7 @@ ps_empty = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", 
                                                                                                                              False,
                                                                                                                              False]},
                                                                                                                      {
-                                                                                                                         "houses": [
+                                                                                                                         "homes": [
                                                                                                                              "blank",
                                                                                                                              False,
                                                                                                                              [
@@ -149,7 +149,7 @@ ps_empty = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", 
                                                                                                                              False,
                                                                                                                              False]},
                                                                                                                      {
-                                                                                                                         "houses": [
+                                                                                                                         "homes": [
                                                                                                                              "blank",
                                                                                                                              False,
                                                                                                                              [
@@ -204,17 +204,17 @@ ps_empty = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", 
             "temps": 0}
 
 ps_built_2_at_0_0 = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", "blank"], "refusals": 0,
-                     "streets": [{"houses": [2, False, [False, "blank", False], [False, "blank", False],
+                     "streets": [{"homes": [2, False, [False, "blank", False], [False, "blank", False],
                                             [False, "blank", False], [False, "blank", False], [False, "blank", False],
                                             [False, "blank", False], [False, "blank", False], [False, "blank", False],
                                             [False, "blank", False]], "parks": 0, "pools": [False, False, False]}, {
-                                     "houses": ["blank", False, [False, "blank", False], [False, "blank", False],
+                                     "homes": ["blank", False, [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False]], "parks": 0,
                                      "pools": [False, False, False]}, {
-                                     "houses": ["blank", False, [False, "blank", False], [False, "blank", False],
+                                     "homes": ["blank", False, [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
                                                [False, "blank", False], [False, "blank", False],
@@ -223,16 +223,16 @@ ps_built_2_at_0_0 = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", 
                      "temps": 0}
 
 ps_built_15_at_1_7 = {"agents": [0, 0, 0, 0, 0, 0], "city-plan-score": ["blank", "blank", "blank"], "refusals": 0,
-                      "streets": [{"houses": [2, False, [False, "blank", False], [False, "blank", False],
+                      "streets": [{"homes": [2, False, [False, "blank", False], [False, "blank", False],
                                              [False, "blank", False], [False, "blank", False], [False, "blank", False],
                                              [False, "blank", False], [False, "blank", False], [False, "blank", False],
                                              [False, "blank", False]], "parks": 0, "pools": [False, False, False]}, {
-                                      "houses": ["blank", False, [False, "blank", False], [False, "blank", False],
+                                      "homes": ["blank", False, [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False], [False, "blank", False], [False, 15, False],
                                                 [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False]], "parks": 0, "pools": [False, False, False]}, {
-                                      "houses": ["blank", False, [False, "blank", False], [False, "blank", False],
+                                      "homes": ["blank", False, [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False], [False, "blank", False],
                                                 [False, "blank", False], [False, "blank", False],

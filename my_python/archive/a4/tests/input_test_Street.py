@@ -4,7 +4,7 @@ from my_python.Same import Same
 from my_python.House import House
 
 valid_num_houses1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -19,7 +19,7 @@ valid_num_houses1 = {
 }
 
 valid_num_houses2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -36,7 +36,7 @@ valid_num_houses2 = {
 }
 
 invalid_num_houses1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False]],
@@ -45,7 +45,7 @@ invalid_num_houses1 = {
 }
 
 invalid_num_houses2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -63,7 +63,7 @@ invalid_num_houses2 = {
 }
 
 valid_parks1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 1, False],
           [False, "blank", False],
           [False, 2, False],
@@ -78,7 +78,7 @@ valid_parks1 = {
 }
 
 valid_parks2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 1, False],
           [False, 2, False],
           [False, 3, False],
@@ -94,7 +94,7 @@ valid_parks2 = {
 }
 
 valid_parks3 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, 4, False],
           [False, "blank", False],
@@ -111,7 +111,7 @@ valid_parks3 = {
 }
 
 valid_parks4 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, 4, False],
           [False, "blank", False],
@@ -128,7 +128,7 @@ valid_parks4 = {
 }
 
 invalid_parks1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -143,7 +143,7 @@ invalid_parks1 = {
 }
 
 invalid_parks2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, [3, "bis"], False],
           [False, [3, "bis"], False],
@@ -159,7 +159,7 @@ invalid_parks2 = {
 }
 
 invalid_parks3 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, [3, "bis"], False],
           [False, [3, "bis"], False],
@@ -174,7 +174,7 @@ invalid_parks3 = {
 }
 
 pool_0_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, 1, False],
           [False, "blank", False],
@@ -189,7 +189,7 @@ pool_0_1_valid = {
 }
 
 pool_0_1_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -204,7 +204,7 @@ pool_0_1_invalid = {
 }
 
 pool_0_1_invalid_bis = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, [1, "bis"], False],
           [False, 1, False],
@@ -219,7 +219,7 @@ pool_0_1_invalid_bis = {
 }
 
 pool_2_2_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, "blank", False],
               [False, [1, "bis"], False],
               [False, 1, False],
@@ -236,7 +236,7 @@ pool_2_2_valid = {
 }
 
 pool_2_2_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, "blank", False],
               [False, [1, "bis"], False],
               [False, 1, False],
@@ -253,7 +253,7 @@ pool_2_2_invalid = {
 }
 
 pool_1_3_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
               [False, "blank", False],
               [False, "blank", False],
               [False, 2, False],
@@ -269,7 +269,7 @@ pool_1_3_valid = {
 }
 
 pool_1_3_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, 1, False],
               [False, 2, False],
               [False, "blank", False],
@@ -285,7 +285,7 @@ pool_1_3_invalid = {
 }
 
 num_estates_0_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -300,7 +300,7 @@ num_estates_0_valid = {
 }
 
 num_estates_0_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -315,7 +315,7 @@ num_estates_0_1_valid = {
 }
 
 num_estates_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -330,7 +330,7 @@ num_estates_1_valid = {
 }
 
 num_estates_2_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, 2, False],
@@ -345,7 +345,7 @@ num_estates_2_valid = {
 }
 
 num_estates_3_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [True, 2, False],
@@ -360,7 +360,7 @@ num_estates_3_valid = {
 }
 
 num_estates_46_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
           [False, 2, False],
           [False, 3, False],
           [False, 4, False],
@@ -375,7 +375,7 @@ num_estates_46_valid = {
 }
 
 num_estates_0_2_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
           [False, 2, False],
           [False, 3, False],
           [False, 4, False],
@@ -398,25 +398,25 @@ same_house = House(is_bis=Same(),
                    r_fence=Same())
 
 all_same_street_len10 = {
-    "houses": [same_house for i in range(10)],
+    "homes": [same_house for i in range(10)],
     "parks": Same(),
     "pools": [Same() for i in range(3)]
 }
 
 all_same_street_len11 = {
-    "houses": [same_house for i in range(11)],
+    "homes": [same_house for i in range(11)],
     "parks": Same(),
     "pools": [Same() for i in range(3)]
 }
 
 all_same_street_len12 = {
-    "houses": [same_house for i in range(12)],
+    "homes": [same_house for i in range(12)],
     "parks": Same(),
     "pools": [Same() for i in range(3)]
 }
 
 valid_num_houses1_2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 1, False],
           [False, [1, "bis"], False],
           [False, "blank", False],

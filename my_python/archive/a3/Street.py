@@ -15,7 +15,7 @@ class Street:
             :param st: Dictionary input representing a street
             :type st: valid_street
         """
-        self.homes = Homes(st.get("houses"))
+        self.homes = Homes(st.get("homes"))
         self.parks = st.get("parks")
         self.pools = st.get("pools")
 
@@ -45,8 +45,8 @@ class Street:
         num_parks_for_curr_street = self.park_indices[self.street_num]
         assert 0 <= self.parks <= num_parks_for_curr_street, "Invalid number of parks for current street"
 
-        ### Validate that num of parks is <= num of non-bis built houses ###
-        assert self.get_parks() <= self.homes.get_num_non_bis_houses(), "num of parks is not <= num non-built houses"
+        ### Validate that num of parks is <= num of non-bis built homes ###
+        assert self.get_parks() <= self.homes.get_num_non_bis_houses(), "num of parks is not <= num non-built homes"
 
     @contract
     def get_parks(self):
@@ -81,8 +81,8 @@ class Street:
 
     def get_num_built_houses(self) -> int:
         """
-            Get the number of houses that are built (bis and non-bis) on the street
-            :return: int representing the number of built (non-"blank") houses
+            Get the number of homes that are built (bis and non-bis) on the street
+            :return: int representing the number of built (non-"blank") homes
         """
         count = 0
         for i in range(self.homes.get_num_houses()):
@@ -99,7 +99,7 @@ class Street:
                 self.homes.get(i).house.get_val(),
                 self.homes.get(i).used_in_plan
             ])
-        ret = {"houses": homes_val,
+        ret = {"homes": homes_val,
                "parks": self.parks,
                "pools": self.pools}
         return ret
@@ -143,7 +143,7 @@ class Street:
         return estate_count_dict
 
     def __str__(self):
-        ret = {"houses": self.homes.__str__(),
+        ret = {"homes": self.homes.__str__(),
                "parks": self.parks,
                "pools": self.pools}
         return json.dumps(ret)

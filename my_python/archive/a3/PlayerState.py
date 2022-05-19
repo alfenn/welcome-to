@@ -44,13 +44,13 @@ class PlayerState:
         self.total_built_houses = 0
         self.total_claimed_city_plan_scores = 0
 
-        ### Validate that the number of built houses is >= number of claimed city-plan's ###
+        ### Validate that the number of built homes is >= number of claimed city-plan's ###
         for street in self.get_streets():
             self.total_built_houses += street.get_num_built_houses()
         for nb in self.city_plan_score:
             if nb != "blank": self.total_claimed_city_plan_scores += 1
         # JK don't need this
-        # assert self.total_built_houses >= self.total_claimed_city_plan_scores, "# of built houses is not >= # of claimed city plans"
+        # assert self.total_built_houses >= self.total_claimed_city_plan_scores, "# of built homes is not >= # of claimed city plans"
 
         ### Validate city plan scores are >= 0 if not "blank" ###
         for i in range(len(self.city_plan_score)):
@@ -129,10 +129,10 @@ class PlayerState:
             count += st.homes.get_num_built_fences()
         return count
 
-    ### Validate that number of built houses is >= #fences + #pools + #temps + #agents + #parks + #claimed plans ###
+    ### Validate that number of built homes is >= #fences + #pools + #temps + #agents + #parks + #claimed plans ###
     def validate_num_built_houses_geq_misc(self) -> bool:
         """
-            Validate that the number of built houses is >= #fences + #pools + #temps + #agents + #parks + #claimed plans ###
+            Validate that the number of built homes is >= #fences + #pools + #temps + #agents + #parks + #claimed plans ###
             :return: true if the condition holds, AssertionError otherwise
         """
         misc_sum = 0
@@ -143,7 +143,7 @@ class PlayerState:
         misc_sum += self.temps
         misc_sum += sum(self.agents)
         misc_sum += self.total_claimed_city_plan_scores
-        assert self.total_built_houses >= misc_sum, "number of built houses is less than #fences + #pools + #parks" \
+        assert self.total_built_houses >= misc_sum, "number of built homes is less than #fences + #pools + #parks" \
                                                           " + #temps + #agents + #claimed plans"
         return True
 

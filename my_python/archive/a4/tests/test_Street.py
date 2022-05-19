@@ -22,8 +22,8 @@ class TestStreet(TestCase):
 
     def test_get_fields(self):
         # Houses
-        self.assertEqual(len(Street(inp_street=valid_num_houses1).houses), 10)
-        self.assertEqual(len(Street(inp_street=valid_num_houses2).houses), 12)
+        self.assertEqual(len(Street(inp_street=valid_num_houses1).homes), 10)
+        self.assertEqual(len(Street(inp_street=valid_num_houses2).homes), 12)
         # Parks
         self.assertEqual(Street(inp_street=valid_num_houses1).parks, 0)
         self.assertEqual(Street(inp_street=valid_num_houses2).parks, 0)
@@ -37,10 +37,10 @@ class TestStreet(TestCase):
 
     def test_sub(self):
         self.assertEqual(Street(inp_street=valid_num_houses1) - Street(inp_street=valid_num_houses1),
-                         Street(houses=all_same_street_len10["houses"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"]))
-        temp_diff = Street(houses=all_same_street_len10["houses"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"])
-        temp_diff.houses[1] = House(is_bis=Same(), num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
-        temp_diff.houses[2] = House(is_bis=True, num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
+                         Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"]))
+        temp_diff = Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"])
+        temp_diff.homes[1] = House(is_bis=Same(), num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
+        temp_diff.homes[2] = House(is_bis=True, num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
         temp_diff.parks = 1
         self.assertEqual(Street(inp_street=valid_num_houses1_2) - Street(inp_street=valid_num_houses1),
                          temp_diff)

@@ -13,34 +13,34 @@ class Street:
         ### If this argument is not specified, initialize values to a valid
         ### placeholder. This is to pass the validators in the case that we
         ### are setting the class fields directly.
-        inp_street = kwargs.get("inp_street", {"houses": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False] ],"parks": 0,"pools": [False, False, False]})
+        inp_street = kwargs.get("inp_street", {"homes": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False] ],"parks": 0,"pools": [False, False, False]})
         if not street_contract(inp_street): raise InvalidPlayerState("Breaks House contract")
         ### Normal processing of standard inputs.
-        self.houses = []
+        self.homes = []
         self.parks = 0
         self.pools = [False, False, False]
 
-        for i in range(len(inp_street["houses"])):
+        for i in range(len(inp_street["homes"])):
             if i == 0:
                 # Deal with the first House. Initialize right fence with placeholder.
-                self.houses.append(House(inp_house=inp_street["houses"][0],
-                                         used_in_plan=inp_street["houses"][1],
-                                         l_fence=Fence(True),
-                                         r_fence=Fence(True)))
+                self.homes.append(House(inp_house=inp_street["homes"][0],
+                                        used_in_plan=inp_street["homes"][1],
+                                        l_fence=Fence(True),
+                                        r_fence=Fence(True)))
             # If `i` is not the first House...
             if i > 1:
-                # All these houses follow schema: [ fence-or-not, house, used-in-plan ]
-                curr_house = inp_street["houses"][i]
-                temp_l_fence = Fence(inp_street["houses"][i][0])
-                houses_ind = i - 1                                          # We're off by 1 bc we skip ["houses"][1]
-                self.houses[houses_ind - 1].r_fence = temp_l_fence          # Link right fence of prev House...
-                self.houses.append(House(inp_house=curr_house[1],
-                                         used_in_plan=curr_house[2],
-                                         l_fence=temp_l_fence,              # ... to left fence of curr House.
-                                         r_fence=Fence(True)))              # Use placeholder for right fence.
+                # All these homes follow schema: [ fence-or-not, house, used-in-plan ]
+                curr_house = inp_street["homes"][i]
+                temp_l_fence = Fence(inp_street["homes"][i][0])
+                houses_ind = i - 1                                          # We're off by 1 bc we skip ["homes"][1]
+                self.homes[houses_ind - 1].r_fence = temp_l_fence          # Link right fence of prev House...
+                self.homes.append(House(inp_house=curr_house[1],
+                                        used_in_plan=curr_house[2],
+                                        l_fence=temp_l_fence,  # ... to left fence of curr House.
+                                        r_fence=Fence(True)))              # Use placeholder for right fence.
         self.parks = inp_street["parks"]
         self.pools = inp_street["pools"]
-        # Check: boolean elements of pools are actually built at corresponding .houses index
+        # Check: boolean elements of pools are actually built at corresponding .homes index
         ##  Note: We are not putting this in "street_contract" since this check involves initializing a
         ##      Street object, which would create a circular import.
         self._check_pools()
@@ -50,7 +50,7 @@ class Street:
         self._check_parks()
         ## ===================== If class fields are specified, set them directly ====================
         try:
-            self.houses = kwargs["houses"]
+            self.homes = kwargs["homes"]
             self.parks = kwargs["parks"]
             self.pools = kwargs["pools"]
         except KeyError:
@@ -58,23 +58,23 @@ class Street:
 
     def _street_ind(self) -> int:
         """Maps street length to a street index according to (10,0), (11,1), (12,2)."""
-        return len(self.houses) % 10
+        return len(self.homes) % 10
 
     def _check_pools(self) -> None:
         pool_locations = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
         pool_locations_curr_st = pool_locations[self._street_ind()]
         # Iterate over "pools"
         for i in range(3):
-            # If there is a True, check the corresponding .houses ind
+            # If there is a True, check the corresponding .homes ind
             if self.pools[i] is True:
                 # If it is not built return False
-                if not self.houses[
+                if not self.homes[
                     pool_locations_curr_st[i]
                 ].is_built:
                     raise InvalidPlayerState("House for corresponding pool value is not built.")
-                # Built houses can not be "bis"
+                # Built homes can not be "bis"
                 else:
-                    if self.houses[
+                    if self.homes[
                         pool_locations_curr_st[i]
                     ].is_bis:
                         raise InvalidPlayerState("House for corresponding pool value is a \"bis\".")
@@ -86,22 +86,22 @@ class Street:
             raise InvalidPlayerState("Parks value is not less than max for the given street length.")
 
     def __sub__(self, other):
-        if len(self.houses) != len(other.houses): ValueError("Streets have different numbers of houses.")
-        temp_houses = []
-        for i in range(len(self.houses)):
-            temp_houses.append(self.houses[i] - other.houses[i])
+        if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")
+        temp_homes = []
+        for i in range(len(self.homes)):
+            temp_homes.append(self.homes[i] - other.homes[i])
         temp_parks = same_or_get_first(self.parks, other.parks)
         temp_pools = []
         for i in range(3):
             temp_pools.append(same_or_get_first(self.pools[i], other.pools[i]))
-        return Street(houses=temp_houses, parks=temp_parks, pools=temp_pools)
+        return Street(houses=temp_homes, parks=temp_parks, pools=temp_pools)
 
     def __eq__(self, other):
-        # Check: .houses length
-        if len(self.houses) != len(other.houses): return False
+        # Check: .homes length
+        if len(self.homes) != len(other.homes): return False
         # Check: each House
-        for i in range(len(self.houses)):
-            if self.houses[i] != other.houses[i]: return False
+        for i in range(len(self.homes)):
+            if self.homes[i] != other.homes[i]: return False
         # Check: parks
         if self.parks != other.parks: return False
         if self.pools != other.pools: return False

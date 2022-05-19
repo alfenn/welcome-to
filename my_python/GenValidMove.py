@@ -62,7 +62,7 @@ def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int) -> Pl
         :param st_i: the index for the street we're building the house on
         :param h_i: the index for the house we're building the house on
     """
-    ps.streets[st_i].houses.get(h_i).house.num = cc[0]
+    ps.streets[st_i].homes.get(h_i).house.num = cc[0]
     return ps
 
 
@@ -83,12 +83,12 @@ class GenValidMove:
         # Loop through all the streets
         for i in range(3):
             if card_played: break
-            # Loop through all the houses in the street
-            for j in range(ps.streets[i].houses.get_num_houses()):
-                curr_house: House = ps.streets[i].houses.get(j).house
+            # Loop through all the homes in the street
+            for j in range(ps.streets[i].homes.get_num_houses()):
+                curr_house: House = ps.streets[i].homes.get(j).house
                 # If the house is built...
                 if not curr_house.is_built():
-                    excl_range = get_exclusive_range(ps.streets[i].houses, j)
+                    excl_range = get_exclusive_range(ps.streets[i].homes, j)
                     # If the difference between the returned "max" and "min" is equal to 1,
                     #   skip to the next street
                     if excl_range[1] - excl_range[0] == 1: continue

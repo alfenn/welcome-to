@@ -7,7 +7,7 @@ class Homes:
     @contract
     def __init__(self, homes_val):
         """
-            Initialize Homes object from houses (list of houses) input.
+            Initialize Homes object from homes (list of homes) input.
 
             :param homes_val: Homes array
             :type homes_val: valid_homes
@@ -47,7 +47,7 @@ class Homes:
     @contract
     def get(self, i: int) -> HomesElem:
         """
-            Get the houses
+            Get the homes
 
             :param i: Which home we are on
             :return: An array of 3 elements (or 2, if i==0) representing a 'Home'
@@ -58,9 +58,9 @@ class Homes:
     @contract
     def get_num_houses(self) -> int:
         """
-            Get the number of houses on the street we are on
+            Get the number of homes on the street we are on
 
-            :return: An int representing the number of houses on the street
+            :return: An int representing the number of homes on the street
             :rtype: int
         """
         return len(self.homes_and_fences)//2
@@ -70,7 +70,7 @@ class Homes:
         """
             Validate that a bis is next to a house with an identical number in O(N).
 
-            :return: True when all houses are validated
+            :return: True when all homes are validated
             :rtype: bool
         """
         all_homes = []
@@ -154,19 +154,19 @@ class Homes:
                 # else, error
                 else:
                     raise AssertionError("current bis'd home does not match the house before or after")
-        # EDGE 3: If there are no normal houses, aka there are only bis'd houses, we error
+        # EDGE 3: If there are no normal homes, aka there are only bis'd homes, we error
         if bis_counter > 0:
-            raise AssertionError("all houses cannot be bis")
+            raise AssertionError("all homes cannot be bis")
 
         return True
 
     @contract
     def validate_ascending_order(self) -> bool:
         """
-            Validate ascending order of the built houses.
+            Validate ascending order of the built homes.
             :return: True if order is ascending, Error if it's not ascending
         """
-        # Get built houses
+        # Get built homes
         built_houses = []
         for i in range(self.get_num_houses()):
             curr_house = self.get(i).get_house()
@@ -178,35 +178,35 @@ class Homes:
             house2 = built_houses[i-1]
             # house1 = self.get(i).get_house()
             # house2 = self.get(i-1).get_house()
-            if house1.get_num() < house2.get_num(): raise AssertionError("the pair of houses (neither is a bis) doesn't satisfy the < condition")
+            if house1.get_num() < house2.get_num(): raise AssertionError("the pair of homes (neither is a bis) doesn't satisfy the < condition")
             i += 1
         return True
 
     @contract
     def validate_no_dups(self) -> bool:
         """
-            Validate that there are no duplicate regular houses.
-            :return: True if there are no duplicate houses, AssertionError otherwise.
+            Validate that there are no duplicate regular homes.
+            :return: True if there are no duplicate homes, AssertionError otherwise.
         """
-        # Get built non-bis houses
+        # Get built non-bis homes
         built_non_bis_houses = []
         for i in range(self.get_num_houses()):
             curr_house = self.get(i).get_house()
             if curr_house.is_built() and not curr_house.get_is_bis():
                 # Iterate through the built_non_bis_houses and check if curr_house
-                #   is a duplicate of any houses we already added.
+                #   is a duplicate of any homes we already added.
                 for j in range(len(built_non_bis_houses)):
-                    if curr_house == built_non_bis_houses[j]: raise AssertionError("duplicate non-bis houses found")
+                    if curr_house == built_non_bis_houses[j]: raise AssertionError("duplicate non-bis homes found")
                 # If no duplicates were found, add curr_house to built_non_bis_houses
                 built_non_bis_houses.append(curr_house)
         return True
 
-    ### Validate that there are no fences separating "duplicate" houses ###
+    ### Validate that there are no fences separating "duplicate" homes ###
     @contract
     def validate_no_fences_between_bis(self) -> bool:
         """
-            Validate that there are no fences in between bis'd houses
-            :return: True if there are no fences between bis'd houses, AssertionError otherwise.
+            Validate that there are no fences in between bis'd homes
+            :return: True if there are no fences between bis'd homes, AssertionError otherwise.
         """
         i = 3   # Because of the first house
         while i < len(self.homes_and_fences):
@@ -221,8 +221,8 @@ class Homes:
     @contract
     def get_num_non_bis_houses(self) -> int:
         """
-            Get the number of non-bis houses
-            :return: int representing the number of non-bis houses.
+            Get the number of non-bis homes
+            :return: int representing the number of non-bis homes.
         """
         num_built_non_bis_houses = 0
         for i in range(self.get_num_houses()):

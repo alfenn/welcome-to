@@ -4,7 +4,7 @@ from contracts import ContractNotRespected
 
 
 valid_num_houses1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -18,7 +18,7 @@ valid_num_houses1 = {
     "pools": [False, False, False]
 }
 valid_num_houses2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -34,7 +34,7 @@ valid_num_houses2 = {
     "pools": [False, False, False]
 }
 invalid_num_houses1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False]],
@@ -42,7 +42,7 @@ invalid_num_houses1 = {
     "pools": [False, False, False]
 }
 invalid_num_houses2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -59,7 +59,7 @@ invalid_num_houses2 = {
     "pools": [False, False, False]
 }
 valid_parks1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 1, False],
           [False, "blank", False],
           [False, 2, False],
@@ -73,7 +73,7 @@ valid_parks1 = {
     "pools": [False, False, False]
 }
 valid_parks2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 1, False],
           [False, 2, False],
           [False, 3, False],
@@ -88,7 +88,7 @@ valid_parks2 = {
     "pools": [False, False, False]
 }
 valid_parks3 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, 4, False],
           [False, "blank", False],
@@ -105,7 +105,7 @@ valid_parks3 = {
 }
 
 valid_parks4 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, 4, False],
           [False, "blank", False],
@@ -121,7 +121,7 @@ valid_parks4 = {
     "pools": [False, False, False]
 }
 invalid_parks1 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -135,7 +135,7 @@ invalid_parks1 = {
     "pools": [False, False, False]
 }
 invalid_parks2 = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, 3, False],
           [False, [3, "bis"], False],
           [False, [3, "bis"], False],
@@ -149,7 +149,7 @@ invalid_parks2 = {
     "pools": [False, False, False]
 }
 pool_0_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, 1, False],
           [False, "blank", False],
@@ -163,7 +163,7 @@ pool_0_1_valid = {
     "pools": [True, False, False]
 }
 pool_0_1_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, "blank", False],
           [False, "blank", False],
@@ -177,7 +177,7 @@ pool_0_1_invalid = {
     "pools": [True, False, False]
 }
 pool_0_1_invalid_bis = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [False, [1, "bis"], False],
           [False, 1, False],
@@ -191,7 +191,7 @@ pool_0_1_invalid_bis = {
     "pools": [True, False, False]
 }
 pool_2_2_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, "blank", False],
               [False, [1, "bis"], False],
               [False, 1, False],
@@ -207,7 +207,7 @@ pool_2_2_valid = {
     "pools": [False, True, False]
 }
 pool_2_2_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, "blank", False],
               [False, [1, "bis"], False],
               [False, 1, False],
@@ -223,7 +223,7 @@ pool_2_2_invalid = {
     "pools": [False, True, False]
 }
 pool_1_3_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
               [False, "blank", False],
               [False, "blank", False],
               [False, 2, False],
@@ -238,7 +238,7 @@ pool_1_3_valid = {
     "pools": [True, True, True]
 }
 pool_1_3_invalid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
               [False, 1, False],
               [False, 2, False],
               [False, "blank", False],
@@ -253,7 +253,7 @@ pool_1_3_invalid = {
     "pools": [True, True, True]
 }
 num_estates_0_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -267,7 +267,7 @@ num_estates_0_valid = {
     "pools": [False, False, False]
 }
 num_estates_0_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -281,7 +281,7 @@ num_estates_0_1_valid = {
     "pools": [False, False, False]
 }
 num_estates_1_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, "blank", False],
@@ -295,7 +295,7 @@ num_estates_1_valid = {
     "pools": [False, False, False]
 }
 num_estates_2_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [False, 2, False],
@@ -309,7 +309,7 @@ num_estates_2_valid = {
     "pools": [False, False, False]
 }
 num_estates_3_valid = {
-    "houses": ["blank", False,
+    "homes": ["blank", False,
           [False, "blank", False],
           [True, 1, False],
           [True, 2, False],
@@ -323,7 +323,7 @@ num_estates_3_valid = {
     "pools": [False, False, False]
 }
 num_estates_46_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
           [False, 2, False],
           [False, 3, False],
           [False, 4, False],
@@ -337,7 +337,7 @@ num_estates_46_valid = {
     "pools": [False, False, False]
 }
 num_estates_0_2_valid = {
-    "houses": [1, False,
+    "homes": [1, False,
           [False, 2, False],
           [False, 3, False],
           [False, 4, False],
@@ -353,7 +353,7 @@ num_estates_0_2_valid = {
 
 
 class TestStreet(TestCase):
-    # {"houses": houses, "parks": natural, "pools": [bool, bool, bool]}
+    # {"homes": homes, "parks": natural, "pools": [bool, bool, bool]}
 
     def test_get_street_num(self):
         self.assertTrue(Street(valid_num_houses1).get_street_num() == 0)
@@ -362,7 +362,7 @@ class TestStreet(TestCase):
         self.assertRaises(ContractNotRespected, lambda: Street(invalid_num_houses2).get_street_num())
 
     def test_contracts(self):
-        ### Test validation for num of houses on the street ###
+        ### Test validation for num of homes on the street ###
         self.assertEqual(Street(valid_num_houses1).homes.get_num_houses(), 10)
         self.assertEqual(Street(valid_num_houses2).homes.get_num_houses(), 12)
         self.assertRaises(ContractNotRespected, lambda: Street(invalid_num_houses1).homes.get_num_houses())
