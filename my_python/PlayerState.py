@@ -39,6 +39,15 @@ class PlayerState:
         except KeyError:
             pass
 
+    def _help_total_non_bis_houses(self) -> int:
+        num_non_bis_houses_i = 0
+        for i in range(3):
+            curr_street: Street = self.streets[i]
+            for i in range(len(curr_street.homes)):
+                curr_house: House = curr_street.homes[i]
+                if curr_house.is_built and not curr_house.is_bis: num_non_bis_houses_i += 1
+        return num_non_bis_houses_i
+
     def _check_effects_vs_built_houses(self) -> None:
         num_fences_i = 0
         for i in range(3):
