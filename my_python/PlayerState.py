@@ -1,4 +1,7 @@
 import sys
+
+from my_python.House import House
+
 sys.path.append('../../')
 from my_python.contracts import player_contract
 from my_python.Street import Street
@@ -23,6 +26,9 @@ class PlayerState:
         for i in range(3):
             self.streets.append(Street(inp_street=inp_ps["streets"][i]))
 
+        ## Check: number of used effects <= built houses
+        self._check_effects_vs_built_houses()
+
         ### If class fields are specified, set them directly
         try:
             self.agents = kwargs["agents"]
@@ -32,6 +38,17 @@ class PlayerState:
             self.temps = kwargs["temps"]
         except KeyError:
             pass
+
+    def _check_effects_vs_built_houses(self) -> None:
+        num_fences_i = 0
+        for i in range(3):
+            curr_street: Street = self.streets[i]
+            for j in range(len(curr_street.homes)):
+                curr_house = curr_street.homes[j]
+                if j == 0:
+                    if curr_house.l_fence.exists: num_fences_i += 1
+                if curr_house.r_fence.exists: num_fences_i += 1
+        if not num_fences_i <= self._help_total_non_bis_houses(): InvalidPlayerState("Number of fences is > number of non-bis houses")
 
     def __eq__(self, other):
         # Check: agents

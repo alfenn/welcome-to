@@ -1,4 +1,5 @@
 from my_python.archive.a3.Street import *
+from contracts import *
 
 class PlayerState:
     valid_agent_values = [1, 2, 3, 4, 4, 4]

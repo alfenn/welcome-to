@@ -7,8 +7,8 @@
       "homes": [
         "blank",
         false,
-        [false, "blank", false],
-        [false, "blank", false],
+        [false, "blank", true],
+        [false, "blank", true],
         [false, "blank", false],
         [false, "blank", false],
         [false, "blank", false],
@@ -18,7 +18,7 @@
         [false, "blank", false]
       ],
       "parks": 0,
-      "pools": [false, false]
+      "pools": [false, false, false]
     },
     {
       "homes": [

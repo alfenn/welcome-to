@@ -37,6 +37,8 @@ class House:
             self.is_bis = False
             self.num = -1
         self.is_built = self.num != -1
+        ## Check: house cannot be built and used in plan
+        self._check_built_used_in_plan()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.is_bis = kwargs["is_bis"]
@@ -57,6 +59,9 @@ class House:
         if self.num == -1: return "blank"               # Case: House is not built
         if self.is_bis: return [self.num, "bis"]        # Case: House is a bis
         return self.num                                 # Case: House is not a bis and built
+
+    def _check_built_used_in_plan(self) -> None:
+        if (not self.is_built) and self.used_in_plan: raise InvalidPlayerState("House cannot be built and used in plan.")
 
     def __eq__(self, other):
         if type(other) == House:
