@@ -38,7 +38,7 @@ def house_contract(inp) -> bool:
 
 def pools_contract(inp) -> bool:
     # Check: type and length of "pools" input
-    if not type(inp) == list and len(inp) == 3: return False
+    if not (type(inp) == list and len(inp) == 3): return False
     for i in range(3):
         if not (type(inp[i]) == bool): return False
     return True
