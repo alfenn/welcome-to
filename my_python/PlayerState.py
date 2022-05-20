@@ -62,7 +62,7 @@ class PlayerState:
 
         for i in range(6):
             num_agents_i += self.agents[i]
-        if not num_fences_i + num_agents_i + num_parks_i <= self._help_total_non_bis_houses(): InvalidPlayerState("Number of fences is > number of non-bis houses")
+        if not (num_fences_i + num_agents_i + num_parks_i) <= self._help_total_non_bis_houses(): InvalidPlayerState("Number of fences is > number of non-bis houses")
 
     def __eq__(self, other):
         # Check: agents
