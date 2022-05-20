@@ -52,6 +52,8 @@ class Street:
         self._check_bis()
         ## Check: no fences between bis's
         self._check_fence_btwn_same_num()
+        ## Check: ascending order
+        self._check_ascending_order()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.homes = kwargs["homes"]
@@ -161,6 +163,27 @@ class Street:
                     raise InvalidPlayerState("Cannot be a fence between houses of the same num")
             i += 1
 
+    def _check_ascending_order(self) -> None:
+        built_houses = []
+        for i in range(len(self.homes)):
+            curr_house = self.homes[i]
+            if curr_house.is_built:
+                built_houses.append(curr_house)
+        for i in range(len(built_houses) - 1):
+            i += 1
+            house1 = built_houses[i]
+            house2 = built_houses[i-1]
+            if house1.num < house2.num: raise InvalidPlayerState("Homes are not in ascending order")
+
+    def _check_no_dups(self) -> None:
+        built_non_bis_houses = []
+        for i in range(len(self.homes)):
+            curr_house = self.homes[i]
+            if curr_house.is_built and not curr_house.is_bis:
+                for j in range(len(built_non_bis_houses)):
+                    if curr_house == built_non_bis_houses[j]: raise InvalidPlayerState("Homes cannot have any duplicate non-bis houses")
+                    built_non_bis_houses.append(curr_house)
+
     def __sub__(self, other):
         if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")
         temp_homes = []
@@ -170,7 +193,7 @@ class Street:
         temp_pools = []
         for i in range(3):
             temp_pools.append(same_or_get_first(self.pools[i], other.pools[i]))
-        return Street(houses=temp_homes, parks=temp_parks, pools=temp_pools)
+        return Street(homes=temp_homes, parks=temp_parks, pools=temp_pools)
 
     def __eq__(self, other):
         # Check: .homes length

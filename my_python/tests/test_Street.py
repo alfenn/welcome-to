@@ -1,10 +1,11 @@
 import sys
 
-sys.path.append('../../../../')
+sys.path.append('../../')
 from my_python.Street import Street
 from my_python.Same import Same
 from my_python.exceptions import InvalidPlayerState
 from unittest import TestCase
+from my_python.tests.input_test_Street import *
 
 
 class TestStreet(TestCase):
@@ -35,12 +36,53 @@ class TestStreet(TestCase):
         self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=invalid_parks2).parks)
         self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=invalid_parks3).parks)
 
+    def test_validate_ascending_order(self):
+        container["homes"] = valid1
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid2
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis1
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis2
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis3
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis4
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = invalid_ascending1
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+        container["homes"] = invalid_ascending2
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+
+    def test_validate_no_dups(self):
+        container["homes"] = valid1
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid2
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis1
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis2
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis3
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = valid_bis4
+        self.assertTrue(Street(inp_street=container))
+        container["homes"] = invalid_ascending1
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+        container["homes"] = invalid_ascending2
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+        container["homes"] = invalid_dup1
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+        container["homes"] = invalid_dup2
+        self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
+
     def test_sub(self):
         self.assertEqual(Street(inp_street=valid_num_houses1) - Street(inp_street=valid_num_houses1),
-                         Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"]))
+                          Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"]))
         temp_diff = Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"])
         temp_diff.homes[1] = House(is_bis=Same(), num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
         temp_diff.homes[2] = House(is_bis=True, num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
         temp_diff.parks = 1
         self.assertEqual(Street(inp_street=valid_num_houses1_2) - Street(inp_street=valid_num_houses1),
                          temp_diff)
+

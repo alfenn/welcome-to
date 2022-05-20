@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../../../../')
+sys.path.append('../../')
 from my_python.PlayerState import PlayerState
 from my_python.exceptions import InvalidPlayerState
 from unittest import TestCase

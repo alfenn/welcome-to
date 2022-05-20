@@ -3,7 +3,7 @@ import sys
 from my_python.Street import Street
 from my_python.House import House
 
-sys.path.append('../../../../')
+sys.path.append('../../')
 from my_python.Same import Same
 
 empty_valid = {
