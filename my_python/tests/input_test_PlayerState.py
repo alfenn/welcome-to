@@ -754,7 +754,7 @@ misc_sum_invalid = {
     ],
     "temps": 4
 }
-get_total_built_fences_valid2 = {
+invalid_misc_sum = {
     "agents": [1, 0, 0, 0, 0, 0],
     "city-plan-score": [10, 10, 10],
     "refusals": 1,
@@ -809,28 +809,28 @@ get_total_built_fences_valid2 = {
 }
 misc_sum_valid = {
     "agents": [1, 0, 0, 0, 0, 0],
-    "city-plan-score": [10, 10, 10],
+    "city-plan-score": [10, "blank", "blank"],
     "refusals": 1,
     "streets": [
         {
             "homes": [1, False,
                        [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
-                       [False, [1, "bis"], False],
+                       [False, "blank", False],
+                       [False, "blank", False],
+                       [False, "blank", False],
+                       [False, "blank", False],
+                       [False, "blank", False],
+                       [False, "blank", False],
                        [True, 3, False],
-                       [False, "blank", False]],
+                       [False, 4, False]],
             "parks": 1,
             "pools": [False, False, False]
         },
         {
             "homes": [1, False,
-                       [False, "blank", False],
-                       [False, "blank", False],
-                       [False, "blank", False],
+                       [False, 2, False],
+                       [False, 3, False],
+                       [False, 4, False],
                        [False, "blank", False],
                        [False, "blank", False],
                        [False, "blank", False],
@@ -858,7 +858,7 @@ misc_sum_valid = {
             "pools": [False, False, True]
         }
     ],
-    "temps": 4
+    "temps": 0
 }
 misc_sum_invalid_fences = {
     "agents": [0, 0, 0, 0, 0, 0],

@@ -29,7 +29,7 @@ class TestPlayerState(TestCase):
         # NOTE: didn't account for number of effects played being checked against number of built homes
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=misc_sum_invalid))
 
-        self.assertTrue(PlayerState(inp_ps=get_total_built_fences_valid2))
+        self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=invalid_misc_sum))
         self.assertTrue(PlayerState(inp_ps=misc_sum_valid))
 
         # NOTE: didn't account for built fence but no built homes
@@ -42,7 +42,7 @@ class TestPlayerState(TestCase):
                                      refusals=all_same_ps["refusals"],
                                      streets=all_same_ps["streets"],
                                      temps=all_same_ps["temps"]))
-        self.assertEqual(PlayerState(inp_ps=get_total_built_fences_valid2) - PlayerState(inp_ps=empty_valid),
+        self.assertEqual(PlayerState(inp_ps=invalid_misc_sum) - PlayerState(inp_ps=empty_valid),
                          PlayerState(agents=get_total_built_fences_valid2_empty_valid_sub_ps["agents"],
                                      city_plan_score=get_total_built_fences_valid2_empty_valid_sub_ps["city-plan-score"],
                                      refusals=get_total_built_fences_valid2_empty_valid_sub_ps["refusals"],
