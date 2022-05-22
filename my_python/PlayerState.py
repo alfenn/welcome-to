@@ -72,7 +72,8 @@ class PlayerState:
             num_agents_i += self.agents[i]
         for i in range(3):
             if self.city_plan_score[i] != "blank": num_claimed_plans_i += 1
-        if not ((num_agents_i + num_claimed_plans_i + num_bis_i + num_parks_i + num_pools_i + num_temps_i + num_built_fences_i) <= self._help_total_non_bis_houses()): raise InvalidPlayerState("Number of effects is > number of non-bis houses")
+        # if not ((num_agents_i + num_claimed_plans_i + num_bis_i + num_parks_i + num_pools_i + num_temps_i + num_built_fences_i) <= self._help_total_non_bis_houses()): raise InvalidPlayerState("Number of effects is > number of non-bis houses")
+        if not ((num_claimed_plans_i + num_bis_i + num_parks_i + num_pools_i + num_temps_i + num_built_fences_i) <= self._help_total_non_bis_houses()): raise InvalidPlayerState("Number of effects is > number of non-bis houses")
 
     def __eq__(self, other):
         # Check: agents
