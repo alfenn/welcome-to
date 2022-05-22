@@ -4,8 +4,8 @@ from my_python.PlayerState import PlayerState
 from my_python.exceptions import InvalidPlayerState
 import json
 
-# input_str = sys.stdin.read()
-input_str = open('test.json', 'r').read()
+input_str = sys.stdin.read()
+# input_str = open('test.json', 'r').read()
 
 # json.load() takes a filepath
 # json.loads() takes a string
