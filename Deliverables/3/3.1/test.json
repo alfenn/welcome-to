@@ -1,6 +1,6 @@
 {
   "agents": [
-    0,
+    1,
     0,
     0,
     0,
@@ -19,47 +19,47 @@
         "blank",
         false,
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
-          "blank",
+          false,
+          8,
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ]
@@ -76,57 +76,57 @@
         "blank",
         false,
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ]
       ],
-      "parks": 0,
+      "parks": 1,
       "pools": [
         false,
         false,
@@ -138,57 +138,57 @@
         "blank",
         false,
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ],
         [
-          true,
+          false,
           "blank",
           false
         ]

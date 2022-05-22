@@ -54,6 +54,8 @@ class Street:
         self._check_fence_btwn_same_num()
         ## Check: ascending order
         self._check_ascending_order()
+        ## Check: make sure that the num of parks is <= built houses
+        self._parks_built_houses()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.homes = kwargs["homes"]
@@ -183,6 +185,17 @@ class Street:
                 for j in range(len(built_non_bis_houses)):
                     if curr_house == built_non_bis_houses[j]: raise InvalidPlayerState("Homes cannot have any duplicate non-bis houses")
                     built_non_bis_houses.append(curr_house)
+
+    def _help_total_non_bis_houses(self) -> int:
+        num_non_bis_houses_i = 0
+        for i in range(len(self.homes)):
+            curr_house: House = self.homes[i]
+            if curr_house.is_built and not curr_house.is_bis: num_non_bis_houses_i += 1
+        return num_non_bis_houses_i
+
+    def _parks_built_houses(self) -> None:
+        # "Landscaper: Parks must be crossed off on the same street that the house number is written."
+        if not (self._help_total_non_bis_houses() >= self.parks): raise InvalidPlayerState("Number of non-bis built houses must be >= number of parks on street")
 
     def __sub__(self, other):
         if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")
