@@ -49,9 +49,14 @@ class PlayerState:
         return num_non_bis_houses_i
 
     def _check_effects_vs_built_houses(self) -> None:
-        num_fences_i = 0
         num_agents_i = 0
+        num_claimed_plans_i = 0
+        num_bis_i = 0
         num_parks_i = 0
+        num_pools_i = 0
+        num_temps_i = self.temps
+        num_fences_i = 0
+
         for i in range(3):
             curr_street: Street = self.streets[i]
             for j in range(len(curr_street.homes)):
@@ -59,10 +64,15 @@ class PlayerState:
                 if j == 0:
                     if curr_house.l_fence.exists: num_fences_i += 1
                 if curr_house.r_fence.exists: num_fences_i += 1
+                if curr_house.is_bis: num_bis_i += 1
             num_parks_i += curr_street.parks
+            for i in range(3):
+                if curr_street.pools[i]: num_pools_i += 1
         for i in range(6):
             num_agents_i += self.agents[i]
-        if not ((num_fences_i + num_agents_i + num_parks_i) <= self._help_total_non_bis_houses()): InvalidPlayerState("Number of fences is > number of non-bis houses")
+        for i in range(3):
+            if self.city_plan_score[i] != "blank": num_claimed_plans_i += 1
+        if not ((num_agents_i + num_claimed_plans_i + num_bis_i + num_parks_i + num_pools_i + num_temps_i + num_fences_i) <= self._help_total_non_bis_houses()): raise InvalidPlayerState("Number of fences is > number of non-bis houses")
 
     def __eq__(self, other):
         # Check: agents
