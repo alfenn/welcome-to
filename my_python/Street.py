@@ -28,7 +28,7 @@ class Street:
                                         l_fence=Fence(True),
                                         r_fence=Fence(True)))
             # If `i` is not the first House...
-            if i > 1:
+            if i >= 2:
                 # All these homes follow schema: [ fence-or-not, house, used-in-plan ]
                 curr_house = inp_street["homes"][i]
                 temp_l_fence = Fence(inp_street["homes"][i][0])

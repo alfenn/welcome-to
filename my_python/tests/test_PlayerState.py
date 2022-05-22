@@ -2,6 +2,7 @@ import sys
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
 from my_python.exceptions import InvalidPlayerState
+from my_python.tests.input_test_PlayerState import *
 from unittest import TestCase
 
 
@@ -12,7 +13,7 @@ class TestPlayerState(TestCase):
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=street_lens_invalid))
 
         # NOTE: didn't account for having a claimed score but no built homes in our validators
-        # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=city_plan_invalid_score_built_houses))
+        # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=city_plan_invalid_score_built_homes))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=agents_invalid_len))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=agents_invalid_vals))
         self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=refusals_invalid_neg1))

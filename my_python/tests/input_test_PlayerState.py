@@ -112,7 +112,7 @@ street_lens_invalid = {
     ],
     "temps": 0
 }
-city_plan_invalid_score_built_houses = {
+city_plan_invalid_score_built_homes = {
     "agents": [0, 0, 0, 0, 0, 0],
     "city-plan-score": [1, "blank", "blank"],
     "refusals": 0,
@@ -914,21 +914,21 @@ misc_sum_invalid_fences = {
     "temps": 0
 }
 
-same_house = House(is_bis=Same(), num=Same(), is_built=Same(), used_in_plan=Same(), l_fence=Same(), r_fence=Same())
+same_house = House(d_is_bis=Same(), d_num=Same(), d_is_built=Same(), d_used_in_plan=Same(), d_l_fence=Same(), d_r_fence=Same())
 all_same_ps = {
     "agents": [Same(), Same(), Same(), Same(), Same(), Same()],
     "city-plan-score": [Same(), Same(), Same()],
     "refusals": Same(),
     "streets": [
-        Street(houses=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
+        Street(homes=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
                        same_house, same_house],
                parks=Same(),
                pools=[Same(), Same(), Same()]),
-        Street(houses=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
+        Street(homes=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
                        same_house, same_house, same_house],
                parks=Same(),
                pools=[Same(), Same(), Same()]),
-        Street(houses=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
+        Street(homes=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
                        same_house, same_house, same_house, same_house],
                parks=Same(),
                pools=[Same(), Same(), Same()])
@@ -941,7 +941,7 @@ get_total_built_fences_valid2_empty_valid_sub_ps = {
     "city-plan-score": [10, 10, 10],
     "refusals": 1,
     "streets": [
-        Street(houses=[House(inp_house=1, used_in_plan=False, l_fence=True, r_fence=False),
+        Street(homes=[House(inp_house=1, used_in_plan=False, l_fence=True, r_fence=False),
                        House(inp_house=[1, "bis"], used_in_plan=False, l_fence=False, r_fence=False),
                        House(inp_house=[1, "bis"], used_in_plan=False, l_fence=False, r_fence=False),
                        House(inp_house=[1, "bis"], used_in_plan=False, l_fence=False, r_fence=False),
@@ -951,11 +951,11 @@ get_total_built_fences_valid2_empty_valid_sub_ps = {
                        same_house, same_house, same_house],
                parks=Same(),
                pools=[Same(), Same(), Same()]),
-        Street(houses=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
+        Street(homes=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
                        same_house, same_house, same_house],
                parks=Same(),
                pools=[Same(), Same(), Same()]),
-        Street(houses=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
+        Street(homes=[same_house, same_house, same_house, same_house, same_house, same_house, same_house, same_house,
                        same_house, same_house,
                        House(inp_house=1, used_in_plan=False, l_fence=False, r_fence=False),
                        same_house],
