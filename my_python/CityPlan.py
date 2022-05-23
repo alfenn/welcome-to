@@ -1,4 +1,4 @@
-from my_python.archive.a3.my_contracts_GameState import *
+from my_python.my_contracts_GameState import *
 class CityPlan:
     def __init__(self, in_cp: dict):
         """

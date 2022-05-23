@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../../')
 from my_python.archive.a3.PlayerState import PlayerState
-from my_python.archive.a3.GameState import GameState
+from my_python.GameState import GameState
 
 def gen_move(ps1: PlayerState, ps2: PlayerState) -> PlayerState:
     """Generates a player state corresponding to the exact move made

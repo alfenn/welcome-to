@@ -1,2 +1,25 @@
 import sys
 sys.path.append('../../../')
+from my_python.PlayerState import PlayerState
+from my_python.exceptions import InvalidMove
+from my_python.GameState import GameState
+from my_python.validate_move import validate_move
+import json
+
+input_str = sys.stdin.read()
+
+inp_lst = json.loads(sys.stdin.read())
+# inp_lst = json.loads(open('test.4on', 'r').read())
+inp_gs = inp_lst[0]
+inp_ps1 = inp_lst[1]
+inp_ps2 = inp_lst[2]
+gs: GameState = GameState(inp_gs)
+ps1: PlayerState = PlayerState(inp_ps=inp_ps1)
+ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
+diff: PlayerState = ps2 - ps1
+
+try:
+    validate_move(diff)
+    print("true")
+except InvalidMove:
+    print("false")

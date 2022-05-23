@@ -1,5 +1,5 @@
 from unittest import TestCase
-from my_python.archive.a3.CityPlan import *
+from my_python.CityPlan import *
 
 spec_valid = {"criteria":[1,1,1,1,1,1],"position":1,"score1":8,"score2":4}
 score2_invalid = {"criteria":[1,1,1,1,1,1],"position":1,"score1":8,"score2":True}

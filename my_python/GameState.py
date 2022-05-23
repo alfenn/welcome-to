@@ -1,4 +1,4 @@
-from my_python.archive.a3.CityPlan import *
+from my_python.CityPlan import *
 
 class GameState:
     def __init__(self, in_gs):
