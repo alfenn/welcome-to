@@ -12,11 +12,11 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
         curr_street_2 = ps2.streets[i]
-        curr_street_diff = diff.streets[i]
+        # curr_street_diff = diff.streets[i]
         for j in range(len(curr_street_1.homes)):
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
-            curr_house_diff: House = curr_street_diff[j]
+            # curr_house_diff: House = curr_street_diff.homes[j]
             ## Catch: built -> blank
             ##        built -> different built
             ##        blank -> built
