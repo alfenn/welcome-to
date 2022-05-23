@@ -3,7 +3,7 @@ sys.path.append('../../')
 from my_python.PlayerState import PlayerState
 from my_python.exceptions import InvalidMove
 
-def validate_move(diff: PlayerState, ps2: PlayerState, ps1: PlayerState) -> None:
+def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None:
     if ps1 == ps2: raise InvalidMove("The move can't be do nothing (must increment refusals).")
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove

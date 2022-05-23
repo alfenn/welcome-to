@@ -18,7 +18,7 @@ ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
 diff: PlayerState = ps2 - ps1
 
 try:
-    validate_move(diff)
+    validate_move(diff, ps1, ps2)
     print("true")
 except InvalidMove:
     print("false")
