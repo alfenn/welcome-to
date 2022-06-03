@@ -12,11 +12,9 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
         curr_street_2 = ps2.streets[i]
-        # curr_street_diff = diff.streets[i]
         for j in range(len(curr_street_1.homes)):
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
-            # curr_house_diff: House = curr_street_diff.homes[j]
             ## Catch: built -> blank
             ##        built -> different built
             ##        blank -> built
@@ -32,6 +30,8 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
     if diff.help_total_non_bis_houses() == 1: raise InvalidMove("Can't build more than one house.")
     if not ((ps2.get_num_played_effects() - ps1.get_num_played_effects()) in {0, 1}): raise InvalidMove("Can't remove effects or play more than one effect.")
-
-
+    ## Check: make sure the only valid combos for newly built houses are (1) 1 house + 1 bis and
+    #                                                                    (2) 1 house
+    if bis_counter > 1: raise InvalidMove("Cannot build more than one newly bis'd house")
+    if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
 
