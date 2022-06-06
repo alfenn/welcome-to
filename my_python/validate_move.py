@@ -16,7 +16,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
-        curr_street_2 = ps2.streets[i]
+        curr_street_2: Street = ps2.streets[i]
         for j in range(len(curr_street_1.homes)):
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
@@ -32,7 +32,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 ## Case: built -> blank => Error
                 if curr_house_1.is_built and not (curr_house_2.is_built): raise InvalidMove("A built house cannot go to a blank house")
                 ## Case: built -> (different) built => Error
-                if curr_house_1.is_built and curr_house_2.is_built: raise InvalidMove("A built house cannot change nums")
+                if curr_house_1.is_built and (curr_house_1.num != curr_house_2.num): raise InvalidMove("A built house cannot change nums")
                 ## Case: bis'd house -> non bis'd house => Error
                 if curr_house_1.is_bis and not (curr_house_2.is_bis): raise InvalidMove("A bis'd house cannot become a non bis'd house")
                 ## Case-- valid: not built to built
