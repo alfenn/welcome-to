@@ -13,6 +13,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     house_counter = 0
     effect_counter = 0
     house_num = None
+    effect_played = None
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
@@ -49,7 +50,9 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 ## Case: true fence -> false fence
                 if curr_house_1.r_fence.exists and not curr_house_2.r_fence.exists: raise InvalidMove("A built fence cannot become an unbuilt fence")
                 ## If we're building fences...
-                if curr_house_2.r_fence.exists: effect_counter += 1
+                if curr_house_2.r_fence.exists and not curr_house_1.r_fence.exists:
+                    effect_counter += 1
+                    effect_played = "surveyor"
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
