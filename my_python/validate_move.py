@@ -42,7 +42,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 # If we're building a bis...
                 if curr_house_2.is_bis: effect_counter += 1
                 # If we're building a non-bis house...
-                if curr_house_2.is_built: house_counter += 1
+                if curr_house_2.is_built and not curr_house_1.is_built: house_counter += 1
                 ###############
                 ## Fences: true fence becomes false fence
                 ###############
