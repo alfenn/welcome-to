@@ -22,7 +22,8 @@
         }
       ],
     "city-plans-won":[false,false,false],
-    "construction-cards":[[5,"bis"],[5,"bis"],[5,"bis"]],
+    "construction-cards":
+      [[13,"bis"],[13,"bis"],[13,"bis"]],
     "effects":["surveyor","pool","temp"]
   },
   {
@@ -35,15 +36,15 @@
           "homes":
             [
               1,false,
-              [false,"blank",false],
+              [false,2,false],
               [false,3,false],
               [false,4,false],
+              [false,5,false],
               [false,6,false],
               [false,7,false],
               [false,8,false],
               [false,9,false],
-              [false,10,false],
-              [false,11,false]
+              [false,10,false]
             ],
           "parks":0,
           "pools":[false,false,false]
@@ -91,7 +92,7 @@
   {
     "agents":[0,0,0,0,0,0],
     "city-plan-score":["blank","blank","blank"],
-    "refusals":0,
+    "refusals":1,
     "streets":
       [
         {
@@ -101,12 +102,12 @@
               [false,2,false],
               [false,3,false],
               [false,4,false],
+              [false,5,false],
               [false,6,false],
               [false,7,false],
               [false,8,false],
               [false,9,false],
-              [false,10,false],
-              [false,11,false]
+              [false,10,false]
             ],
           "parks":0,
           "pools":[false,false,false]

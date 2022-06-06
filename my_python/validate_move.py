@@ -63,7 +63,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
     # check to make sure that house_num is in the construction cards
-    if [x[0] for x in gs.construction_cards].count(house_num) == 0: raise InvalidMove("played house is not in construction cards")
+    if ([x[0] for x in gs.construction_cards].count(house_num) == 0) and not (house_num is None): raise InvalidMove("played house is not in construction cards")
 
 
 
