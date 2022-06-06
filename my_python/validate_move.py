@@ -1,15 +1,17 @@
 import sys
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
+from my_python.GameState import GameState
 from my_python.Street import Street
 from my_python.House import House
 from my_python.exceptions import InvalidMove
 
-def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None:
+def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     ## Case: Cannot do nothing
     if ps1 == ps2: raise InvalidMove("The move can't be do nothing (must increment refusals).")
     house_counter = 0
-    bis_counter = 0
+    effect_counter = 0
+    house_num = None
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
@@ -17,11 +19,15 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None
         for j in range(len(curr_street_1.homes)):
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
-            ## Catch: built -> blank
-            ##        built -> different built
-            ##        built (bis) -> not bis but same number
-            ##        make sure only one house is being built unless it's a bis (ensure only one bis)
-            if curr_house_1.num != curr_house_2.num:
+
+            if curr_house_1 != curr_house_2:
+                ###############
+                ## Catch: built -> blank
+                ##        built -> different built
+                ##        built (bis) -> not bis but same number
+                ##        make sure only one house is being built unless it's a bis (ensure only one bis)
+                ###############
+                ##### Catch errors
                 ## Case: built -> blank => Error
                 if curr_house_1.is_built and not (curr_house_2.is_built): raise InvalidMove("A built house cannot go to a blank house")
                 ## Case: built -> (different) built => Error
@@ -41,4 +47,10 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState) -> None
     #                                                                    (2) 1 house
     if bis_counter > 1: raise InvalidMove("Cannot build more than one newly bis'd house")
     if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
+    if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
+    # check to make sure that house_num is in the construction cards
+    if [x[0] for x in gs.construction_cards].count(house_num) == 0: raise InvalidMove("played house is not in construction cards")
+
+
+
 

@@ -6,8 +6,8 @@ from my_python.GameState import GameState
 from my_python.validate_move import validate_move
 import json
 
-input_str = sys.stdin.read()
-# input_str = open('test.json', 'r').read()
+# input_str = sys.stdin.read()
+input_str = open('test.json', 'r').read()
 inp_lst = json.loads(input_str)
 inp_gs = inp_lst[0]
 inp_ps1 = inp_lst[1]
@@ -18,7 +18,7 @@ ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
 diff: PlayerState = ps2 - ps1
 
 try:
-    validate_move(diff, ps1, ps2)
+    validate_move(diff, ps1, ps2, gs)
     print("true")
 except InvalidMove:
     print("false")

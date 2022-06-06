@@ -34,7 +34,7 @@
         {
           "homes": [
             1,false,
-            [false,"blank",false],
+            [true,"blank",false],
             [false,3,false],
             [false,4,false],
             [false,6,false],
