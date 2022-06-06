@@ -56,12 +56,13 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
             ###############
             ##  Parks
             ###############
-            ## Case: error if not ps1.parks == ps2.parks - 1
-            if not curr_street_1.parks == curr_street_2.parks - 1: raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
-            ## If we're building parks...
-            if curr_street_2.parks > curr_street_1.parks:
-                effect_counter += 1
-                effect_played = "landscaper"
+            if curr_street_1.parks != curr_street_2.parks:
+                ## Case: error if not ps1.parks == ps2.parks - 1
+                if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
+                ## If we're building parks...
+                if curr_street_2.parks > curr_street_1.parks:
+                    effect_counter += 1
+                    effect_played = "landscaper"
             ###############
             ##  Pools
             ###############
