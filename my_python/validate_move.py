@@ -57,6 +57,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     if not ((ps2.get_num_played_effects() - ps1.get_num_played_effects()) in {0, 1}): raise InvalidMove("Can't remove effects or play more than one effect.")
     ## Check: make sure the only valid combos for newly built houses are (1) 1 house + 1 bis and
     #                                                                    (2) 1 house
+    # if house_counter == 0: raise
     # Check: make sure that multiple fences are not being built on the same turn
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
     if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
