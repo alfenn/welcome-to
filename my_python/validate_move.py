@@ -7,6 +7,8 @@ from my_python.House import House
 from my_python.exceptions import InvalidMove
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
+    built_house = {"street_ind": None,
+                   "house_num": None}
     ## Case: Cannot do nothing
     if ps1 == ps2: raise InvalidMove("The move can't be do nothing (must increment refusals).")
     # Counter variables
@@ -38,7 +40,9 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 if curr_house_1.is_bis and not (curr_house_2.is_bis): raise InvalidMove("A bis'd house cannot become a non bis'd house")
                 ## Case-- valid: not built to built
                 #   Store newly built house num into house_num
-                if (not curr_house_1.is_built) and curr_house_2.is_built: house_num = curr_house_2.num
+                if (not curr_house_1.is_built) and curr_house_2.is_built:
+                    built_house["house_num"] = curr_house_2.num
+                    built_house["street_ind"] = i
                 ##### Increment effect counter
                 # If we're building a bis...
                 if curr_house_2.is_bis: effect_counter += 1
