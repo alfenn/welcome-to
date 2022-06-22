@@ -76,6 +76,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
             if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
             ## If we're building parks...
             if curr_street_2.parks > curr_street_1.parks:
+                if built_house["street_ind"] != i: raise InvalidMove("Parks must be played on the same street a House is built")
                 effect_counter += 1
                 effect_played = "landscaper"
         ###############
@@ -89,6 +90,15 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 if not curr_street_1.pools[k] and curr_street_2.pools[k]:
                     effect_counter += 1
                     effect_played = "pool"
+    ###############
+    ##  Agents
+    ###############
+    for i in range(6):
+        curr_agents_1 = ps1.agents[i]
+        curr_agents_2 = ps2.agents[i]
+        if ps1.agents[i] != ps2.agents[i]:
+            if curr_agents_1 + 1 != curr_agents_2: raise InvalidMove("If an agent changed, the change can only be exactly += 1.")
+            effect_counter += 1
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
