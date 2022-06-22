@@ -18,7 +18,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
         curr_street_2: Street = ps2.streets[i]
-        for j in range(len(curr_street_1.homes)):
+        for j in range(len(curr_street_1.homes)):   # Iterate through the corresponding houses of the curr street number
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
 
@@ -53,6 +53,17 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 if curr_house_2.r_fence.exists and not curr_house_1.r_fence.exists:
                     effect_counter += 1
                     effect_played = "surveyor"
+                ###############
+                ##  Used in plan
+                ###############
+                if curr_house_1.used_in_plan and curr_house_2.used_in_plan:
+                    ## CASE 2 ##
+                    if (not curr_house_1.r_fence.exists) and curr_house_2.r_fence.exists:
+                        # if the house after is used in plan...
+                        if curr_street_2.homes[j+1].used_in_plan:
+                            raise InvalidMove("Cannot play a fence that cuts an estate")
+                if curr_house_1.used_in_plan and not curr_house_2.used_in_plan:
+                    raise InvalidMove("A house that is used in plan cannot become unused in a plan")
             ###############
             ##  Parks
             ###############
