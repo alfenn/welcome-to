@@ -64,27 +64,27 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                             raise InvalidMove("Cannot play a fence that cuts an estate")
                 if curr_house_1.used_in_plan and not curr_house_2.used_in_plan:
                     raise InvalidMove("A house that is used in plan cannot become unused in a plan")
-            ###############
-            ##  Parks
-            ###############
-            if curr_street_1.parks != curr_street_2.parks:
-                ## Case: error if not ps1.parks == ps2.parks - 1
-                if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
-                ## If we're building parks...
-                if curr_street_2.parks > curr_street_1.parks:
+        ###############
+        ##  Parks
+        ###############
+        if curr_street_1.parks != curr_street_2.parks:
+            ## Case: error if not ps1.parks == ps2.parks - 1
+            if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
+            ## If we're building parks...
+            if curr_street_2.parks > curr_street_1.parks:
+                effect_counter += 1
+                effect_played = "landscaper"
+        ###############
+        ##  Pools
+        ###############
+        for k in range(3):
+            if curr_street_2.pools[k] != curr_street_1.pools[k]:
+                # Case: if going from pool -> not pool:
+                if curr_street_1.pools[k] and not curr_street_2.pools[k]: raise InvalidMove("Can't deconstruct a pool")
+                # Case: (valid) if going from not pool -> pool:
+                if not curr_street_1.pools[k] and curr_street_2.pools[k]:
                     effect_counter += 1
-                    effect_played = "landscaper"
-            ###############
-            ##  Pools
-            ###############
-            for k in range(3):
-                if curr_street_2.pools[k] != curr_street_1.pools[k]:
-                    # Case: if going from pool -> not pool:
-                    if curr_street_1.pools[k] and not curr_street_2.pools[k]: raise InvalidMove("Can't deconstruct a pool")
-                    # Case: (valid) if going from not pool -> pool:
-                    if not curr_street_1.pools[k] and curr_street_2.pools[k]:
-                        effect_counter += 1
-                        effect_played = "pool"
+                    effect_played = "pool"
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
