@@ -1,10 +1,12 @@
 import sys
+
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
 from my_python.GameState import GameState
 from my_python.Street import Street
 from my_python.House import House
 from my_python.exceptions import InvalidMove
+
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     built_house = {"street_ind": None,
@@ -20,7 +22,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
         curr_street_2: Street = ps2.streets[i]
-        for j in range(len(curr_street_1.homes)):   # Iterate through the corresponding houses of the curr street number
+        for j in range(len(curr_street_1.homes)):  # Iterate through the corresponding houses of the curr street number
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
 
@@ -33,11 +35,14 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 ###############
                 ##### Catch errors
                 ## Case: built -> blank => Error
-                if curr_house_1.is_built and not (curr_house_2.is_built): raise InvalidMove("A built house cannot go to a blank house")
+                if curr_house_1.is_built and not (curr_house_2.is_built): raise InvalidMove(
+                    "A built house cannot go to a blank house")
                 ## Case: built -> (different) built => Error
-                if curr_house_1.is_built and (curr_house_1.num != curr_house_2.num): raise InvalidMove("A built house cannot change nums")
+                if curr_house_1.is_built and (curr_house_1.num != curr_house_2.num): raise InvalidMove(
+                    "A built house cannot change nums")
                 ## Case: bis'd house -> non bis'd house => Error
-                if curr_house_1.is_bis and not (curr_house_2.is_bis): raise InvalidMove("A bis'd house cannot become a non bis'd house")
+                if curr_house_1.is_bis and not (curr_house_2.is_bis): raise InvalidMove(
+                    "A bis'd house cannot become a non bis'd house")
                 ## Case-- valid: not built to built
                 #   Store newly built house num into house_num
                 if (not curr_house_1.is_built) and curr_house_2.is_built:
@@ -53,7 +58,8 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 ##  Fences
                 ###############
                 ## Case: true fence -> false fence
-                if curr_house_1.r_fence.exists and not curr_house_2.r_fence.exists: raise InvalidMove("A built fence cannot become an unbuilt fence")
+                if curr_house_1.r_fence.exists and not curr_house_2.r_fence.exists: raise InvalidMove(
+                    "A built fence cannot become an unbuilt fence")
                 ## If we're building fences...
                 if curr_house_2.r_fence.exists and not curr_house_1.r_fence.exists:
                     effect_counter += 1
@@ -65,7 +71,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                     ## CASE 2 ##
                     if (not curr_house_1.r_fence.exists) and curr_house_2.r_fence.exists:
                         # if the house after is used in plan...
-                        if curr_street_2.homes[j+1].used_in_plan:
+                        if curr_street_2.homes[j + 1].used_in_plan:
                             raise InvalidMove("Cannot play a fence that cuts an estate")
                 if curr_house_1.used_in_plan and not curr_house_2.used_in_plan:
                     raise InvalidMove("A house that is used in plan cannot become unused in a plan")
@@ -74,10 +80,12 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
         ###############
         if curr_street_1.parks != curr_street_2.parks:
             ## Case: error if not ps1.parks == ps2.parks - 1
-            if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove("The difference between PlayerState parks cannot be more than 1")
+            if not (curr_street_1.parks == curr_street_2.parks - 1): raise InvalidMove(
+                "The difference between PlayerState parks cannot be more than 1")
             ## If we're building parks...
             if curr_street_2.parks > curr_street_1.parks:
-                if built_house["street_ind"] != i: raise InvalidMove("Parks must be played on the same street a House is built")
+                if built_house["street_ind"] != i: raise InvalidMove(
+                    "Parks must be played on the same street a House is built")
                 effect_counter += 1
                 effect_played = "landscaper"
         ###############
@@ -98,7 +106,8 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
         curr_agents_1 = ps1.agents[i]
         curr_agents_2 = ps2.agents[i]
         if ps1.agents[i] != ps2.agents[i]:
-            if curr_agents_1 + 1 != curr_agents_2: raise InvalidMove("If an agent changed, the change can only be exactly += 1.")
+            if curr_agents_1 + 1 != curr_agents_2: raise InvalidMove(
+                "If an agent changed, the change can only be exactly += 1.")
             effect_counter += 1
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
@@ -137,9 +146,9 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
     if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
-    # check to make sure that house_num is in the construction cards
-    if ([x[0] for x in gs.construction_cards].count(built_house["house_num"]) == 0) and (not (built_house["house_num"] is None)): raise InvalidMove("played house is not in construction cards")
-    if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove("effect that was played is not in the game state")
+
+    if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove(
+        "effect that was played is not in the Game state")
 
     #####
     ## Check validity of pool construction
@@ -149,12 +158,10 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                    [1, 6, 10]]
     match = False
     if effect_played == "pool":
-        for street in range(len(valid_pools)):      # Iterates through 0, 1, 2
-            if match: break         # reduce redundant work
-            for house in (valid_pools[street]):     # Iterates through [2, 6, 7], [0, 3, 7], ...
-                if match: break     # reduce redundant work
+        for street in range(len(valid_pools)):  # Iterates through 0, 1, 2
+            if match: break  # reduce redundant work
+            for house in (valid_pools[street]):  # Iterates through [2, 6, 7], [0, 3, 7], ...
+                if match: break  # reduce redundant work
                 if street == built_house["street_ind"] and house == built_house["house_ind"]: match = True
         if not match:
             raise InvalidMove("Pool cannot be played on a house without a pool.")
-
-
