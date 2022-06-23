@@ -43,6 +43,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 if (not curr_house_1.is_built) and curr_house_2.is_built:
                     built_house["house_num"] = curr_house_2.num
                     built_house["street_ind"] = i
+                    built_house["house_ind"] = j
                 ##### Increment effect counter
                 # If we're building a bis...
                 if curr_house_2.is_bis: effect_counter += 1
