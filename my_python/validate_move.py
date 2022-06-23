@@ -8,13 +8,13 @@ from my_python.exceptions import InvalidMove
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     built_house = {"street_ind": None,
-                   "house_num": None}
+                   "house_num": None,
+                   "house_ind": None}
     ## Case: Cannot do nothing
     if ps1 == ps2: raise InvalidMove("The move can't be do nothing (must increment refusals).")
     # Counter variables
     house_counter = 0
     effect_counter = 0
-    house_num = None
     effect_played = None
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
@@ -112,8 +112,23 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
     # check to make sure that house_num is in the construction cards
-    if ([x[0] for x in gs.construction_cards].count(house_num) == 0) and (not (house_num is None)): raise InvalidMove("played house is not in construction cards")
+    if ([x[0] for x in gs.construction_cards].count(built_house["house_num"]) == 0) and (not (built_house["house_num"] is None)): raise InvalidMove("played house is not in construction cards")
     if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove("effect that was played is not in the game state")
 
+    #####
+    ## Check validity of pool construction
+    #####
+    valid_pools = [[2, 6, 7],
+                   [0, 3, 7],
+                   [1, 6, 10]]
+    match = False
+    if effect_played == "pool":
+        for street in range(len(valid_pools)):      # Iterates through 0, 1, 2
+            if match: break         # reduce redundant work
+            for house in (valid_pools[street]):     # Iterates through [2, 6, 7], [0, 3, 7], ...
+                if match: break     # reduce redundant work
+                if street == built_house["street_ind"] and house == built_house["house_ind"]: match = True
+        if not match:
+            raise InvalidMove("Pool cannot be played on a house without a pool.")
 
 
