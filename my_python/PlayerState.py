@@ -1,3 +1,4 @@
+import json
 import sys
 
 from my_python.House import House
@@ -103,3 +104,16 @@ class PlayerState:
             temp_streets.append(self.streets[i] - other.streets[i])
         temp_temps = same_or_get_first(self.temps, other.temps)
         return PlayerState(agents=temp_agents, city_plan_score=temp_city_plan_score, refusals=temp_refusals, streets=temp_streets, temps=temp_temps)
+
+    def __str__(self):
+        ret = {"agents": self.agents,
+               "city-plan-score": self.city_plan_score,
+               "refusals": self.refusals,
+               "streets": [
+                   self.streets[0].return_literal(),
+                   self.streets[1].return_literal(),
+                   self.streets[2].return_literal()
+               ],
+               "temps": self.temps
+            }
+        return json.dumps(ret)

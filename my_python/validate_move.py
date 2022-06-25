@@ -1,14 +1,24 @@
+import json
 import sys
 
 sys.path.append('../../')
+from my_python.archive.a3.PlayerState import PlayerState
+OldPlayerState = PlayerState    # Alias the old player state
 from my_python.PlayerState import PlayerState
 from my_python.GameState import GameState
 from my_python.Street import Street
 from my_python.House import House
 from my_python.exceptions import InvalidMove
+from my_python.GenValidMove import GenValidMove
 
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
+    #######
+    ## Refusals checking
+    #######
+    # Basically check if refusals changed iff there is no move that can be played
+    if GenValidMove(gs, ps1).vm.refusals != ps2.refusals: raise InvalidMove("Cannot increment refusals if a valid move exists.")
+
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}

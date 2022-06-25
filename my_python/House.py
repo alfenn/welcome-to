@@ -88,3 +88,17 @@ class House:
                     d_l_fence=same_or_get_first(self.l_fence, other.l_fence),
                     d_r_fence=same_or_get_first(self.r_fence, other.r_fence))
         return ret
+
+    def return_literal(self):
+        if not self.is_built:   # Not built
+            return "blank"
+        elif not self.is_bis:   # Normal house (not bis)
+            return self.num
+        else:                   # Bis house
+            return [self.num, "bis"]
+
+    def __str__(self):
+        if self.is_built:
+            return str(self.num)
+        else:
+            return "blank"

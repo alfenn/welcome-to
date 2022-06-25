@@ -1,4 +1,6 @@
 import sys
+from typing import List
+
 sys.path.append("../../")
 from my_python.exceptions import InvalidPlayerState
 from my_python.contracts import street_contract
@@ -16,7 +18,7 @@ class Street:
         inp_street = kwargs.get("inp_street", {"homes": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False] ],"parks": 0,"pools": [False, False, False]})
         if not street_contract(inp_street): raise InvalidPlayerState("Breaks House contract")
         ### Normal processing of standard inputs.
-        self.homes = []
+        self.homes: List[House] = []
         self.parks = 0
         self.pools = [False, False, False]
 
@@ -218,3 +220,23 @@ class Street:
         if self.parks != other.parks: return False
         if self.pools != other.pools: return False
         return True
+
+    def return_literal(self):
+        ret = {
+            "homes": [],
+            "parks": self.parks,
+            "pools": self.pools
+        }
+        ######
+        ## Homes
+        ######
+        # First house
+        ret["homes"].append(self.homes[0].return_literal())
+        ret["homes"].append(self.homes[0].used_in_plan)
+        # All the other houses
+        for i in range(len(self.homes) - 1):
+            i += 1
+            ret["homes"].append([self.homes[i].l_fence.exists,
+                                 self.homes[i].return_literal(),
+                                 self.homes[i].used_in_plan])
+        return ret
