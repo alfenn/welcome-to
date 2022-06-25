@@ -55,15 +55,14 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                     "A bis'd house cannot become a non bis'd house")
                 ## Case-- valid: not built to built
                 #   Store newly built house num into house_num
-                if (not curr_house_1.is_built) and curr_house_2.is_built:
+                if (not curr_house_1.is_built) and (curr_house_2.is_built and (not curr_house_2.is_bis)):
                     built_house["house_num"] = curr_house_2.num
                     built_house["street_ind"] = i
                     built_house["house_ind"] = j
+                    house_counter += 1
                 ##### Increment effect counter
                 # If we're building a bis...
                 if curr_house_2.is_bis: effect_counter += 1
-                # If we're building a non-bis house...
-                if curr_house_2.is_built and not curr_house_1.is_built: house_counter += 1
                 ###############
                 ##  Fences
                 ###############
@@ -122,9 +121,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
-    if diff.help_total_non_bis_houses() == 1: raise InvalidMove("Can't build more than one house.")
-    if not ((ps2.get_num_played_effects() - ps1.get_num_played_effects()) in {0, 1}): raise InvalidMove(
-        "Can't remove effects or play more than one effect.")
+    # if diff.help_total_non_bis_houses() == 1: raise InvalidMove("Can't build more than one house
     ######
     ## Temp check
     ######
@@ -155,7 +152,7 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     # Check: make sure that multiple fences are not being built on the same turn
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
-
+    if house_counter > 1: raise InvalidMove("Cannot build more than one non-bis'd house")
     if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove(
         "effect that was played is not in the Game state")
 
