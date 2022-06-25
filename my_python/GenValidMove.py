@@ -116,6 +116,6 @@ class GenValidMove:
         Returns the played move as a json string representation of
         the resulting PlayerState.
 
-            :return: json string of a PlayerState
+        :return: json string of a PlayerState
         """
         return str(self.vm)

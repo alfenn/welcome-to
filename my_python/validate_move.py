@@ -154,7 +154,6 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     # if house_counter == 0: raise
     # Check: make sure that multiple fences are not being built on the same turn
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
-    if house_counter > 1: raise InvalidMove("Cannot build more than one new house")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
 
     if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove(
@@ -175,3 +174,25 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                 if street == built_house["street_ind"] and house == built_house["house_ind"]: match = True
         if not match:
             raise InvalidMove("Pool cannot be played on a house without a pool.")
+    #####
+    ## Check validity of city plans
+    #####
+    # Loop through ps.city_plan_score...
+    for i in range(3):
+        # Identify any differences
+        # a. num -> "blank" (invalid)
+        if ps1.city_plan_score[i] != "blank" and ps2.city_plan_score[i] == "blank":
+            raise InvalidMove("Cannot go from claimed city plan score to \"blank\" city plan score.")
+        # b. "blank" -> num (valid)
+        if ps1.city_plan_score[i] == "blank" and ps2.city_plan_score[i] != "blank":
+            num = ps2.city_plan_score[i]
+            # if gs.city_plans_won[i] is true AND num is ~not~ gs.city_plans[i].score2... then error.
+            if gs.city_plans_won[i] and num != gs.city_plans[i].score2:
+                raise InvalidMove("If a city plan was claimed by a player, BUT they weren't the first to claim that "
+                                  "plan, the score claimed CANNOT be anything BUT the corresponding plan's score 2.")
+            # if gs.city_plans_won[i] is false AND num is ~not~ gs.city_plans[i].score1 then error.
+            if not gs.city_plans_won[i] and num != gs.city_plans[i].score1:
+                raise InvalidMove("If a city plan was claimed, AND they were the first to claim that plan, "
+                                  "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
+        # c. city_plans_won goes from true -> false: error
+        # if gs.city_plans_won
