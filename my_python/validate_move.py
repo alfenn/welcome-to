@@ -13,12 +13,6 @@ from my_python.GenValidMove import GenValidMove
 
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
-    #######
-    ## Refusals checking
-    #######
-    # Basically check if refusals changed iff there is no move that can be played
-    if GenValidMove(gs, ps1).vm.refusals != ps2.refusals: raise InvalidMove("Cannot increment refusals if a valid move exists.")
-
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}
@@ -129,23 +123,26 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     house_nums_with_temp = [gs.construction_cards[i][0] for i in range(len(gs.effects)) if gs.effects[i] == "temp"]
     # Check if temps are in construction cards and is an effect played with a built house
     ## [temp has to be an effect] and [number has to be within +- 2 of one construction card]
-    if effect_played is None and house_counter > 0 \
-            and [e for e in gs.effects].count("temp") > 0 \
-            and ((house_nums_with_temp.count(built_house["house_num"])
-                  + house_nums_with_temp.count(built_house["house_num"] + 1)
-                  + house_nums_with_temp.count(built_house["house_num"] - 1)
-                  + house_nums_with_temp.count(built_house["house_num"] + 2)
-                  + house_nums_with_temp.count(built_house["house_num"] - 2)) > 0):
-        # a temp was legally played
+    if ps1.temps != ps2.temps:
         effect_counter += 1
         effect_played = "temp"
+        if effect_played is None and house_counter > 0 \
+                and ((house_nums_with_temp.count(built_house["house_num"])
+                    + house_nums_with_temp.count(built_house["house_num"] + 1)
+                    + house_nums_with_temp.count(built_house["house_num"] - 1)
+                    + house_nums_with_temp.count(built_house["house_num"] + 2)
+                    + house_nums_with_temp.count(built_house["house_num"] - 2)) > 0):
+                if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
     ######
     ## Check to make sure that house_num is in the construction cards
     # Note: only need to do this check outside a "temp is played case"
     ######
     elif ([x[0] for x in gs.construction_cards].count(built_house["house_num"]) == 0) and (
                 not (built_house["house_num"] is None)): raise InvalidMove("played house is not in construction cards")
-
+    # Make sure only one effect is being played
+    ####POTENTIALLY USELESS???
+    # if not ((ps2.get_num_played_effects() - ps1.get_num_played_effects()) in {0, 1}): raise InvalidMove(
+    #    "Can't remove effects or play more than one effect.")
     ## Check: make sure the only valid combos for newly built houses are (1) 1 house + 1 bis and
     #                                                                    (2) 1 house
     # if house_counter == 0: raise
@@ -193,3 +190,12 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
                                   "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
         # c. city_plans_won goes from true -> false: error
         # if gs.city_plans_won
+
+    #######
+    ## Refusals checking
+    #######
+    # Basically check if refusals changed iff there is no move that can be played
+    if GenValidMove(gs, ps1).vm.refusals != ps2.refusals: raise InvalidMove(
+        "Cannot increment refusals if a valid move exists.")
+    if (ps2.refusals != ps1.refusals) and (effect_counter != 0 or house_counter != 0):
+        raise InvalidMove("Cannot increment refusals and play a house/effect")
