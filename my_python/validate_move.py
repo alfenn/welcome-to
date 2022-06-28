@@ -62,7 +62,7 @@ def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
     return estates
 
 
-def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
+def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     """
     Validates whether a move is legal or not.
     """
