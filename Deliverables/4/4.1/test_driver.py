@@ -7,7 +7,7 @@ from my_python.validate_move import validate_move
 import json
 
 input_str = sys.stdin.read()
-# input_str = open('input_04_08_landscaper_robby.json', 'r').read()
+# input_str = open('input_09_15_city_plans_robby.json', 'r').read()
 inp_lst = json.loads(input_str)
 inp_gs = inp_lst[0]
 inp_ps1 = inp_lst[1]
