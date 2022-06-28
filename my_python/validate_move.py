@@ -10,6 +10,47 @@ from my_python.House import House
 from my_python.exceptions import InvalidMove
 from my_python.GenValidMove import GenValidMove
 
+
+def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
+    """
+    Returns a set such that it holds all the estates that are uip.
+    """
+    estates: Counter = Counter()
+    counting_houses = False
+    curr_estate_len = 0
+    # Loop through each street
+    for i in range(3):
+        curr_street: Street = ps2.streets[i]
+        for j in range(len(curr_street.homes)):
+            if ps1.streets[i].homes[j] != ps2.streets[i].homes[j]:
+                curr_house: House = curr_street.homes[j]
+                # Start counting the estate
+                if not counting_houses and curr_house.l_fence.exists \
+                        and curr_house.is_built \
+                        and curr_house.used_in_plan:
+                    counting_houses = True
+                    curr_estate_len += 1
+                # Increment estate length
+                elif counting_houses and not curr_house.l_fence.exists \
+                        and curr_house.is_built \
+                        and curr_house.used_in_plan:
+                    curr_estate_len += 1
+                # Reached end of estate
+                if counting_houses and curr_house.r_fence.exists \
+                        and curr_house.is_built \
+                        and curr_house.used_in_plan:
+                    counting_houses = False
+                    # Only add estates with length <= 6
+                    if curr_estate_len <= 6:
+                        estates.update([curr_estate_len])
+                    curr_estate_len = 0
+                # We hit a blank house
+                if not curr_house.is_built:
+                    counting_houses = False
+                    curr_estate_len = 0
+    return estates
+
+
 def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
     """
     Returns the total number of estates that are in claimed plans.
@@ -205,12 +246,12 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
             if not gs.city_plans_won[i] and num != gs.city_plans[i].score1:
                 raise InvalidMove("If a city plan was claimed, AND they were the first to claim that plan, "
                                   "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
-            # validate that the total number uip houses match with the number of total estates that
-            # are in all won city plans.
-            ps_uip_estates: Counter = ps2.get_estates()
-            claimed_plans_estates: Counter = get_estates_claimed_plans(gs, ps2)
-            if ps_uip_estates != claimed_plans_estates:
-                raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
+    # validate that the total number uip houses match with the number of total estates that
+    # are in all won city plans.
+    ps_uip_estates: Counter = get_estates(ps1, ps2)
+    claimed_plans_estates: Counter = get_estates_claimed_plans(gs, ps2)
+    if ps_uip_estates != claimed_plans_estates:
+        raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
 
     #######
     ## Refusals checking

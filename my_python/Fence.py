@@ -5,3 +5,6 @@ class Fence:
 
     def __eq__(self, other):
         return self.exists == other.exists
+
+    def __str__(self):
+        return self.exists
