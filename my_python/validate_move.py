@@ -1,9 +1,8 @@
 import json
 import sys
+from collections import Counter     # https://docs.python.org/3/library/collections.html#collections.Counter
 
 sys.path.append('../../')
-from my_python.archive.a3.PlayerState import PlayerState
-OldPlayerState = PlayerState    # Alias the old player state
 from my_python.PlayerState import PlayerState
 from my_python.GameState import GameState
 from my_python.Street import Street
@@ -11,8 +10,21 @@ from my_python.House import House
 from my_python.exceptions import InvalidMove
 from my_python.GenValidMove import GenValidMove
 
+def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
+    """
+    Returns the total number of estates that are in claimed plans.
+    """
+    estates: Counter = Counter()
+    claimed_city_plan_indices = [i for i in range(3) if ps.city_plan_score[i] != "blank"]
+    for i in claimed_city_plan_indices:
+        estates.update(gs.city_plans[i].criteria)   # add the estate sizes from each claimed plan to `estates`
+    return estates
+
 
 def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
+    """
+    Validates whether a move is legal or not.
+    """
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}
@@ -123,16 +135,16 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     house_nums_with_temp = [gs.construction_cards[i][0] for i in range(len(gs.effects)) if gs.effects[i] == "temp"]
     # Check if temps are in construction cards and is an effect played with a built house
     ## [temp has to be an effect] and [number has to be within +- 2 of one construction card]
-    if ps1.temps != ps2.temps:
+    if effect_played is None and ps1.temps != ps2.temps:
         effect_counter += 1
         effect_played = "temp"
-        if effect_played is None and house_counter > 0 \
+        if house_counter > 0 \
                 and ((house_nums_with_temp.count(built_house["house_num"])
                     + house_nums_with_temp.count(built_house["house_num"] + 1)
                     + house_nums_with_temp.count(built_house["house_num"] - 1)
                     + house_nums_with_temp.count(built_house["house_num"] + 2)
-                    + house_nums_with_temp.count(built_house["house_num"] - 2)) > 0):
-                if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
+                    + house_nums_with_temp.count(built_house["house_num"] - 2)) == 0):
+            if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
     ######
     ## Check to make sure that house_num is in the construction cards
     # Note: only need to do this check outside a "temp is played case"
@@ -177,9 +189,10 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
         # a. num -> "blank" (invalid)
         if ps1.city_plan_score[i] != "blank" and ps2.city_plan_score[i] == "blank":
             raise InvalidMove("Cannot go from claimed city plan score to \"blank\" city plan score.")
-        # b. "blank" -> num (valid)
+        # b. "blank" -> num (valid) aka. a city plan was claimed this turn
         if ps1.city_plan_score[i] == "blank" and ps2.city_plan_score[i] != "blank":
             num = ps2.city_plan_score[i]
+            # i. check to make sure the correct city plan score was claimed
             # if gs.city_plans_won[i] is true AND num is ~not~ gs.city_plans[i].score2... then error.
             if gs.city_plans_won[i] and num != gs.city_plans[i].score2:
                 raise InvalidMove("If a city plan was claimed by a player, BUT they weren't the first to claim that "
@@ -188,8 +201,12 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
             if not gs.city_plans_won[i] and num != gs.city_plans[i].score1:
                 raise InvalidMove("If a city plan was claimed, AND they were the first to claim that plan, "
                                   "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
-        # c. city_plans_won goes from true -> false: error
-        # if gs.city_plans_won
+            # validate that the total number uip houses match with the number of total estates that
+            # are in all won city plans.
+            ps_uip_estates: Counter = ps2.get_estates()
+            claimed_plans_estates: Counter = get_estates_claimed_plans(gs, ps2)
+            if ps_uip_estates != claimed_plans_estates:
+                raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
 
     #######
     ## Refusals checking

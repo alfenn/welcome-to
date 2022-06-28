@@ -1,5 +1,6 @@
 import json
 import sys
+from collections import Counter
 
 from my_python.House import House
 
@@ -40,7 +41,7 @@ class PlayerState:
         except KeyError:
             pass
 
-    def help_total_non_bis_houses(self) -> int:
+    def get_total_non_bis_houses(self) -> int:
         num_non_bis_houses_i = 0
         for i in range(3):
             curr_street: Street = self.streets[i]
@@ -117,3 +118,41 @@ class PlayerState:
                "temps": self.temps
             }
         return json.dumps(ret)
+
+    def get_estates(self) -> Counter:
+        """
+        Returns a set such that it holds all the estates that are uip.
+        """
+        estates: Counter = Counter()
+        counting_houses = False
+        curr_estate_len = 0
+        # Loop through each street
+        for i in range(3):
+            curr_street: Street = self.streets[i]
+            for j in range(len(curr_street.homes)):
+                curr_house: House = curr_street.homes[j]
+                # Start counting the estate
+                if not counting_houses and curr_house.l_fence.exists\
+                                       and curr_house.is_built\
+                                       and curr_house.used_in_plan:
+                    counting_houses = True
+                    curr_estate_len += 1
+                # Increment estate length
+                elif counting_houses and not curr_house.l_fence.exists\
+                                     and curr_house.is_built\
+                                     and curr_house.used_in_plan:
+                    curr_estate_len += 1
+                # Reached end of estate
+                if counting_houses and curr_house.r_fence.exists\
+                                   and curr_house.is_built\
+                                   and curr_house.used_in_plan:
+                    counting_houses = False
+                    # Only add estates with length <= 6
+                    if curr_estate_len <= 6:
+                        estates.update([curr_estate_len])
+                    curr_estate_len = 0
+                # We hit a blank house
+                if not curr_house.is_built:
+                    counting_houses = False
+                    curr_estate_len = 0
+        return estates
