@@ -51,7 +51,7 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
                     counting_houses = False
                     curr_estate_start_end[1] = j
                 # Check if we should be adding the current estate, or if we should error
-                if (not counting_houses) and (curr_estate_start_end is not [None, None]):   # not counting and we have
+                if (not counting_houses) and (curr_estate_start_end != [None, None]):   # not counting and we have
                                                                                             # an estate saved.
                     # If the estate doesn't have a left and right fence then error
                     start_house: House = ps2.streets[i].homes[curr_estate_start_end[0]]
