@@ -135,16 +135,20 @@ def validate_move(diff: PlayerState, ps1: PlayerState, ps2: PlayerState, gs: Gam
     house_nums_with_temp = [gs.construction_cards[i][0] for i in range(len(gs.effects)) if gs.effects[i] == "temp"]
     # Check if temps are in construction cards and is an effect played with a built house
     ## [temp has to be an effect] and [number has to be within +- 2 of one construction card]
-    if effect_played is None and ps1.temps != ps2.temps:
-        effect_counter += 1
-        effect_played = "temp"
-        if house_counter > 0 \
-                and ((house_nums_with_temp.count(built_house["house_num"])
-                    + house_nums_with_temp.count(built_house["house_num"] + 1)
-                    + house_nums_with_temp.count(built_house["house_num"] - 1)
-                    + house_nums_with_temp.count(built_house["house_num"] + 2)
-                    + house_nums_with_temp.count(built_house["house_num"] - 2)) == 0):
-            if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
+    if ps1.temps != ps2.temps:
+        if effect_played is not None:
+            effect_counter += 1     # Could also have raised error here, but for debugging we thought it would
+                                    # be better if we +=1 effect_counter to show 2 effects were played
+        else:
+            effect_counter += 1
+            effect_played = "temp"
+            if house_counter > 0 \
+                    and ((house_nums_with_temp.count(built_house["house_num"])
+                        + house_nums_with_temp.count(built_house["house_num"] + 1)
+                        + house_nums_with_temp.count(built_house["house_num"] - 1)
+                        + house_nums_with_temp.count(built_house["house_num"] + 2)
+                        + house_nums_with_temp.count(built_house["house_num"] - 2)) == 0):
+                if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
     ######
     ## Check to make sure that house_num is in the construction cards
     # Note: only need to do this check outside a "temp is played case"
