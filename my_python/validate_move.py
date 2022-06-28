@@ -11,6 +11,8 @@ from my_python.exceptions import InvalidMove
 from my_python.GenValidMove import GenValidMove
 
 
+# Put this as helper that takes ps1 and ps2 because of the assumption that ps1 is correct:
+#   https://piazza.com/class/l0wlxndauhb4xv?cid=163
 def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     """
     Returns a set such that it holds all the estates that are uip.
