@@ -15,10 +15,9 @@ inp_ps2 = inp_lst[2]
 gs: GameState = GameState(inp_gs)
 ps1: PlayerState = PlayerState(inp_ps=inp_ps1)
 ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
-diff: PlayerState = ps2 - ps1
 
 try:
-    validate_move(diff, ps1, ps2, gs)
+    validate_move(ps1, ps2, gs)
     print("true")
 except InvalidMove:
     print("false")
