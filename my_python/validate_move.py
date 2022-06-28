@@ -18,38 +18,49 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     Returns a set such that it holds all the estates that are uip.
     """
     estates: Counter = Counter()
-    counting_houses = False
-    curr_estate_len = 0
     # Loop through each street
     for i in range(3):
         curr_street: Street = ps2.streets[i]
+        counting_houses = False
+        curr_estate_start_end = [None, None]
         for j in range(len(curr_street.homes)):
-            if ps1.streets[i].homes[j] != ps2.streets[i].homes[j]:
+            if ps1.streets[i].homes[j] != ps2.streets[i].homes[j] or counting_houses:
                 curr_house: House = curr_street.homes[j]
-                # Start counting the estate
-                if not counting_houses and curr_house.l_fence.exists \
-                        and curr_house.is_built \
-                        and curr_house.used_in_plan:
+                # 09_21 edge case: house becomes uip but isn't a valid estate
+                #   Perhaps a more elegant way to do this might be:
+                #       1. Anytime there's a used in plan house, we add it to the counter
+                #       2. Consider adding it to set() every time we add a house to the estate
+                #       3. Before we add it to set(), we check the beginning and end to make sure it's bounded by fences
+                #   Current way of doing it which doesn't account for this edge case:
+                #       1. Only start counting houses if the current house we're on is a valid house to be uip.
+                #       2. (We're essentially ignoring all uip houses that are invalid, when we should be error-ing)
+
+                # Start counting houses once we encounter a newly used-in-plan house
+                if not counting_houses and curr_house.used_in_plan:
                     counting_houses = True
-                    curr_estate_len += 1
-                # Increment estate length
-                elif counting_houses and not curr_house.l_fence.exists \
-                        and curr_house.is_built \
-                        and curr_house.used_in_plan:
-                    curr_estate_len += 1
-                # Reached end of estate
-                if counting_houses and curr_house.r_fence.exists \
-                        and curr_house.is_built \
-                        and curr_house.used_in_plan:
+                    curr_estate_start_end[0] = j
+                # Stop counting when either the current house has a right fence, or the house is blank
+                #   Cases are:
+                #       1. Must be currently counting houses and either...
+                #           a. the current house is uip and has a right fence or
+                #           b. the current house is not used in plan or
+                #           c. the current house is "blank" for us to stop counting
+                if counting_houses and ((curr_house.used_in_plan and curr_house.r_fence.exists)
+                                        or not curr_house.used_in_plan
+                                        or not curr_house.is_built):
                     counting_houses = False
-                    # Only add estates with length <= 6
-                    if curr_estate_len <= 6:
-                        estates.update([curr_estate_len])
-                    curr_estate_len = 0
-                # We hit a blank house
-                if not curr_house.is_built:
-                    counting_houses = False
-                    curr_estate_len = 0
+                    curr_estate_start_end[1] = j
+                # Check if we should be adding the current estate, or if we should error
+                if (not counting_houses) and (curr_estate_start_end is not [None, None]):   # not counting and we have
+                                                                                            # an estate saved.
+                    # If the estate doesn't have a left and right fence then error
+                    start_house: House = ps2.streets[i].homes[curr_estate_start_end[0]]
+                    end_house: House = ps2.streets[i].homes[curr_estate_start_end[1]]
+                    if not (start_house.l_fence.exists and end_house.r_fence.exists):
+                        raise InvalidMove("Newly uip houses do not have fences around them")
+                    # Add the length of the current estate to the set()
+                    estates.update([curr_estate_start_end[1]-curr_estate_start_end[0] + 1])
+                    curr_estate_start_end = [None, None]
     return estates
 
 
@@ -199,13 +210,6 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     elif ([x[0] for x in gs.construction_cards].count(built_house["house_num"]) == 0) and (
                 not (built_house["house_num"] is None)): raise InvalidMove("played house is not in construction cards")
     # Make sure only one effect is being played
-    ####POTENTIALLY USELESS???
-    # if not ((ps2.get_num_played_effects() - ps1.get_num_played_effects()) in {0, 1}): raise InvalidMove(
-    #    "Can't remove effects or play more than one effect.")
-    ## Check: make sure the only valid combos for newly built houses are (1) 1 house + 1 bis and
-    #                                                                    (2) 1 house
-    # if house_counter == 0: raise
-    # Check: make sure that multiple fences are not being built on the same turn
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
     if house_counter > 1: raise InvalidMove("Cannot build more than one non-bis'd house")

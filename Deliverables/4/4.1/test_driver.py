@@ -21,3 +21,8 @@ try:
     print("true")
 except InvalidMove:
     print("false")
+
+
+### No try-except to let us see the error message
+# validate_move(ps1, ps2, gs)
+# print("true")
