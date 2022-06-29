@@ -6,8 +6,8 @@ from my_python.GameState import GameState
 from my_python.validate_move import validate_move
 import json
 
-input_str = sys.stdin.read()
-# input_str = open('input_06_02_temp_agency_robby.json', 'r').read()
+# input_str = sys.stdin.read()
+input_str = open('input3_team6.json', 'r').read()
 inp_lst = json.loads(input_str)
 inp_gs = inp_lst[0]
 inp_ps1 = inp_lst[1]
@@ -16,13 +16,13 @@ gs: GameState = GameState(inp_gs)
 ps1: PlayerState = PlayerState(inp_ps=inp_ps1)
 ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
 
-try:
-    validate_move(ps1, ps2, gs)
-    print("true")
-except InvalidMove:
-    print("false")
+# try:
+#     validate_move(ps1, ps2, gs)
+#     print("true")
+# except InvalidMove:
+#     print("false")
 
 
 ### No try-except to let us see the error message
-# validate_move(ps1, ps2, gs)
-# print("true")
+validate_move(ps1, ps2, gs)
+print("true")

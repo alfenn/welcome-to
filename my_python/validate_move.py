@@ -43,13 +43,15 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
                 #   Cases are:
                 #       1. Must be currently counting houses and either...
                 #           a. the current house is uip and has a right fence or
-                #           b. the current house is not used in plan or
-                #           c. the current house is "blank" for us to stop counting
-                if counting_houses and ((curr_house.used_in_plan and curr_house.r_fence.exists)
-                                        or not curr_house.used_in_plan
-                                        or not curr_house.is_built):
-                    counting_houses = False
-                    curr_estate_start_end[1] = j
+                #           (b. the current house is not used in plan or
+                #           c. the current house is "blank" for us to stop counting)
+                if counting_houses:
+                    if curr_house.used_in_plan and curr_house.r_fence.exists:
+                        counting_houses = False
+                        curr_estate_start_end[1] = j    # set end house to j
+                    if (not curr_house.used_in_plan) or (not curr_house.is_built):
+                        counting_houses = False
+                        curr_estate_start_end[1] = j-1  # set end house to j-1 bc current house isn't part of estate
                 # Check if we should be adding the current estate, or if we should error
                 if (not counting_houses) and (curr_estate_start_end != [None, None]):   # not counting and we have
                                                                                             # an estate saved.
@@ -190,6 +192,8 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     # Check if temps are in construction cards and is an effect played with a built house
     ## [temp has to be an effect] and [number has to be within +- 2 of one construction card]
     if ps1.temps != ps2.temps:
+        if ps2.temps != ps1.temps + 1:
+            raise InvalidMove("If temps is played, it can only be +1")
         if effect_played is not None:
             effect_counter += 1     # Could also have raised error here, but for debugging we thought it would
                                     # be better if we +=1 effect_counter to show 2 effects were played
@@ -215,6 +219,15 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     if house_counter > 1: raise InvalidMove("Cannot build more than one non-bis'd house")
     if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove(
         "effect that was played is not in the Game state")
+    ######
+    ## Validating that played move is a valid combo in gs.construction_cards and gs.effects
+    ######
+    # Find the indices of the construction cards that correspond to building the built_house.num
+    construction_card_indices = [i for i in range(3) if gs.construction_cards[i][0] == built_house["house_num"]]
+    # If the effect is not None, check it against the gs.effects[indices] using the indices we j saved
+    if effect_played is not None:
+        if list(map(lambda ind: gs.effects[ind], construction_card_indices)).count(effect_played) == 0:
+            raise InvalidMove("Effect played is not legal for the given house played")
 
     #####
     ## Check validity of pool construction
@@ -256,7 +269,13 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     # are in all won city plans.
     ps_uip_estates: Counter = get_estates(ps1, ps2)
     claimed_plans_estates: Counter = get_estates_claimed_plans(gs, ps2)
-    if ps_uip_estates != claimed_plans_estates:
+    # Only check if uip_estates matches claimed_plan_estates if we're claiming estates that turn
+    #   This is to account for two cases:
+    #       1. Invalid ps1 uip and claimed_estates, but newly claimed uip houses matches newly claimed plan
+    #       2. No change between ps1 and ps2 uip houses or claimed_plans
+    #       since we only count houses that change between ps1 and ps2, case 2 errored because it said ps_uip_estates
+    #       was empty.
+    if ps1.city_plan_score != ps2.city_plan_score and ps_uip_estates != claimed_plans_estates:
         raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
 
     #######
