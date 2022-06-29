@@ -226,6 +226,11 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     ######
     # Find the indices of the construction cards that correspond to building the built_house.num
     construction_card_indices = [i for i in range(3) if gs.construction_cards[i][0] == built_house["house_num"]]
+    if effect_played == "temp":
+        construction_card_indices += [i for i in range(3) if (gs.construction_cards[i][0] == built_house["house_num"] + 1
+                                                              or gs.construction_cards[i][0] == built_house["house_num"] - 1
+                                                              or gs.construction_cards[i][0] == built_house["house_num"] + 2
+                                                              or gs.construction_cards[i][0] == built_house["house_num"] - 2)]
     # If the effect is not None, check it against the gs.effects[indices] using the indices we j saved
     if effect_played is not None:
         if list(map(lambda ind: gs.effects[ind], construction_card_indices)).count(effect_played) == 0:
