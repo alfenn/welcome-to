@@ -16,13 +16,13 @@ gs: GameState = GameState(inp_gs)
 ps1: PlayerState = PlayerState(inp_ps=inp_ps1)
 ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
 
-# try:
-#     validate_move(ps1, ps2, gs)
-#     print("true")
-# except InvalidMove:
-#     print("false")
+try:
+    validate_move(ps1, ps2, gs)
+    print("true")
+except InvalidMove:
+    print("false")
 
 
 ### No try-except to let us see the error message
-validate_move(ps1, ps2, gs)
-print("true")
+# validate_move(ps1, ps2, gs)
+# print("true")
