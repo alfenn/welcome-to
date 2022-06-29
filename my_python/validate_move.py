@@ -124,7 +124,9 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                     house_counter += 1
                 ##### Increment effect counter
                 # If we're building a bis...
-                if curr_house_2.is_bis: effect_counter += 1
+                if curr_house_2.is_bis:
+                    effect_played = "bis"
+                    effect_counter += 1
                 ###############
                 ##  Fences
                 ###############
