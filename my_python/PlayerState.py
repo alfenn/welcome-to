@@ -2,9 +2,8 @@ import json
 import sys
 from collections import Counter
 
-from my_python.House import House
-
 sys.path.append('../../')
+from my_python.House import House
 from my_python.contracts import player_contract
 from my_python.Street import Street
 from my_python.exceptions import InvalidPlayerState
@@ -49,6 +48,17 @@ class PlayerState:
                 curr_house: House = curr_street.homes[i]
                 if curr_house.is_built and not curr_house.is_bis: num_non_bis_houses_i += 1
         return num_non_bis_houses_i
+
+    def get_total_built_houses(self) -> int:
+        num_built_houses = 0
+        for curr_street in self.streets:
+            for curr_house in curr_street.homes:
+                if curr_house.is_built:
+                    num_built_houses += 1
+        return num_built_houses
+
+    def get_total_bis_houses(self) -> int:
+        return self.get_total_built_houses() - self.get_total_non_bis_houses()
 
     def get_num_played_effects(self) -> int:
         num_agents_i = 0

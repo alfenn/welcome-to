@@ -15,7 +15,8 @@ from my_python.GenValidMove import GenValidMove
 #   https://piazza.com/class/l0wlxndauhb4xv?cid=163
 def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     """
-    Returns a set such that it holds all the estates that are uip.
+    Returns a set such that it holds all the estates that are uip composed
+    of only the houses that changed.
     """
     estates: Counter = Counter()
     # Loop through each street
