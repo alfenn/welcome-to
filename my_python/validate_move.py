@@ -182,6 +182,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
             if curr_agents_1 + 1 != curr_agents_2: raise InvalidMove(
                 "If an agent changed, the change can only be exactly += 1.")
             effect_counter += 1
+            effect_played = "agent"
     # loop through diff.non-bis-houses
     # if ps1[i] is not "blank" (aka. if ps1[i].built is not true) raise InvalidMove
     # check: make sure none of the existing house nums change/pools get removed/parks get removed/etc.
@@ -221,9 +222,9 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     if house_counter > 1: raise InvalidMove("Cannot build more than one non-bis'd house")
     if gs.effects.count(effect_played) == 0 and (not (effect_played is None)): raise InvalidMove(
         "effect that was played is not in the Game state")
-    ######
+    ##############
     ## Validating that played move is a valid combo in gs.construction_cards and gs.effects
-    ######
+    ##############
     # Find the indices of the construction cards that correspond to building the built_house.num
     construction_card_indices = [i for i in range(3) if gs.construction_cards[i][0] == built_house["house_num"]]
     if effect_played == "temp":
