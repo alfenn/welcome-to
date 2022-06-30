@@ -76,8 +76,8 @@ def calc_score(ps: PlayerState, other_temps: List[int]) -> int:
         """
         Returns the bis penalty, given the number of bis's that were built
         """
-        bis_penalties = [0, 3, 6, 9, 12, 16, 20, 24, 28]
-        # If more than 8 bis were built, return penalty of 28
+        bis_penalties = [0, 1, 3, 6, 9, 12, 16, 20, 24, 28]
+        # If more than 9 bis were built, return penalty of 28
         try:
             return bis_penalties[num_bis]
         except IndexError:

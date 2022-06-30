@@ -4,7 +4,7 @@ from my_python.calc_score import calc_score
 from my_python.PlayerState import PlayerState
 
 inp_lst = json.loads(sys.stdin.read())
-# inp_lst = json.loads(open('input_03_01_bis_robby.json', 'r').read())
+# inp_lst = json.loads(open('input_03_02_bis_robby.json', 'r').read())
 inp_ps = inp_lst[0]
 inp_temps = inp_lst[1]
 ps = PlayerState(inp_ps=inp_ps)
