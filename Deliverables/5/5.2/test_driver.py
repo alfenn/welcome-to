@@ -1,7 +1,7 @@
 import sys, json
-
 sys.path.append("../../../")
-from my_python.calc_score import *
+from my_python.calc_score import calc_score
+from my_python.PlayerState import PlayerState
 
 inp_lst = json.loads(sys.stdin.read())
 # inp_lst = json.loads(open('input_03_01_bis_robby.json', 'r').read())
