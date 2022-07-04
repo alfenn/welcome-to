@@ -26,14 +26,14 @@ def get_exclusive_range(s: Street, i: int) -> Tuple:
     i_is_last = i == len(s.homes) - 1
     min_house_num = -1
     max_house_num = 18
-    j = i-1
+    j = i - 1
     # Iterate to the front (min = largest value on left) -> find "largest min"
     while j >= 0 and not i_is_first:
         curr_house: House = s.homes[j]
         if curr_house.is_built:
             if curr_house.num > min_house_num: min_house_num = curr_house.num
         j -= 1
-    j = i+1
+    j = i + 1
     # Iterate to the back (max = smallest value on the right) -> find "smallest max"
     while j <= len(s.homes) - 1 and not i_is_last:
         curr_house: House = s.homes[j]
@@ -77,39 +77,11 @@ def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int) -> Pl
 
 
 class GenValidMove:
-    def __init__(self, gs: GameState, ps: PlayerState):
+    def __init__(self):
         # Initialize valid move field
-        self.vm: PlayerState = copy.deepcopy(ps)
-        # Algorithm for generating a valid move
-        house_built = False
-        # Loop through all the streets
-        for i in range(3):
-            if house_built: break
-            # Loop through all the homes in the street
-            for j in range(len(ps.streets[i].homes)):
-                curr_house: House = ps.streets[i].homes[j]
-                # If the house is not built...
-                if not curr_house.is_built:
-                    excl_range = get_exclusive_range(ps.streets[i], j)
-                    # If the difference between the returned "max" and "min" is equal to 1,
-                    #   skip to the next street
-                    if excl_range[1] - excl_range[0] == 1: continue
-                    # Elif a valid range exists...
-                    #   See if a construction card in the `gs` can indeed be played in this range.
-                    vm_card_ind = vm_construction_card_index(gs.construction_cards, excl_range)
-                    if vm_card_ind == -1: continue
-                    # Else a valid cc exists for this blank spot...
-                    #   update the `vm` PlayerState to play the construction card
-                    self.vm = update_ps_w_valid_card(cc=gs.construction_cards[vm_card_ind],
-                                                     ps=self.vm,
-                                                     st_i=i,
-                                                     h_i=j)
-                    house_built = True
-                    break
-        if not house_built:
-            # Increment refusals
-            self.vm.refusals += 1
-        ### Now self.vm is a PlayerState with the valid move (if there is one) played
+        self.vm: PlayerState = None
+        self.ps: PlayerState = None
+        self.gs: GameState = None
 
     def __str__(self) -> str:
         """
@@ -119,3 +91,41 @@ class GenValidMove:
         :return: json string of a PlayerState
         """
         return str(self.vm)
+
+    def generate(self, gs: GameState, ps: PlayerState) -> PlayerState:
+        """
+        Algorithm for generating a valid move
+        """
+        self.vm = copy.deepcopy(ps)
+        self.ps = ps
+        self.gs = gs
+        house_built = False
+        # Loop through all the streets
+        for i in range(3):
+            if house_built: break
+            # Loop through all the homes in the street
+            for j in range(len(self.ps.streets[i].homes)):
+                curr_house: House = self.ps.streets[i].homes[j]
+                # If the house is not built...
+                if not curr_house.is_built:
+                    excl_range = get_exclusive_range(self.ps.streets[i], j)
+                    # If the difference between the returned "max" and "min" is equal to 1,
+                    #   skip to the next street
+                    if excl_range[1] - excl_range[0] == 1: continue
+                    # Elif a valid range exists...
+                    #   See if a construction card in the `gs` can indeed be played in this range.
+                    vm_card_ind = vm_construction_card_index(self.gs.construction_cards, excl_range)
+                    if vm_card_ind == -1: continue
+                    # Else a valid cc exists for this blank spot...
+                    #   update the `vm` PlayerState to play the construction card
+                    self.vm = update_ps_w_valid_card(cc=self.gs.construction_cards[vm_card_ind],
+                                                     ps=self.vm,
+                                                     st_i=i,
+                                                     h_i=j)
+                    house_built = True
+                    break
+        if not house_built:
+            # Increment refusals
+            self.vm.refusals += 1
+        ### Now self.vm is a PlayerState with the valid move (if there is one) played
+        return self.vm
