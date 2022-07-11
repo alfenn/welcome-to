@@ -31,7 +31,8 @@ def house_contract(inp) -> bool:
             or (type(inp) == list  # Case 3: [num, "bis"]
                 and len(inp) == 2
                 and house_num_contract(inp[0])
-                and inp[1] == "bis"))
+                and inp[1] == "bis")
+            or inp == "roundabout")
 
 
 ### Validators for Street ###

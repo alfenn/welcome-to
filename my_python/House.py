@@ -23,13 +23,13 @@ class House:
         r_fence = kwargs.get("r_fence", Fence(False))
         if not house_contract(inp_house): raise InvalidPlayerState("Breaks House contract")
         ### Normal processing of standard inputs.
+        self.is_roundabout = False
         self.is_bis = False
         self.num = -1  # self.num == -1 if house is not built
         self.is_built = False
         self.used_in_plan = used_in_plan
-        self.l_fence = l_fence
-        self.r_fence = r_fence
-
+        self.l_fence: Fence = l_fence
+        self.r_fence: Fence = r_fence
         if type(inp_house) == list:  # Case: House is a bis
             self.is_bis = True
             self.num = inp_house[0]
@@ -42,6 +42,8 @@ class House:
         self.is_built = self.num != -1
         ## Check: house cannot be built and used in plan
         self._check_built_used_in_plan()
+        ## Check: if house is a roundabout, it must be surrounded by two fences
+        self._check_roundabout_fences()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.is_bis = kwargs["d_is_bis"]
@@ -69,6 +71,11 @@ class House:
         if (not (type(self.is_built) == Same or type(self.used_in_plan) == Same)) \
                 and (not self.is_built) and self.used_in_plan:
             raise InvalidPlayerState("House cannot be built and used in plan.")
+
+    def _check_roundabout_fences(self) -> None:
+        if self.is_roundabout:
+            if not self.l_fence.exists and self.r_fence.exists:
+                raise InvalidPlayerState("House cannot be a roundabout and not have both left and right fences.")
 
     def __eq__(self, other):
         if type(other) == House:

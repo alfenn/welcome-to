@@ -168,16 +168,23 @@ class Street:
             i += 1
 
     def _check_ascending_order(self) -> None:
-        built_houses = []
+        ### Create the list of houses that we want to ensure are in ascending order
+        substreets = []        # there exist <=2 substreets, bc at most two roundabouts can be played on the same street
+        built_houses: List[House] = []
         for i in range(len(self.homes)):
-            curr_house = self.homes[i]
+            curr_house: House = self.homes[i]
             if curr_house.is_built:
                 built_houses.append(curr_house)
-        for i in range(len(built_houses) - 1):
-            i += 1
-            house1 = built_houses[i]
-            house2 = built_houses[i-1]
-            if house1.num < house2.num: raise InvalidPlayerState("Homes are not in ascending order")
+            elif curr_house.is_roundabout:      # if a house is not built and a roundabout (assumption: roundabouts can't be built)
+                substreets.append(built_houses)
+                built_houses = []
+        ### Ensure that each substreet is in ascending order
+        for ss in substreets:
+            for i in range(len(ss) - 1):
+                i += 1
+                house1 = ss[i]
+                house2 = ss[i-1]
+                if house1.num < house2.num: raise InvalidPlayerState("Homes are not in ascending order")
 
     def _check_no_dups(self) -> None:
         built_non_bis_houses = []
