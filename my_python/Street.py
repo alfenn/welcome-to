@@ -112,6 +112,9 @@ class Street:
                     bis_counter = 0
                 continue
 
+            if curr_not_bis_house and bis_counter == 0:
+                if curr_house == curr_not_bis_house or curr_house < curr_not_bis_house: raise InvalidPlayerState("bis's must follow ascending rules")
+
             if curr_house.is_bis and i == 0:
                 if curr_house.num == curr_house_aft.num:
                     if curr_house_aft.is_bis:

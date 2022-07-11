@@ -36,7 +36,7 @@ class House:
         elif type(inp_house) == int:  # Case: House is not a bis and built
             self.is_bis = False
             self.num = inp_house
-        else:  # Case: Else, House is not a bis and not built
+        else:  # Case: Else, House is not built or is a roundabout
             self.is_bis = False
             self.num = -1
         self.is_built = self.num != -1
