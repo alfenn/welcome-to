@@ -97,7 +97,7 @@ class Street:
 
     def _check_bis(self) -> None:
         bis_counter = 0
-        curr_not_bis_house = None
+        curr_not_bis_house_num = None
 
         for i in range(len(self.homes)):
             curr_house: House = self.homes[i]
@@ -107,13 +107,13 @@ class Street:
                 curr_house_aft: House = self.homes[i+1]
 
             if not curr_house.is_bis and curr_house.is_built:
-                curr_not_bis_house = curr_house.num
-                if (0 < i <= (len(self.homes) - 1)) and (curr_not_bis_house == curr_house_bef.num or curr_not_bis_house == curr_house_aft.num) and bis_counter > 0:
+                curr_not_bis_house_num = curr_house.num
+                if (0 < i <= (len(self.homes) - 1)) and (curr_not_bis_house_num == curr_house_bef.num or curr_not_bis_house_num == curr_house_aft.num) and bis_counter > 0:
                     bis_counter = 0
                 continue
 
-            if curr_not_bis_house and bis_counter == 0:
-                if curr_house == curr_not_bis_house or curr_house < curr_not_bis_house: raise InvalidPlayerState("bis's must follow ascending rules")
+            if curr_not_bis_house_num and bis_counter == 0 and not curr_house.is_bis:
+                if curr_house.num == curr_not_bis_house_num or (curr_house.num < curr_not_bis_house_num): raise InvalidPlayerState("bis's must follow ascending rules")
 
             if curr_house.is_bis and i == 0:
                 if curr_house.num == curr_house_aft.num:
@@ -126,7 +126,7 @@ class Street:
             if curr_house.is_bis:
                 if curr_house.num == curr_house_bef.num:
                     if curr_house_bef.is_bis:
-                        if curr_house.num == curr_not_bis_house:
+                        if curr_house.num == curr_not_bis_house_num:
                             bis_counter = 0
                         else:
                             bis_counter += 1
@@ -134,7 +134,7 @@ class Street:
                     continue
                 elif curr_house.num == curr_house_aft.num:
                     if curr_house_aft.is_bis:
-                        if curr_house.num == curr_not_bis_house:
+                        if curr_house.num == curr_not_bis_house_num:
                             bis_counter = 0
                         else:
                             bis_counter += 1
@@ -147,7 +147,7 @@ class Street:
             if curr_house.is_bis and i == (len(self.homes) - 1):
                 if curr_house.num == curr_house_bef.num:
                     if curr_house_bef.is_bis:
-                        if curr_house.num == curr_not_bis_house:
+                        if curr_house.num == curr_not_bis_house_num:
                             bis_counter = 0
                         else:
                             bis_counter += 1
