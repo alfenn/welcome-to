@@ -176,18 +176,20 @@ class Street:
         built_houses: List[House] = []
         for i in range(len(self.homes)):
             curr_house: House = self.homes[i]
-            if curr_house.is_built:
+            if curr_house.is_built and not curr_house.is_bis:
                 built_houses.append(curr_house)
             elif curr_house.is_roundabout:      # if a house is not built and a roundabout (assumption: roundabouts can't be built)
                 substreets.append(built_houses)
                 built_houses = []
+        if built_houses:    # equivalent to `if built_houses != []`
+            substreets.append(built_houses)
         ### Ensure that each substreet is in ascending order
         for ss in substreets:
             for i in range(len(ss) - 1):
                 i += 1
                 house1 = ss[i]
                 house2 = ss[i-1]
-                if house1.num < house2.num: raise InvalidPlayerState("Homes are not in ascending order")
+                if house1.num <= house2.num: raise InvalidPlayerState("Homes are not in ascending order")
 
     def _check_no_dups(self) -> None:
         built_non_bis_houses = []
