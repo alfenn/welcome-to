@@ -112,7 +112,8 @@ class Street:
             if not curr_house.is_bis and curr_house.is_built:
                 curr_not_bis_house_num = curr_house.num
                 if i == 0 and curr_not_bis_house_num == curr_house_aft.num: continue
-                elif (0 < i <= (len(self.homes) - 1)) and (curr_not_bis_house_num == curr_house_bef.num or curr_not_bis_house_num == curr_house_aft.num) and bis_counter > 0:
+                elif i == (len(self.homes) - 1) and curr_not_bis_house_num == curr_house_bef.num: continue
+                elif (0 < i <= (len(self.homes) - 2)) and (curr_not_bis_house_num == curr_house_bef.num or curr_not_bis_house_num == curr_house_aft.num) and bis_counter > 0:
                     bis_counter = 0
                 continue
 

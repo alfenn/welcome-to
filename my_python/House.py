@@ -72,11 +72,6 @@ class House:
                 and (not self.is_built) and self.used_in_plan:
             raise InvalidPlayerState("House cannot be built and used in plan.")
 
-    def _check_roundabout_fences(self) -> None:
-        if self.is_roundabout:
-            if not self.l_fence.exists and self.r_fence.exists:
-                raise InvalidPlayerState("House cannot be a roundabout and not have both left and right fences.")
-
     def __eq__(self, other):
         if type(other) == House:
             return self.is_bis == other.is_bis \
