@@ -37,13 +37,13 @@ class House:
             self.is_bis = False
             self.num = inp_house
         else:  # Case: Else, House is not built or is a roundabout
+            if inp_house == "roundabout":
+                self.is_roundabout = True
             self.is_bis = False
             self.num = -1
         self.is_built = self.num != -1
         ## Check: house cannot be built and used in plan
         self._check_built_used_in_plan()
-        ## Check: if house is a roundabout, it must be surrounded by two fences
-        self._check_roundabout_fences()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.is_bis = kwargs["d_is_bis"]

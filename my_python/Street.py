@@ -28,7 +28,7 @@ class Street:
                 self.homes.append(House(inp_house=inp_street["homes"][0],
                                         used_in_plan=inp_street["homes"][1],
                                         l_fence=Fence(True),
-                                        r_fence=Fence(True)))
+                                        r_fence=Fence(False)))
             # If `i` is not the first House...
             if i >= 2:
                 # All these homes follow schema: [ fence-or-not, house, used-in-plan ]
@@ -39,7 +39,8 @@ class Street:
                 self.homes.append(House(inp_house=curr_house[1],
                                         used_in_plan=curr_house[2],
                                         l_fence=temp_l_fence,  # ... to left fence of curr House.
-                                        r_fence=Fence(True)))              # Use placeholder for right fence.
+                                        r_fence=Fence(True)))  # Use placeholder for right fence.
+                                                               #    Note: this is actually not a dummy value bc last house has right fence
         self.parks = inp_street["parks"]
         self.pools = inp_street["pools"]
         # Check: boolean elements of pools are actually built at corresponding .homes index
@@ -58,6 +59,8 @@ class Street:
         self._check_ascending_order()
         ## Check: make sure that the num of parks is <= built houses
         self._parks_built_houses()
+        ## Check: if house is a roundabout, it must be surrounded by two fences
+        self._check_roundabout_fences()
         ## ===================== If class fields are specified, set them directly ====================
         try:
             self.homes = kwargs["homes"]
@@ -208,6 +211,19 @@ class Street:
     def _parks_built_houses(self) -> None:
         # "Landscaper: Parks must be crossed off on the same street that the house number is written."
         if not (self._help_total_non_bis_houses() >= self.parks): raise InvalidPlayerState("Number of non-bis built houses must be >= number of parks on street")
+
+    def _check_roundabout_fences(self) -> None:
+        for h in self.homes:
+            if h.is_roundabout:
+                if not (h.l_fence.exists and h.r_fence.exists):
+                    raise InvalidPlayerState("House cannot be a roundabout and not have both left and right fences.")
+
+    def get_num_roundabouts(self) -> int:
+        count = 0
+        for h in self.homes:
+            if h.is_roundabout:
+                count += 1
+        return count
 
     def __sub__(self, other):
         if len(self.homes) != len(other.homes): ValueError("Streets have different numbers of homes.")

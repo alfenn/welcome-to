@@ -27,8 +27,8 @@ class PlayerState:
         for i in range(3):
             self.streets.append(Street(inp_street=inp_ps["streets"][i]))
 
-        ## Check: number of used effects <= built houses
-        # self._check_effects_vs_built_houses()
+        ## Check the number of roundabouts that were played
+        self._check_num_roundabouts()
 
         ### If class fields are specified, set them directly
         try:
@@ -39,6 +39,13 @@ class PlayerState:
             self.temps = kwargs["temps"]
         except KeyError:
             pass
+
+    def _check_num_roundabouts(self) -> None:
+        total_roundabouts = 0
+        for curr_street in self.streets:
+            total_roundabouts += curr_street.get_num_roundabouts()
+        if total_roundabouts > 2:
+            raise InvalidPlayerState("Number of roundabouts cannot exceed 2.")
 
     def get_total_non_bis_houses(self) -> int:
         num_non_bis_houses_i = 0
