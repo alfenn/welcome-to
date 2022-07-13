@@ -92,15 +92,15 @@ class House:
         return ret
 
     def return_literal(self):
-        if not self.is_built:   # Not built
-            return "blank"
-        elif not self.is_bis:   # Normal house (not bis)
+        if not self.is_built:
+            if not self.is_roundabout:   # Not built and not roundabout
+                return "blank"
+            else:
+                return "roundabout"
+        elif not self.is_bis:           # House is built -> not a bis -> print normal house
             return self.num
-        else:                   # Bis house
+        else:                           # House is built -> is a bis -> print bis house
             return [self.num, "bis"]
 
     def __str__(self):
-        if self.is_built:
-            return str(self.num)
-        else:
-            return "blank"
+        return str(self.return_literal())
