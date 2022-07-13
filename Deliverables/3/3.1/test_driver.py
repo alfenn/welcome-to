@@ -11,7 +11,7 @@ input_str = sys.stdin.read()
 # json.loads() takes a string
 j = json.loads(input_str)
 try:
-    PlayerState(inp_ps=j)
-    print(input_str)
+    ps = PlayerState(inp_ps=j)
+    print(ps)
 except:
     print("false")
