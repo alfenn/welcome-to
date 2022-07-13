@@ -109,6 +109,11 @@ class Street:
             if i < (len(self.homes) - 1):
                 curr_house_aft: House = self.homes[i+1]
 
+            if i == (len(self.homes) - 2) and curr_house.is_bis and bis_counter > 0:
+                if not curr_house_aft.is_bis:
+                    bis_counter = 0
+                    continue
+
             if not curr_house.is_bis and curr_house.is_built:
                 curr_not_bis_house_num = curr_house.num
                 if i == 0 and curr_not_bis_house_num == curr_house_aft.num: continue
