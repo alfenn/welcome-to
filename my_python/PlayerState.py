@@ -4,7 +4,7 @@ from collections import Counter
 
 sys.path.append('../../')
 from my_python.House import House
-from my_python.contracts import player_contract
+from my_python.contracts import playerstate_contract
 from my_python.Street import Street
 from my_python.exceptions import InvalidPlayerState
 from my_python.Same import same_or_get_first
@@ -17,7 +17,7 @@ class PlayerState:
         self.streets = []
         self.temps = 0
         inp_ps = kwargs.get("inp_ps", {"agents": [0, 0, 0, 0, 0, 0],"city-plan-score": ["blank", "blank", "blank"],"refusals": 0,"streets": [{"homes": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False]],"parks": 0,"pools": [False, False, False]},{"homes": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False]],"parks": 0,"pools": [False, False, False]},{"homes": ["blank", False,[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False],[False, "blank", False]],"parks": 0,"pools": [False, False, False]}],"temps": 0})
-        if not player_contract(inp_ps): raise InvalidPlayerState("Breaks PlayerState contract")
+        if not playerstate_contract(inp_ps): raise InvalidPlayerState("Breaks PlayerState contract")
         ### Normal processing of standard inputs.
         self.agents = inp_ps["agents"]
         self.city_plan_score = inp_ps["city-plan-score"]

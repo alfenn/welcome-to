@@ -26,12 +26,14 @@ def validate_construction_card(card) -> bool:
 
 
 def validate_criteria(cri) -> bool:
-    assert type(cri) == list, "criteria must be a list of len > 0"
-    for ea in cri:
-        try:
-            validate_natural(ea)
-        except:
-            raise AssertionError("each element in the criteria array must be a valid natural")
+    ## Check if it satisfies the criteria-card-1 non-terminal
+    ## Check if it satisfies the
+    if type(cri) == list:
+        for ea in cri:
+            try:
+                validate_natural(ea)
+            except:
+                raise AssertionError("each element in the criteria array must be a valid natural")
     return True
 
 
@@ -41,3 +43,4 @@ def validate_position(pos) -> bool:
            and (pos == 1 or pos == 2 or pos == 3), \
         "a position must be 1, 2, or 3"
     return True
+

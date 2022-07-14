@@ -1,5 +1,5 @@
 from unittest import TestCase
-from my_python.CityPlan import *
+from my_python.OldCityPlan import *
 
 spec_valid = {"criteria":[1,1,1,1,1,1],"position":1,"score1":8,"score2":4}
 score2_invalid = {"criteria":[1,1,1,1,1,1],"position":1,"score1":8,"score2":True}
@@ -16,16 +16,16 @@ criteria_invalid_len = {"criteria":[],"position":1,"score1":8,"score2":4}
 
 class TestCityPlan(TestCase):
     def test_contracts(self):
-        self.assertTrue(CityPlan(spec_valid))
-        self.assertRaises(AssertionError, lambda: CityPlan(score2_invalid))
-        self.assertRaises(AssertionError, lambda: CityPlan(score1_invalid))
-        self.assertRaises(AssertionError, lambda: CityPlan(position_invalid_0))
-        self.assertRaises(AssertionError, lambda: CityPlan(position_invalid_str))
-        self.assertRaises(AssertionError, lambda: CityPlan(position_invalid_bool))
-        self.assertRaises(AssertionError, lambda: CityPlan(position_invalid_4))
-        self.assertRaises(AssertionError, lambda: CityPlan(criteria_invalid_decimal))
-        self.assertRaises(AssertionError, lambda: CityPlan(criteria_invalid_negative))
-        self.assertRaises(AssertionError, lambda: CityPlan(criteria_invalid_str1))
-        self.assertRaises(AssertionError, lambda: CityPlan(criteria_invalid_str))
-        self.assertRaises(AssertionError, lambda: CityPlan(criteria_invalid_len))
+        self.assertTrue(OldCityPlan(spec_valid))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(score2_invalid))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(score1_invalid))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(position_invalid_0))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(position_invalid_str))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(position_invalid_bool))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(position_invalid_4))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(criteria_invalid_decimal))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(criteria_invalid_negative))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(criteria_invalid_str1))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(criteria_invalid_str))
+        self.assertRaises(AssertionError, lambda: OldCityPlan(criteria_invalid_len))
 

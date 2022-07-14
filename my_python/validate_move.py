@@ -4,7 +4,7 @@ from collections import Counter     # https://docs.python.org/3/library/collecti
 
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
-from my_python.GameState import GameState
+from my_python.OldGameState import OldGameState
 from my_python.Street import Street
 from my_python.House import House
 from my_python.exceptions import InvalidMove
@@ -67,7 +67,7 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     return estates
 
 
-def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
+def get_estates_claimed_plans(gs: OldGameState, ps: PlayerState) -> Counter:
     """
     Returns the total number of estates that are in claimed plans.
     """
@@ -78,7 +78,7 @@ def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
     return estates
 
 
-def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
+def validate_move(ps1: PlayerState, ps2: PlayerState, gs: OldGameState) -> None:
     """
     Validates whether a move is legal or not.
     """

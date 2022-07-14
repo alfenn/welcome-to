@@ -1,7 +1,7 @@
 import sys
 from typing import Tuple
 
-from my_python.GameState import GameState
+from my_python.OldGameState import OldGameState
 
 sys.path.append('../../../../')
 from my_python.archive.a3.PlayerState import *
@@ -69,13 +69,13 @@ def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int) -> Pl
 
 
 class GenValidMove:
-    def __init__(self, gs: GameState, ps: PlayerState):
+    def __init__(self, gs: OldGameState, ps: PlayerState):
         """
             Initialize a class with methods to help us generate a valid move,
             returning a PlayerState with the valid move played, or refusals
             incremented when printed.
 
-            :param gs: the GameState representation
+            :param gs: the OldGameState representation
             :param ps: the PlayerState representation
         """
         ################### Initialize valid move field

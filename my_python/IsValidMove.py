@@ -1,7 +1,7 @@
 import sys
 sys.path.append('../../')
 from my_python.archive.a3.PlayerState import PlayerState
-from my_python.GameState import GameState
+from my_python.OldGameState import OldGameState
 
 def gen_move(ps1: PlayerState, ps2: PlayerState) -> PlayerState:
     """Generates a player state corresponding to the exact move made
@@ -12,8 +12,8 @@ def gen_move(ps1: PlayerState, ps2: PlayerState) -> PlayerState:
     """
 
 class IsValidMove:
-    def __init__(self, gs: GameState, ps1: PlayerState, ps2: PlayerState):
-        self.gs: GameState = gs
+    def __init__(self, gs: OldGameState, ps1: PlayerState, ps2: PlayerState):
+        self.gs: OldGameState = gs
         self.ps1: PlayerState = ps1
         self.ps2: PlayerState = ps2
         self.ps_move: PlayerState = gen_move(ps1, ps2)
