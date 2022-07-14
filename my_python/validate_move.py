@@ -135,13 +135,13 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                 ###############
                 ##### Catch errors
                 ## Case: built -> blank => Error
-                if curr_house_1.is_built and not (curr_house_2.is_built): raise InvalidMove(
+                if curr_house_1.is_built and not curr_house_2.is_built: raise InvalidMove(
                     "A built house cannot go to a blank house")
                 ## Case: built -> (different) built => Error
                 if curr_house_1.is_built and (curr_house_1.num != curr_house_2.num): raise InvalidMove(
                     "A built house cannot change nums")
                 ## Case: bis'd house -> non bis'd house => Error
-                if curr_house_1.is_bis and not (curr_house_2.is_bis): raise InvalidMove(
+                if curr_house_1.is_bis and not curr_house_2.is_bis: raise InvalidMove(
                     "A bis'd house cannot become a non bis'd house")
                 ## Case-- valid: not built to built
                 #   Store newly built house num into house_num
