@@ -1,10 +1,11 @@
 import json
 import sys
 from collections import Counter     # https://docs.python.org/3/library/collections.html#collections.Counter
+from typing import Tuple
 
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
-from my_python.OldGameState import OldGameState
+from my_python.GameState import GameState
 from my_python.Street import Street
 from my_python.House import House
 from my_python.exceptions import InvalidMove
@@ -67,7 +68,7 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     return estates
 
 
-def get_estates_claimed_plans(gs: OldGameState, ps: PlayerState) -> Counter:
+def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
     """
     Returns the total number of estates that are in claimed plans.
     """
@@ -78,10 +79,34 @@ def get_estates_claimed_plans(gs: OldGameState, ps: PlayerState) -> Counter:
     return estates
 
 
-def validate_move(ps1: PlayerState, ps2: PlayerState, gs: OldGameState) -> None:
+def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     """
     Validates whether a move is legal or not.
     """
+    def _identify_roundabouts() -> Tuple:
+        """
+        Checks for roundabouts and returns a list with [0] being appropriate flag and [1] being the roundabout location.
+        Errors if more than one roundabout was played.
+        """
+        played: bool = False
+        location: Tuple = (None, None)
+        for i in range(3):
+            curr_street_1: Street = ps1.streets[i]
+            curr_street_2: Street = ps2.streets[i]
+            for j in range(len(curr_street_1.homes)):
+                curr_house_1: House = curr_street_1.homes[j]
+                curr_house_2: House = curr_street_2.homes[j]
+                ## If we are building a roundabout...
+                if curr_house_1.is_roundabout and not curr_house_2.is_roundabout:
+                    raise InvalidMove("A roundabout cannot be deleted")
+                if not curr_house_1.is_roundabout and curr_house_2.is_roundabout:
+                    if played:
+                        raise InvalidMove("Cannot play two roundabouts in one move")
+                    else:  # roundabout has not been played
+                        played = True
+                        location = (i, j)
+        return location
+
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}
@@ -91,6 +116,8 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: OldGameState) -> None:
     house_counter = 0
     effect_counter = 0
     effect_played = None
+    roundabout_location = _identify_roundabouts()       # Sets roundabout location, and also makes sure at most 1 roundabout was played
+
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
         curr_street_1: Street = ps1.streets[i]
@@ -136,8 +163,12 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: OldGameState) -> None:
                     "A built fence cannot become an unbuilt fence")
                 ## If we're building fences...
                 if curr_house_2.r_fence.exists and not curr_house_1.r_fence.exists:
-                    effect_counter += 1
-                    effect_played = "surveyor"
+                    if (i, j+1) == roundabout_location: continue
+                    elif (i, j) == roundabout_location: continue
+                    else:
+                        effect_counter += 1
+                        effect_played = "surveyor"
+
                 ###############
                 ##  Used in plan
                 ###############
@@ -291,7 +322,8 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: OldGameState) -> None:
     ## Refusals checking
     #######
     # Basically check if refusals changed iff there is no move that can be played
-    if GenValidMove(gs, ps1).vm.refusals != ps2.refusals: raise InvalidMove(
+    move_generator = GenValidMove()
+    if move_generator.generate(gs, ps1).refusals != ps2.refusals: raise InvalidMove(
         "Cannot increment refusals if a valid move exists.")
     if (ps2.refusals != ps1.refusals) and (effect_counter != 0 or house_counter != 0):
         raise InvalidMove("Cannot increment refusals and play a house/effect")
