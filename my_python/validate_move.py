@@ -96,7 +96,7 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         return ps2.streets[i].parks == PARK_MAX[i]
 
     def _curr_street_has_all_pools(i: int) -> bool:
-        return ps2.streets[i].pool == [True, True, True]
+        return ps2.streets[i].pools == [True, True, True]
 
     ## Case: ["all houses", ~0|2]
     if type(ac) == list and ac[0] == "all houses":
