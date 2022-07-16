@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append('../../../')
 from my_python.PlayerState import PlayerState
 from my_python.exceptions import InvalidMove
@@ -21,6 +22,5 @@ try:
     print("true")
 except InvalidMove:
     print("false")
-
 
 # validate_move(ps1, ps2, gs)

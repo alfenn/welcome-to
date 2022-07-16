@@ -1,20 +1,21 @@
 import json
 import sys
-from collections import Counter     # https://docs.python.org/3/library/collections.html#collections.Counter
+from collections import Counter  # https://docs.python.org/3/library/collections.html#collections.Counter
 from typing import Tuple
 
 sys.path.append('../../')
 from my_python.PlayerState import PlayerState
 from my_python.GameState import GameState
-from my_python.Street import Street
+from my_python.Street import Street, PARK_MAX
 from my_python.House import House
 from my_python.exceptions import InvalidMove
 from my_python.GenValidMove import GenValidMove
+from my_python.contracts import ACCEPTABLE_CRITERIA_CARD_1S, ACCEPTABLE_CRITERIA_CARD_2S
 
 
 # Put this as helper that takes ps1 and ps2 because of the assumption that ps1 is correct:
 #   https://piazza.com/class/l0wlxndauhb4xv?cid=163
-def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
+def get_claimed_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
     """
     Returns a set such that it holds all the estates that are uip composed
     of only the houses that changed.
@@ -50,34 +51,139 @@ def get_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
                 if counting_houses:
                     if curr_house.used_in_plan and curr_house.r_fence.exists:
                         counting_houses = False
-                        curr_estate_start_end[1] = j    # set end house to j
+                        curr_estate_start_end[1] = j  # set end house to j
                     if (not curr_house.used_in_plan) or (not curr_house.is_built):
                         counting_houses = False
-                        curr_estate_start_end[1] = j-1  # set end house to j-1 bc current house isn't part of estate
+                        curr_estate_start_end[1] = j - 1  # set end house to j-1 bc current house isn't part of estate
                 # Check if we should be adding the current estate, or if we should error
-                if (not counting_houses) and (curr_estate_start_end != [None, None]):   # not counting and we have
-                                                                                            # an estate saved.
+                if (not counting_houses) and (curr_estate_start_end != [None, None]):  # not counting and we have
+                    # an estate saved.
                     # If the estate doesn't have a left and right fence then error
                     start_house: House = ps2.streets[i].homes[curr_estate_start_end[0]]
                     end_house: House = ps2.streets[i].homes[curr_estate_start_end[1]]
                     if not (start_house.l_fence.exists and end_house.r_fence.exists):
                         raise InvalidMove("Newly uip houses do not have fences around them")
                     # Add the length of the current estate to the set()
-                    estates.update([curr_estate_start_end[1]-curr_estate_start_end[0] + 1])
+                    estates.update([curr_estate_start_end[1] - curr_estate_start_end[0] + 1])
                     curr_estate_start_end = [None, None]
     return estates
 
 
-def get_estates_claimed_plans(gs: GameState, ps: PlayerState) -> Counter:
+def get_claimed_plans(gs: GameState, ps1: PlayerState, ps2: PlayerState) -> list:
     """
-    Returns the total number of estates that are in claimed plans.
+    Returns a list with ind 0 = the total number of non_advanced_criteria_estates that are in claimed plans, and
+    ind 1 = list of advanced city plans.
     """
-    estates: Counter = Counter()
-    claimed_city_plan_indices = [i for i in range(3) if ps.city_plan_score[i] != "blank"]
+    advanced_city_plan_criteria: list = ACCEPTABLE_CRITERIA_CARD_1S + ACCEPTABLE_CRITERIA_CARD_2S
+    non_advanced_criteria_estates: Counter = Counter()
+    advanced_city_plans_claimed = []
+    # Grab indices for plans that were claimed this turn
+    claimed_city_plan_indices = [i for i in range(3) if ps2.city_plan_score[i] != ps1.city_plan_score[i]]
     for i in claimed_city_plan_indices:
-        estates.update(gs.city_plans[i].criteria)   # add the estate sizes from each claimed plan to `estates`
-    return estates
+        curr_city_plan_criteria = gs.city_plans[i].criteria
+        # If curr_city_plan_criteria isn't an advanced_city_plan, update `non_advanced_criteria_estates`
+        if curr_city_plan_criteria not in advanced_city_plan_criteria:
+            non_advanced_criteria_estates.update(
+                curr_city_plan_criteria)  # add the estate sizes from each claimed plan to `non_advanced_criteria_estates`
+        # If curr_city_plan_criteria is an advanced_city_plan,
+        else:
+            advanced_city_plans_claimed.append(curr_city_plan_criteria)
+    return [non_advanced_criteria_estates, advanced_city_plans_claimed]
 
+def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
+    """Errors if advanced plan is not satisfied or (when appropriate) house is not newly claimed as uip."""
+    def _curr_street_has_all_parks(i: int) -> bool:
+        return ps2.streets[i].parks == PARK_MAX[i]
+
+    def _curr_street_has_all_pools(i: int) -> bool:
+        return ps2.streets[i].pool == [True, True, True]
+
+    ## Case: ["all houses", ~0|2]
+    if type(ac) == list and ac[0] == "all houses":
+        street_ind = ac[1]
+        curr_street_1 = ps1.streets[street_ind]
+        curr_street_2 = ps2.streets[street_ind]
+        # Check every house in the street
+        for house_ind in range(len(curr_street_2.homes)):
+            curr_house_1 = curr_street_1.homes[house_ind]
+            curr_house_2 = curr_street_2.homes[house_ind]
+            # Check: house was not built
+            if not curr_house_2.is_built:
+                raise InvalidMove(f"Attempted to claim [\"all houses\", {street_ind}] but house at ind {house_ind} was not built")
+            # Check: house must be newly claimed
+            if not (curr_house_2.used_in_plan and not curr_house_1.used_in_plan):
+                raise InvalidMove(f"Attempted to claim advanced plan but house at ind ({street_ind}, {house_ind}) wasn't newly claimed")
+    ## Case: "end houses"
+    elif ac == "end houses":
+        for street_ind in range(3):
+            curr_street_1 = ps1.streets[street_ind]
+            curr_street_2 = ps2.streets[street_ind]
+            for house_ind in [0, len(curr_street_2)-1]:
+                curr_house_1 = curr_street_1[house_ind]
+                curr_house_2 = curr_street_2[house_ind]
+                # Check: house was not built
+                if not curr_house_2.is_built:
+                    raise InvalidMove(f"Attempted to claim \"end houses\" but house at ind ({street_ind}, {house_ind}) was not built")
+                # Check: house must be newly claimed
+                if not (curr_house_2.used_in_plan and not curr_house_1.used_in_plan):
+                    raise InvalidMove(f"Attempted to claim advanced plan but house at ind ({street_ind}, {house_ind}) wasn't newly claimed")
+    ## Case: "7 temps"
+    elif ac == "7 temps":
+        temps_played = ps2.temps
+        if temps_played < 7: raise InvalidMove(f"Attempted to claim \"7 temps\" but there are only {temps_played} temps played")
+    ## Case: "5 bis"
+    elif ac == "5 bis":
+        street_has_five_bis = False
+        for street_ind in range(3):
+            if street_has_five_bis: break
+            curr_street = ps2.streets[street_ind]
+            # increment bis_counter to keep track of the number of bis'd houses on the street
+            bis_counter = 0
+            for house_ind in curr_street.homes:
+                curr_house: House = curr_street.homes[house_ind]
+                if curr_house.is_bis: bis_counter += 1
+                # if we are equal to 5 bis on the curr_street...
+                if bis_counter == 5:
+                    street_has_five_bis = True
+                    break
+                continue
+        if not street_has_five_bis: raise InvalidMove(f"Attempted to claim \"5 bis\" but there is less than 5 bis played on the same street")
+    ## Case: "two streets all parks"
+    elif ac == "two streets all parks":
+        streets_w_all_parks = []
+        for street_ind in range(3):
+            if _curr_street_has_all_parks(street_ind):
+                streets_w_all_parks.append(street_ind)
+        if len(streets_w_all_parks) < 2:
+            raise InvalidMove(f"Attempted to claim \"two streets all parks\" but only street ind {streets_w_all_parks} have all parks")
+    ## Case: "two streets all pools"
+    elif ac == "two streets all pools":
+        streets_w_all_pools = []
+        for street_ind in range(3):
+            if _curr_street_has_all_pools(street_ind):
+                streets_w_all_pools.append(street_ind)
+        if len(streets_w_all_pools) < 2:
+            raise InvalidMove(f"Attempted to claim \"two streets all pools\" but only street ind {streets_w_all_pools} have all pools")
+    ## Case: ["all pools all parks", ~1|2]
+    elif type(ac) == list and ac[0] == "all pools all parks":
+        street_ind = ac[1]
+        has_all_pools = _curr_street_has_all_pools(street_ind)
+        has_all_parks = _curr_street_has_all_parks(street_ind)
+        if not (has_all_pools and has_all_parks):
+            raise InvalidMove(f"Attempted to claim [\"all pools all parks\", {street_ind}] but has_all_pools is {has_all_pools} and has_all_parks is {has_all_parks}")
+    ## Case: "all pools all parks one roundabout"
+    elif ac == "all pools all parks one roundabout":
+        street_w_all_pools_all_parks_exists = False
+        for street_ind in range(3):
+            curr_street: Street = ps2.streets[street_ind]
+            has_all_pools = _curr_street_has_all_pools(street_ind)
+            has_all_parks = _curr_street_has_all_parks(street_ind)
+            has_roundabout = curr_street.get_num_roundabouts() > 0
+            if has_all_pools and has_all_parks and has_roundabout:
+                street_w_all_pools_all_parks_exists = True
+        if street_w_all_pools_all_parks_exists is False:
+            raise InvalidMove("Tried to claim \"all pools all parks one roundabout\" but there is no street meeting this condition")
+    return None
 
 def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     """
@@ -106,7 +212,6 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                         played = True
                         location = (i, j)
         return location
-
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}
@@ -116,7 +221,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     house_counter = 0
     effect_counter = 0
     effect_played = None
-    roundabout_location = _identify_roundabouts()       # Sets roundabout location, and also makes sure at most 1 roundabout was played
+    roundabout_location = _identify_roundabouts()  # Sets roundabout location, and also makes sure at most 1 roundabout was played
 
     # Case: Newly built houses in ps2 cannot be already built in ps1
     for i in range(3):  # Iterate through the streets of both player states
@@ -163,8 +268,10 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                     "A built fence cannot become an unbuilt fence")
                 ## If we're building fences...
                 if curr_house_2.r_fence.exists and not curr_house_1.r_fence.exists:
-                    if (i, j+1) == roundabout_location: continue
-                    elif (i, j) == roundabout_location: continue
+                    if (i, j + 1) == roundabout_location:
+                        continue
+                    elif (i, j) == roundabout_location:
+                        continue
                     else:
                         effect_counter += 1
                         effect_played = "surveyor"
@@ -230,24 +337,26 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
         if ps2.temps != ps1.temps + 1:
             raise InvalidMove("If temps is played, it can only be +1")
         if effect_played is not None:
-            effect_counter += 1     # Could also have raised error here, but for debugging we thought it would
-                                    # be better if we +=1 effect_counter to show 2 effects were played
+            effect_counter += 1  # Could also have raised error here, but for debugging we thought it would
+            # be better if we +=1 effect_counter to show 2 effects were played
         else:
             effect_counter += 1
             effect_played = "temp"
             if house_counter > 0 \
                     and ((house_nums_with_temp.count(built_house["house_num"])
-                        + house_nums_with_temp.count(built_house["house_num"] + 1)
-                        + house_nums_with_temp.count(built_house["house_num"] - 1)
-                        + house_nums_with_temp.count(built_house["house_num"] + 2)
-                        + house_nums_with_temp.count(built_house["house_num"] - 2)) == 0):
-                if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove("Attempted to play a Temp when there was no construction card")
+                          + house_nums_with_temp.count(built_house["house_num"] + 1)
+                          + house_nums_with_temp.count(built_house["house_num"] - 1)
+                          + house_nums_with_temp.count(built_house["house_num"] + 2)
+                          + house_nums_with_temp.count(built_house["house_num"] - 2)) == 0):
+                if not ([e for e in gs.effects].count("temp") == 0): raise InvalidMove(
+                    "Attempted to play a Temp when there was no construction card")
     ######
     ## Check to make sure that house_num is in the construction cards
     # Note: only need to do this check outside a "temp is played case"
     ######
     elif ([x[0] for x in gs.construction_cards].count(built_house["house_num"]) == 0) and (
-                not (built_house["house_num"] is None)): raise InvalidMove("played house is not in construction cards")
+            not (built_house["house_num"] is None)):
+        raise InvalidMove("played house is not in construction cards")
     # Make sure only one effect is being played
     if effect_counter > 1: raise InvalidMove("Cannot play more than one effect in a turn")
     if effect_counter == 1 and house_counter == 0: raise InvalidMove("Cannot play effect without building a house")
@@ -260,10 +369,11 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     # Find the indices of the construction cards that correspond to building the built_house.num
     construction_card_indices = [i for i in range(3) if gs.construction_cards[i][0] == built_house["house_num"]]
     if effect_played == "temp":
-        construction_card_indices += [i for i in range(3) if (gs.construction_cards[i][0] == built_house["house_num"] + 1
-                                                              or gs.construction_cards[i][0] == built_house["house_num"] - 1
-                                                              or gs.construction_cards[i][0] == built_house["house_num"] + 2
-                                                              or gs.construction_cards[i][0] == built_house["house_num"] - 2)]
+        construction_card_indices += [i for i in range(3) if
+                                      (gs.construction_cards[i][0] == built_house["house_num"] + 1
+                                       or gs.construction_cards[i][0] == built_house["house_num"] - 1
+                                       or gs.construction_cards[i][0] == built_house["house_num"] + 2
+                                       or gs.construction_cards[i][0] == built_house["house_num"] - 2)]
     # If the effect is not None, check it against the gs.effects[indices] using the indices we j saved
     elif effect_played is not None:
         if list(map(lambda ind: gs.effects[ind], construction_card_indices)).count(effect_played) == 0:
@@ -307,16 +417,26 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                                   "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
     # validate that the total number uip houses match with the number of total estates that
     # are in all won city plans.
-    ps_uip_estates: Counter = get_estates(ps1, ps2)
-    claimed_plans_estates: Counter = get_estates_claimed_plans(gs, ps2)
-    # Only check if uip_estates matches claimed_plan_estates if we're claiming estates that turn
+    ps_uip_estates: Counter = get_claimed_estates(ps1, ps2)
+    claimed_plans: list = get_claimed_plans(gs, ps1, ps2)
+    # Only check if uip_estates matches claimed_plans__non_adv_cri_estates if we're claiming estates that turn
     #   This is to account for two cases:
     #       1. Invalid ps1 uip and claimed_estates, but newly claimed uip houses matches newly claimed plan
     #       2. No change between ps1 and ps2 uip houses or claimed_plans
     #       since we only count houses that change between ps1 and ps2, case 2 errored because it said ps_uip_estates
     #       was empty.
-    if ps1.city_plan_score != ps2.city_plan_score and ps_uip_estates != claimed_plans_estates:
-        raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
+    ## Check: non-advanced case:
+    if claimed_plans[1] == []:
+        if ps_uip_estates != claimed_plans[0]:
+            raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
+    ## Check: advanced case
+    else:
+        ## Subcheck 1: claimed_plans_non-advanced-criteria-estates must be satisfied
+        if not (claimed_plans[0] - ps_uip_estates == Counter()):
+            raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
+        ## Subcheck 2: make sure playerstate satisfies claimed_plans_advanced-criteria
+        for ac in claimed_plans[1]:
+            check_advanced_plans(ac, ps1, ps2)
 
     #######
     ## Refusals checking

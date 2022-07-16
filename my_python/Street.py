@@ -8,6 +8,9 @@ from my_python.House import House
 from my_python.Fence import Fence
 from my_python.Same import same_or_get_first
 
+PARK_MAX = [3, 4, 5]
+POOL_LOCATIONS = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
+
 class Street:
     # def __init__(self, inp_street):
     def __init__(self, **kwargs):
@@ -74,8 +77,7 @@ class Street:
         return len(self.homes) % 10
 
     def _check_pools(self) -> None:
-        pool_locations = [[2, 6, 7], [0, 3, 7], [1, 6, 10]]
-        pool_locations_curr_st = pool_locations[self._street_ind()]
+        pool_locations_curr_st = POOL_LOCATIONS[self._street_ind()]
         # Iterate over "pools"
         for i in range(3):
             # If there is a True, check the corresponding .homes ind
@@ -93,8 +95,7 @@ class Street:
                         raise InvalidPlayerState("House for corresponding pool value is a \"bis\".")
 
     def _check_parks(self) -> None:
-        park_max = [3, 4, 5]
-        park_max_curr_st = park_max[self._street_ind()]
+        park_max_curr_st = PARK_MAX[self._street_ind()]
         if not self.parks <= park_max_curr_st:
             raise InvalidPlayerState("Parks value is not less than max for the given street length.")
 

@@ -170,6 +170,21 @@ def city_plans_won_contract(inp: list) -> None:
 ##########################################
 ####### CityPlan wrapper contracts #######
 ##########################################
+ACCEPTABLE_CRITERIA_CARD_1S = [
+            ["all houses", 0],
+            ["all houses", 2],
+            "end houses",
+            "7 temps",
+            "5 bis"
+]
+ACCEPTABLE_CRITERIA_CARD_2S = [
+            "two streets all parks",
+            "two streets all pools",
+            ["all pools all parks", 1],
+            ["all pools all parks", 2],
+            "all pools all parks one roundabout"
+]
+
 def position_contract(pos: int) -> None:
     if not (1 <= pos <= 3): raise InvalidGameState("Position must either be 1, 2, or 3")
 
@@ -187,23 +202,9 @@ def criteria_contract(cri, pos: int) -> None:
             return False
         return True
     def _criteria_card_1_contract_b(cri) -> bool:
-        acceptable_criteria_card_1s = [
-            ["all houses", 0],
-            ["all houses", 2],
-            "end houses",
-            "7 temps",
-            "5 bis"
-        ]
-        return cri in acceptable_criteria_card_1s
+        return cri in ACCEPTABLE_CRITERIA_CARD_1S
     def _criteria_card_2_contract_b(cri) -> bool:
-        acceptable_criteria_card_2s = [
-            "two streets all parks",
-            "two streets all pools",
-            [ "all pools all parks", 1 ],
-            [ "all pools all parks", 2 ],
-            "all pools all parks one roundabout"
-        ]
-        return cri in acceptable_criteria_card_2s
+        return cri in ACCEPTABLE_CRITERIA_CARD_2S
     # City plans in position 1: must have "criteria" that is either List[natural] or criteria-card-1
     if pos == 1:
         if not (_natural_sorted_list_contract_b(cri) or _criteria_card_1_contract_b(cri)):
