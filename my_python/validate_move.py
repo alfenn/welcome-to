@@ -1,3 +1,4 @@
+import copy
 import json
 import sys
 from collections import Counter  # https://docs.python.org/3/library/collections.html#collections.Counter
@@ -15,12 +16,13 @@ from my_python.contracts import ACCEPTABLE_CRITERIA_CARD_1S, ACCEPTABLE_CRITERIA
 
 # Put this as helper that takes ps1 and ps2 because of the assumption that ps1 is correct:
 #   https://piazza.com/class/l0wlxndauhb4xv?cid=163
-def get_claimed_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
+def get_claimed_estates(ps1: PlayerState, ps2: PlayerState) -> list:
     """
-    Returns a set such that it holds all the estates that are uip composed
-    of only the houses that changed.
+    Returns a list of: [0] = set such that it holds all the estates that are uip composed
+    of only the houses that changed; [1] = bool flag set to whether there are non-estate uip houses added.
     """
     estates: Counter = Counter()
+    non_estate_uip_houses = False
     # Loop through each street
     for i in range(3):
         curr_street: Street = ps2.streets[i]
@@ -62,11 +64,16 @@ def get_claimed_estates(ps1: PlayerState, ps2: PlayerState) -> Counter:
                     start_house: House = ps2.streets[i].homes[curr_estate_start_end[0]]
                     end_house: House = ps2.streets[i].homes[curr_estate_start_end[1]]
                     if not (start_house.l_fence.exists and end_house.r_fence.exists):
-                        raise InvalidMove("Newly uip houses do not have fences around them")
+                        # Note: setting the flag instead of erroring when we encounter non-estate-newly-uip-houses bc
+                        #   in adv-cri where we claim [all-houses-in-row], we don't want to error.
+                        #   But in case where no adv-plans were claimed, we want to know this so we can throw the
+                        #   error that there were houses that were erroneously marked uip.
+                        # raise InvalidMove("Newly uip houses do not have fences around them")
+                        non_estate_uip_houses = True
                     # Add the length of the current estate to the set()
                     estates.update([curr_estate_start_end[1] - curr_estate_start_end[0] + 1])
                     curr_estate_start_end = [None, None]
-    return estates
+    return [estates, non_estate_uip_houses]
 
 
 def get_claimed_plans(gs: GameState, ps1: PlayerState, ps2: PlayerState) -> list:
@@ -118,9 +125,9 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         for street_ind in range(3):
             curr_street_1 = ps1.streets[street_ind]
             curr_street_2 = ps2.streets[street_ind]
-            for house_ind in [0, len(curr_street_2)-1]:
-                curr_house_1 = curr_street_1[house_ind]
-                curr_house_2 = curr_street_2[house_ind]
+            for house_ind in [0, len(curr_street_2.homes)-1]:
+                curr_house_1 = curr_street_1.homes[house_ind]
+                curr_house_2 = curr_street_2.homes[house_ind]
                 # Check: house was not built
                 if not curr_house_2.is_built:
                     raise InvalidMove(f"Attempted to claim \"end houses\" but house at ind ({street_ind}, {house_ind}) was not built")
@@ -139,8 +146,7 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
             curr_street = ps2.streets[street_ind]
             # increment bis_counter to keep track of the number of bis'd houses on the street
             bis_counter = 0
-            for house_ind in curr_street.homes:
-                curr_house: House = curr_street.homes[house_ind]
+            for curr_house in curr_street.homes:
                 if curr_house.is_bis: bis_counter += 1
                 # if we are equal to 5 bis on the curr_street...
                 if bis_counter == 5:
@@ -257,7 +263,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                     house_counter += 1
                 ##### Increment effect counter
                 # If we're building a bis...
-                if curr_house_2.is_bis:
+                if not curr_house_1.is_bis and curr_house_2.is_bis:
                     effect_played = "bis"
                     effect_counter += 1
                 ###############
@@ -417,7 +423,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                                   "the score claimed CANNOT be anything BUT the corresponding plan's score 1.")
     # validate that the total number uip houses match with the number of total estates that
     # are in all won city plans.
-    ps_uip_estates: Counter = get_claimed_estates(ps1, ps2)
+    ps_uip_estates: list = get_claimed_estates(ps1, ps2)
     claimed_plans: list = get_claimed_plans(gs, ps1, ps2)
     # Only check if uip_estates matches claimed_plans__non_adv_cri_estates if we're claiming estates that turn
     #   This is to account for two cases:
@@ -427,12 +433,14 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     #       was empty.
     ## Check: non-advanced case:
     if claimed_plans[1] == []:
-        if ps_uip_estates != claimed_plans[0]:
+        if ps_uip_estates[0] != claimed_plans[0]:
             raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
+        if ps_uip_estates[1] is True:
+            raise InvalidMove("Newly uip houses are not estates, and no adv-plans were claimed. (aka. we found that newly uip houses do not have fences around the first and last uip house in that block of uip-houses)")
     ## Check: advanced case
     else:
         ## Subcheck 1: claimed_plans_non-advanced-criteria-estates must be satisfied
-        if not (claimed_plans[0] - ps_uip_estates == Counter()):
+        if not (claimed_plans[0] - ps_uip_estates[0] == Counter()):
             raise InvalidMove("Cannot claim a plan when used-in-plan houses don't satisfy the plan.")
         ## Subcheck 2: make sure playerstate satisfies claimed_plans_advanced-criteria
         for ac in claimed_plans[1]:
