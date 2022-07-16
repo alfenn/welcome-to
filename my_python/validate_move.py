@@ -152,7 +152,6 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
                 if bis_counter == 5:
                     street_has_five_bis = True
                     break
-                continue
         if not street_has_five_bis: raise InvalidMove(f"Attempted to claim \"5 bis\" but there is less than 5 bis played on the same street")
     ## Case: "two streets all parks"
     elif ac == "two streets all parks":
@@ -238,6 +237,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
             curr_house_2: House = curr_street_2.homes[j]
 
             if curr_house_1 != curr_house_2:
+                if curr_house_1.used_in_plan != curr_house_2.used_in_plan: continue
                 ###############
                 ## Catch: built -> blank
                 ##        built -> different built
