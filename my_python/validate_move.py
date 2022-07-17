@@ -217,6 +217,13 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
                         played = True
                         location = (i, j)
         return location
+    def _only_diff_is_not_uip_to_uip(h1: House, h2: House) -> bool:
+        if h1.used_in_plan is False and h2.used_in_plan is True:
+            h1_claim_uip = copy.deepcopy(h1)
+            h1_claim_uip.used_in_plan = True
+            if h1_claim_uip == h2:
+                return True
+        return False
     built_house = {"street_ind": None,
                    "house_num": None,
                    "house_ind": None}
@@ -236,8 +243,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
             curr_house_1: House = curr_street_1.homes[j]
             curr_house_2: House = curr_street_2.homes[j]
 
-            if curr_house_1 != curr_house_2:
-                if curr_house_1.used_in_plan != curr_house_2.used_in_plan: continue
+            if not _only_diff_is_not_uip_to_uip(curr_house_1, curr_house_2):
                 ###############
                 ## Catch: built -> blank
                 ##        built -> different built
