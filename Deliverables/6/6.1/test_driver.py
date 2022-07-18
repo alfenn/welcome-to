@@ -3,7 +3,7 @@ import sys, json, socket
 sys.path.append('../../../')
 from my_python.Network import Network
 from my_python.GenValidMove import GenValidMove
-from my_python.OldGameState import OldGameState
+from my_python.GameState import GameState
 from my_python.PlayerState import PlayerState
 
 
@@ -27,7 +27,7 @@ class RemotePlayerAdapter:
             #########
             ## Send a move over the network
             #########
-            received_gs = OldGameState(received["game-state"])
+            received_gs = GameState(received["game-state"])
             received_ps = PlayerState(inp_ps=received["player-state"])
             generated_move: PlayerState = self.p.generate(received_gs, received_ps)
             self.n.send(str(generated_move))

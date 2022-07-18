@@ -1,5 +1,5 @@
-import socket, json
-
+import socket, json, threading
+HEADER = 8192
 class Network:
     def __init__(self, host: str, port: int):
         """
@@ -22,4 +22,4 @@ class Network:
         Listens from the network connection and returns a decoded python
         representation of the data structure sent from the server
         """
-        return json.loads(self.s.recv(8192).decode())
+        return json.loads(self.s.recv(HEADER).decode())
