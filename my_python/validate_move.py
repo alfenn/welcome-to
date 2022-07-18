@@ -457,7 +457,10 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     #######
     # Basically check if refusals changed iff there is no move that can be played
     move_generator = GenValidMove()
-    if move_generator.generate(gs, ps1).refusals != ps2.refusals: raise InvalidMove(
+    generated_move_ps = move_generator.generate(gs, ps1)
+    if generated_move_ps.refusals != ps2.refusals: raise InvalidMove(
         "Cannot increment refusals if a valid move exists.")
+    if house_counter == 0 and ps2.refusals == 0:
+        raise InvalidMove("Cannot keep refusals at 0 if no house was built.")
     if (ps2.refusals != ps1.refusals) and (effect_counter != 0 or house_counter != 0):
         raise InvalidMove("Cannot increment refusals and play a house/effect")

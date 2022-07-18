@@ -40,11 +40,14 @@ class PlayerState:
         except KeyError:
             pass
 
-    def _check_num_roundabouts(self) -> None:
+    def get_total_num_roundabouts(self) -> int:
         total_roundabouts = 0
         for curr_street in self.streets:
             total_roundabouts += curr_street.get_num_roundabouts()
-        if total_roundabouts > 2:
+        return total_roundabouts
+
+    def _check_num_roundabouts(self) -> None:
+        if self._get_total_num_roundabouts() > 2:
             raise InvalidPlayerState("Number of roundabouts cannot exceed 2.")
 
     def get_total_non_bis_houses(self) -> int:
