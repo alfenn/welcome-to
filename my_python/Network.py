@@ -1,4 +1,9 @@
 import socket, json, threading
+
+from my_python.validate_move import validate_move
+from my_python.GameState import GameState
+from my_python.PlayerState import PlayerState
+
 HEADER = 8192
 class Network:
     def __init__(self, host: str, port: int):
@@ -43,9 +48,10 @@ class MyServer:
         while connected:
             msg_length = connection.recv(HEADER).decode('utf-8')
             msg_length = int(msg_length)
-            msg = connection.recv(msg_length).decode('utf-8')
-            if msg == "ack":
-                connected = False
+            msg = json.loads(connection.recv(msg_length).decode('utf-8'))
+            if msg == "ack": break
+            received_ps: PlayerState(inp_ps=msg["player-state"])
+            if
 
         connection.close()
 
