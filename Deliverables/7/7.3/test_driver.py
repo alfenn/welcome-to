@@ -8,8 +8,8 @@ from my_python.validate_move import validate_move
 import json
 
 input_str = sys.stdin.read()
-# input_str = open('../../4/4.1/input_01_08_house_number_robby.json', 'r').read()
-# input_str = open('input6_team20.json', 'r').read()
+# input_str = open('input_07_04_adv-two-streets-all-pools_robby.json', 'r').read()
+# input_str = open('input_b_1_team24.json', 'r').read()
 inp_lst = json.loads(input_str)
 inp_gs = inp_lst[0]
 inp_ps1 = inp_lst[1]

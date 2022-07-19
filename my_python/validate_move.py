@@ -461,9 +461,9 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     ## Check: [2nd cond] don't error if the reason for the refusal difference is bc the only valid move available
     #   (a roundabout move) was played
     if generated_move_ps.refusals != ps2.refusals \
-            and (ps1.get_total_num_roundabouts() + 1 == ps2.get_total_num_roundabouts()):
+            and (ps1.get_total_num_roundabouts() == ps2.get_total_num_roundabouts()):
         raise InvalidMove("Cannot increment refusals if a valid move exists.")
-    if house_counter == 0 and ps2.refusals == 0:
-        raise InvalidMove("Cannot keep refusals at 0 if no house was built.")
+    if house_counter == 0 and ps1.refusals == ps2.refusals:
+        raise InvalidMove("Cannot keep refusals the same if no house was built.")
     if (ps2.refusals != ps1.refusals) and (effect_counter != 0 or house_counter != 0):
         raise InvalidMove("Cannot increment refusals and play a house/effect")

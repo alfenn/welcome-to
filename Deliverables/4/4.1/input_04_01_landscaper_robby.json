@@ -43,28 +43,28 @@
     ],
     "construction-cards": [
       [
-        12,
+        3,
         "bis"
       ],
       [
-        8,
+        3,
         "bis"
       ],
       [
-        9,
+        3,
         "bis"
       ]
     ],
     "effects": [
       "landscaper",
-      "agent",
-      "surveyor"
+      "landscaper",
+      "landscaper"
     ]
   },
   {
     "agents": [
-      0,
-      0,
+      1,
+      1,
       0,
       0,
       0,
@@ -75,11 +75,11 @@
       "blank",
       "blank"
     ],
-    "refusals": 1,
+    "refusals": 0,
     "streets": [
       {
         "homes": [
-          11,
+          1,
           false,
           [
             false,
@@ -93,7 +93,17 @@
           ],
           [
             false,
-            "blank",
+            4,
+            false
+          ],
+          [
+            false,
+            6,
+            false
+          ],
+          [
+            false,
+            7,
             false
           ],
           [
@@ -103,27 +113,17 @@
           ],
           [
             false,
-            "blank",
+            11,
             false
           ],
           [
             false,
-            "blank",
+            13,
             false
           ],
           [
             false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
+            14,
             false
           ]
         ],
@@ -136,11 +136,11 @@
       },
       {
         "homes": [
-          12,
+          1,
           false,
           [
             false,
-            "blank",
+            2,
             false
           ],
           [
@@ -160,32 +160,32 @@
           ],
           [
             false,
-            "blank",
+            6,
             false
           ],
           [
             false,
-            "blank",
+            7,
             false
           ],
           [
             false,
-            "blank",
+            8,
             false
           ],
           [
             false,
-            "blank",
+            9,
             false
           ],
           [
             false,
-            "blank",
+            10,
             false
           ],
           [
             false,
-            "blank",
+            11,
             false
           ]
         ],
@@ -198,11 +198,21 @@
       },
       {
         "homes": [
-          10,
+          1,
           false,
           [
             false,
-            "blank",
+            2,
+            false
+          ],
+          [
+            false,
+            3,
+            false
+          ],
+          [
+            false,
+            4,
             false
           ],
           [
@@ -227,32 +237,22 @@
           ],
           [
             false,
-            "blank",
+            9,
             false
           ],
           [
             false,
-            "blank",
+            10,
             false
           ],
           [
             false,
-            "blank",
+            11,
             false
           ],
           [
             false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
+            12,
             false
           ]
         ],
@@ -268,8 +268,8 @@
   },
   {
     "agents": [
-      0,
-      0,
+      1,
+      1,
       0,
       0,
       0,
@@ -280,11 +280,11 @@
       "blank",
       "blank"
     ],
-    "refusals": 2,
+    "refusals": 0,
     "streets": [
       {
         "homes": [
-          11,
+          1,
           false,
           [
             false,
@@ -293,7 +293,59 @@
           ],
           [
             false,
+            3,
+            false
+          ],
+          [
+            false,
+            4,
+            false
+          ],
+          [
+            false,
+            6,
+            false
+          ],
+          [
+            false,
+            7,
+            false
+          ],
+          [
+            false,
             "blank",
+            false
+          ],
+          [
+            false,
+            11,
+            false
+          ],
+          [
+            false,
+            13,
+            false
+          ],
+          [
+            false,
+            14,
+            false
+          ]
+        ],
+        "parks": 1,
+        "pools": [
+          false,
+          false,
+          false
+        ]
+      },
+      {
+        "homes": [
+          1,
+          false,
+          [
+            false,
+            2,
             false
           ],
           [
@@ -313,22 +365,32 @@
           ],
           [
             false,
-            "blank",
+            6,
             false
           ],
           [
             false,
-            "blank",
+            7,
             false
           ],
           [
             false,
-            "blank",
+            8,
             false
           ],
           [
             false,
-            "blank",
+            9,
+            false
+          ],
+          [
+            false,
+            10,
+            false
+          ],
+          [
+            false,
+            11,
             false
           ]
         ],
@@ -341,11 +403,21 @@
       },
       {
         "homes": [
-          12,
+          1,
           false,
           [
             false,
-            "blank",
+            2,
+            false
+          ],
+          [
+            false,
+            3,
+            false
+          ],
+          [
+            false,
+            4,
             false
           ],
           [
@@ -370,94 +442,22 @@
           ],
           [
             false,
-            "blank",
+            9,
             false
           ],
           [
             false,
-            "blank",
+            10,
             false
           ],
           [
             false,
-            "blank",
+            11,
             false
           ],
           [
             false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ]
-        ],
-        "parks": 0,
-        "pools": [
-          false,
-          false,
-          false
-        ]
-      },
-      {
-        "homes": [
-          10,
-          false,
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
-            false
-          ],
-          [
-            false,
-            "blank",
+            12,
             false
           ]
         ],
