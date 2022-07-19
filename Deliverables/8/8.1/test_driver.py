@@ -2,7 +2,7 @@ import sys, json, socket
 
 sys.path.append('../../../')
 from my_python.Network import MyServer
-from my_python.
+from
 from my_python.GenValidMove import GenValidMove
 from my_python.GameState import GameState
 from my_python.PlayerState import PlayerState
