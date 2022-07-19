@@ -47,7 +47,7 @@ class PlayerState:
         return total_roundabouts
 
     def _check_num_roundabouts(self) -> None:
-        if self._get_total_num_roundabouts() > 2:
+        if self.get_total_num_roundabouts() > 2:
             raise InvalidPlayerState("Number of roundabouts cannot exceed 2.")
 
     def get_total_non_bis_houses(self) -> int:

@@ -160,13 +160,14 @@ class GenValidMove:
                         if house_built:
                             # If a house was built, we've made our move--no need to continue looping.
                             break
-                        ## Case: a non-roundabout move cannot be played
-                        # verify that there is space for a roundabout to be played in the gap, and that the range is valid
-                        if can_roundabout_be_played_in_gap and self.vm.get_total_num_roundabouts() < 2 and (roundabout_excl_range[1] - roundabout_excl_range[0] != 1):
-                            # Play a roundabout if a cc exists for the computer valid gap range.
-                            house_built = self._play_construction_card_if_allowed(i, j, True, roundabout_excl_range)
-                            if house_built:
-                                break
+                        ########## according to robby: players have a choice to either increment refusals or make a roundabout move
+                        # ## Case: a non-roundabout move cannot be played
+                        # # verify that there is space for a roundabout to be played in the gap, and that the range is valid
+                        # if can_roundabout_be_played_in_gap and self.vm.get_total_num_roundabouts() < 2 and (roundabout_excl_range[1] - roundabout_excl_range[0] != 1):
+                        #     # Play a roundabout if a cc exists for the computer valid gap range.
+                        #     house_built = self._play_construction_card_if_allowed(i, j, True, roundabout_excl_range)
+                        #     if house_built:
+                        #         break
 
         if not house_built:
             # Increment refusals

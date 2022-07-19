@@ -7,8 +7,8 @@ from my_python.GameState import GameState
 from my_python.validate_move import validate_move
 import json
 
-# input_str = sys.stdin.read()
-input_str = open('../../4/4.1/input_01_08_house_number_robby.json', 'r').read()
+input_str = sys.stdin.read()
+# input_str = open('../../4/4.1/input_01_08_house_number_robby.json', 'r').read()
 # input_str = open('input6_team20.json', 'r').read()
 inp_lst = json.loads(input_str)
 inp_gs = inp_lst[0]
@@ -18,10 +18,10 @@ gs: GameState = GameState(inp_gs)
 ps1: PlayerState = PlayerState(inp_ps=inp_ps1)
 ps2: PlayerState = PlayerState(inp_ps=inp_ps2)
 
-# try:
-#     validate_move(ps1, ps2, gs)
-#     print("true")
-# except InvalidMove:
-#     print("false")
+try:
+    validate_move(ps1, ps2, gs)
+    print("true")
+except InvalidMove:
+    print("false")
 
-validate_move(ps1, ps2, gs)
+# validate_move(ps1, ps2, gs)
