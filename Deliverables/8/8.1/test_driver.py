@@ -1,14 +1,14 @@
 import sys, json, socket
 
 sys.path.append('../../../')
-from my_python.Network import MyServer
-from
+from my_python.Network import Network
+
 from my_python.GenValidMove import GenValidMove
 from my_python.GameState import GameState
 from my_python.PlayerState import PlayerState
 
-class ServerAdaptor():
-    def __init__(self, serv: MyServer, ):
+#class ServerAdaptor():
+ #   def __init__(self, serv: MyServer, ):
 
 
 
@@ -18,10 +18,10 @@ class ServerAdaptor():
 # for validate move, we need to check the player state the player is currently at (ps1) against the one they are
 #   sending to the server (ps2)
 
-network_config = json.loads(sys.stdin.read())
-# input_str = open('input9_team9.json', 'r').read()
-players: network_config["players"]
+# network_config = json.loads(sys.stdin.read())
+network_config = { "players" : ["simple-player"], "port" : 8103 }
+players: list = network_config["players"]
 port: int = network_config["port"]
-s = MyServer(players,port)
+s = Network.MyServer(players, port)
 s.start()
 

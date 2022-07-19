@@ -29,40 +29,45 @@ class Network:
         """
         return json.loads(self.s.recv(HEADER).decode())
 
-class MyServer:
-    def __init__(self, players: int, port: int):
-        """
-        Networking code that manages connections with clients
-        """
-        self.port = port
-        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server.bind((socket.gethostbyname(socket.gethostname()), self.port))
-        self.players = players
+    class MyServer:
+        def __init__(self, players: list, port: int):
+            """
+            Networking code that manages connections with clients
+            """
+            # self.port = port
+            self.port = 8103
+            self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server.bind((socket.gethostbyname(socket.gethostname()), self.port))
+            self.players = players
 
-    def handle_client(self, connection, address):
-        """
-        Function that receives a message, padded with a header (to determine the length of the next message)
-        and closes the connection with the client if we reach a "game-over" state
-        """
-        connected = True
-        while connected:
-            msg_length = connection.recv(HEADER).decode('utf-8')
-            msg_length = int(msg_length)
-            msg = json.loads(connection.recv(msg_length).decode('utf-8'))
-            if msg == "ack": break
-            received_ps: PlayerState(inp_ps=msg["player-state"])
-            if
+        def handle_client(self, connection, address):
+            """
+            Function that receives a message, padded with a header (to determine the length of the next message)
+            and closes the connection with the client if we reach a "game-over" state
+            """
+            connected = True
+            while connected:
+                # send a gamestate and playerstate over and receive a move in response
+                msg_length = connection.recv(HEADER).decode('utf-8')
+                msg_length = int(msg_length)
+                msg = json.loads(connection.recv(msg_length).decode('utf-8'))
+                # client closing protocol - "ack" signifies game-over
+                if msg == "ack": break
+                # if the player has cheated, close the client and produce "false" for returning score
+                received_ps: PlayerState(inp_ps=msg["player-state"])
 
-        connection.close()
+            connection.close()
 
-    def start(self):
-        """
-        Function to begin listening and to start the server
-        """
-        self.server.listen()
-        # print("started")
-        if self.server.recv(HEADER).decode() == "started":
+        def start(self):
+            """
+            Function to begin listening and to start the server
+            """
+            self.server.listen()
+            print("started")
             while True:
                 connection, address = self.server.accept()
+                raise ValueError("connected!")
+                print(f"Connection to {connection}, {address} successful")
                 thread = threading.Thread(target=self.handle_client, args=(connection, address))
                 thread.start()
+                print(f"There are currently {threading.active_count()-1} active threads")
