@@ -5,7 +5,7 @@ from typing import Tuple, List
 from my_python.House import House
 from my_python.Street import Street
 from my_python.PlayerState import PlayerState
-from my_python.OldGameState import OldGameState
+from my_python.GameState import GameState
 
 sys.path.append('../../../../')
 
@@ -81,7 +81,7 @@ class GenValidMove:
         # Initialize valid move field
         self.vm: PlayerState = None
         self.ps: PlayerState = None
-        self.gs: OldGameState = None
+        self.gs: GameState = None
 
     def __str__(self) -> str:
         """
@@ -92,7 +92,7 @@ class GenValidMove:
         """
         return str(self.vm)
 
-    def generate(self, gs: OldGameState, ps: PlayerState) -> PlayerState:
+    def generate(self, gs: GameState, ps: PlayerState) -> PlayerState:
         """
         Algorithm for generating a valid move
         """
