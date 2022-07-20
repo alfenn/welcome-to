@@ -1,4 +1,4 @@
-import socket, json, threading
+import socket, json, threading, sys
 
 from my_python.validate_move import validate_move
 from my_python.GameState import GameState
@@ -26,5 +26,5 @@ class Network:
         Listens from the network connection and returns a decoded python
         representation of the data structure sent from the server
         """
-        return json.loads(self.s.recv(HEADER).decode())
+        return json.loads(self.s.recv(8192).decode())
 
