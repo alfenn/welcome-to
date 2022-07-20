@@ -10,52 +10,17 @@ from my_python.GameState import GameState
 from my_python.PlayerState import PlayerState
 
 
-
-#
-# def handle_client(client_socket, addr):
-#     while True:
-#         msg = client_socket.recv(8192)
-#         if msg == "ack": break
-#         print(addr, ' >> ', msg)
-#         client_socket.send(json.loads(msg))
-#     client_socket.close()
-#
-# host = socket.gethostname()
-# port = network_config["port"]
-# players = network_config["players"]
-#
-# s.bind((host, port))
-# s.listen()
-# print(json.dumps("started"))
-#
-# while True:
-#     c, addr = s.accept()
-#     print(f"Got connection to {c}, {addr} successfully!")
-#     thread = threading.Thread(target=handle_client, args=(c, addr))
-#     thread.start()
-#     print(f"There are currently {threading.active_count()-1} active threads")
-
-
-
 #########################
 #### Main game loop #####
 #########################
-# all_players: List[PlayerAdapter] = []                   # list of PlayerAdapters
-# each_player_still_playing_status: List[bool] = []       # list of booleans specifying whether we're still playing with each player
-# while True in each_player_still_playing_status:
-#     for i in range(len(all_players)):
-#         pa = all_players[i]
-#         pa.play()
-#         if pa.game_over:
-#             each_player_still_playing_status[i] = False
-
 
 ### Read in network config from stdin
 input_str = sys.stdin.read()
 network_config = json.loads(input_str)
 ### Set up the socket
-s = socket.socket()
-s.bind((socket.gethostname(), network_config["port"]))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+address = (socket.gethostbyname(socket.gethostname()), network_config["port"])
+s.bind(address)
 s.listen(network_config["players"])
 ### Print confirmation to stdout that server has been set up
 sys.stdout.flush()
