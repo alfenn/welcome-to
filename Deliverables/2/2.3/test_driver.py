@@ -1,7 +1,7 @@
 import sys, json
 from pprint import pprint
-
-from sort import sort
+sys.path.append('../../../')
+from my_python.sort import sort
 
 """
 Reads JSON objects from JSON string and stores them into

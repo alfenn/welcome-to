@@ -101,7 +101,7 @@ class MoveGenerator1(MoveGeneratorInterface):
             for j in range(len(self.ps.streets[i].homes)):
                 curr_house: House = self.ps.streets[i].homes[j]
                 # If the house is not built...
-                if not curr_house.is_built:
+                if not curr_house.is_built and not curr_house.is_roundabout:
                     excl_range = get_exclusive_range(self.ps.streets[i], j)
                     # If the difference between the returned "max" and "min" is equal to 1,
                     #   skip to the next street
