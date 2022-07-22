@@ -10,7 +10,7 @@ def check_wrapper(s: str, v) -> bool:
 
 
 #################################
-## Define the Player contracts ##
+## Define the LocalPlayer contracts ##
 #################################
 
 #### Contracts for House ####
@@ -70,7 +70,7 @@ valid_street = new_contract('valid_street', lambda d: (isinstance(d, dict)
                                                        and check_wrapper('valid_natural', d.get("parks"))
                                                        and check_wrapper('valid_pools', d.get("pools"))))
 
-#### Contracts for the Player state ####
+#### Contracts for the LocalPlayer state ####
 valid_temps = new_contract('valid_temps', 'valid_natural')
 valid_streets = new_contract('valid_streets', 'list[3](valid_street)')
 valid_refusals = new_contract('valid_refusals', 'valid_natural')

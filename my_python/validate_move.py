@@ -10,7 +10,7 @@ from my_python.GameState import GameState
 from my_python.Street import Street, PARK_MAX
 from my_python.House import House
 from my_python.exceptions import InvalidMove
-from my_python.GenValidMove import GenValidMove
+from my_python.MoveGeneratorInterface import MoveGenerator1
 from my_python.contracts import ACCEPTABLE_CRITERIA_CARD_1S, ACCEPTABLE_CRITERIA_CARD_2S
 
 
@@ -189,6 +189,15 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         if street_w_all_pools_all_parks_exists is False:
             raise InvalidMove("Tried to claim \"all pools all parks one roundabout\" but there is no street meeting this condition")
     return None
+
+
+
+
+
+
+######################################
+## The validate_move function ########
+######################################
 
 def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     """
@@ -456,7 +465,7 @@ def validate_move(ps1: PlayerState, ps2: PlayerState, gs: GameState) -> None:
     ## Refusals checking
     #######
     # Basically check if refusals changed iff there is no move that can be played
-    move_generator = GenValidMove()
+    move_generator = MoveGenerator1()
     generated_move_ps = move_generator.generate(gs, ps1)
     ## Check: [2nd cond] don't error if the reason for the refusal difference is bc the only valid move available
     #   (a roundabout move) was played

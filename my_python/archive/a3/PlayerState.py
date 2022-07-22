@@ -7,7 +7,7 @@ class PlayerState:
     @contract
     def __init__(self, ps):
         """
-            Initialize Player state from a valid player state dictionary.
+            Initialize LocalPlayer state from a valid player state dictionary.
 
             :param ps: The dictionary representing the input state
             :type ps: valid_player_state

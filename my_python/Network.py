@@ -23,8 +23,14 @@ class Network:
 
     def receive(self):
         """
-        Listens from the network connection and returns a decoded python
-        representation of the data structure sent from the server
+        Listens from the network connection and returns a json string representation
+         of the data structure sent from the server
         """
-        return json.loads(self.s.recv(8192).decode())
+        full_msg = ''
+        while '\n' not in full_msg:
+            msg = self.s.recv(8192)
+            if len(msg) <= 0: break
+            full_msg += msg.decode('utf-8')
+        return full_msg
+        # return self.s.recv(8192).decode()
 

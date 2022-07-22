@@ -90,6 +90,10 @@ def calc_score(ps: PlayerState, other_temps: List[int]) -> int:
         refusals_scores = [0,0,3,5]
         return refusals_scores[num_refusals]
 
+    def get_roundabouts_penalty(num_roundabouts: int) -> int:
+        roundabout_penalties = [0, 3, 5]
+        return roundabout_penalties[num_roundabouts]
+
     def count_total_player_estates(ps: PlayerState) -> Counter:
         """
         Returns a multiset() storing the count of each size estate
@@ -161,5 +165,7 @@ def calc_score(ps: PlayerState, other_temps: List[int]) -> int:
     score -= get_bis_penalty(num_bis)
     # Subtract the refusals penalty
     score -= get_refusals_penalty(ps.refusals)
+    # Subtract the roundabout penalty
+    score -= get_roundabouts_penalty(ps.get_total_num_roundabouts())
 
     return score

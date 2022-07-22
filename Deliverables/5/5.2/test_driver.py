@@ -12,6 +12,6 @@ ps = PlayerState(inp_ps=inp_ps)
 print(calc_score(ps, inp_temps))
 
 # open('../../../my_python/a5/test_output.json', 'w').\
-#    write(str(GenValidMove(gs, ps)))
+#    write(str(MoveGeneratorInterface(gs, ps)))
 
-# PlayerState(json.loads(str(GenValidMove(gs,ps))))
+# PlayerState(json.loads(str(MoveGeneratorInterface(gs,ps))))

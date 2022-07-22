@@ -76,26 +76,20 @@ def update_ps_w_valid_card(cc: list, ps: PlayerState, st_i: int, h_i: int) -> Pl
     return ps
 
 
-class GenValidMove:
+class MoveGeneratorInterface:
     def __init__(self):
-        # Initialize valid move field
+        # Initialize instance variables
         self.vm: PlayerState = None
         self.ps: PlayerState = None
         self.gs: GameState = None
 
-    def __str__(self) -> str:
-        """
-        Returns the played move as a json string representation of
-        the resulting PlayerState.
-
-        :return: json string of a PlayerState
-        """
-        return str(self.vm)
-
     def generate(self, gs: GameState, ps: PlayerState) -> PlayerState:
-        """
-        Algorithm for generating a valid move
-        """
+        """Algorithm for generating a valid move"""
+        pass
+
+
+class MoveGenerator1(MoveGeneratorInterface):
+    def generate(self, gs: GameState, ps: PlayerState) -> PlayerState:
         self.vm = copy.deepcopy(ps)
         self.ps = ps
         self.gs = gs

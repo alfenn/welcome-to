@@ -14,3 +14,7 @@ class InvalidGameState(Exception):
 class InvalidMove(Exception):
     def __init__(self, m:str):
         super().__init__(m)
+
+class NetworkDisconnect(Exception):
+    def __init__(self, m:str):
+        super().__init__(m)

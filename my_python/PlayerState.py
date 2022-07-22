@@ -70,6 +70,10 @@ class PlayerState:
     def get_total_bis_houses(self) -> int:
         return self.get_total_built_houses() - self.get_total_non_bis_houses()
 
+    def no_space(self) -> bool:
+        """Returns true if there is no space to build any new houses, false if space exists"""
+        return (self.get_total_built_houses() + self.get_total_num_roundabouts()) == 33
+
     def get_num_played_effects(self) -> int:
         num_agents_i = 0
         num_claimed_plans_i = 0
@@ -138,3 +142,16 @@ class PlayerState:
                "temps": self.temps
             }
         return json.dumps(ret)
+
+    def return_literal(self):
+        ret = {"agents": self.agents,
+               "city-plan-score": self.city_plan_score,
+               "refusals": self.refusals,
+               "streets": [
+                   self.streets[0].return_literal(),
+                   self.streets[1].return_literal(),
+                   self.streets[2].return_literal()
+               ],
+               "temps": self.temps
+               }
+        return ret
