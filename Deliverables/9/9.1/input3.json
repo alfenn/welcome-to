@@ -5,7 +5,7 @@
       {"criteria":[1,6,6],"position":3,"score1":19,"score2":7}],
     "city-plans-won":[false,false,false],
     "construction-cards":[
-      [4,"bis"],
+      [3,"bis"],
       [7,"temp"],
       [11,"temp"]],
     "effects":["bis","bis","bis"]
@@ -24,7 +24,7 @@
                 [false,"blank",false],
                 [false,"blank",false],
                 [true,"blank",false],
-                [true,7,false],
+                [true,"blank",false],
                 [true,10,false]],
         "parks":0,
         "pools":[false,false,false]},

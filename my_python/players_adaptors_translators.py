@@ -3,13 +3,12 @@ import threading
 
 sys.path.append('../../../')
 
-from my_python.calc_score import calc_score
 from my_python.MoveGeneratorInterface import MoveGeneratorInterface
 from my_python.Network import Network
 from my_python.GameState import GameState
 from my_python.PlayerState import PlayerState
 from my_python.validate_move import validate_move
-from my_python.exceptions import InvalidGameState, InvalidPlayerState, InvalidMove, NetworkDisconnect
+from my_python.exceptions import InvalidPlayerState, InvalidMove, NetworkDisconnect
 
 
 ########################
