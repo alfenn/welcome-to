@@ -28,8 +28,6 @@ class TestPlayerState(TestCase):
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=get_total_built_fences_invalid1))
         # NOTE: didn't account for number of effects played being checked against number of built homes
         # self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=misc_sum_invalid))
-
-        self.assertRaises(InvalidPlayerState, lambda: PlayerState(inp_ps=invalid_misc_sum))
         self.assertTrue(PlayerState(inp_ps=misc_sum_valid))
 
         # NOTE: didn't account for built fence but no built homes

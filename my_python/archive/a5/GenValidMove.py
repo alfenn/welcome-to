@@ -1,7 +1,7 @@
 import sys
 from typing import Tuple
 
-from my_python.OldGameState import OldGameState
+from archive.OldGameState import OldGameState
 
 sys.path.append('../../../../')
 from my_python.archive.a3.PlayerState import *

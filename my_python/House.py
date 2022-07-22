@@ -55,16 +55,6 @@ class House:
         except KeyError:
             pass
 
-    def load(self):
-        """Load the House object into a basic Python type that
-        can be converted to a JSON string using json.dumps().
-
-        Note: Only "house" schema is loaded.
-        """
-        if self.num == -1: return "blank"  # Case: House is not built
-        if self.is_bis: return [self.num, "bis"]  # Case: House is a bis
-        return self.num  # Case: House is not a bis and built
-
     def _check_built_used_in_plan(self) -> None:
         # Add first condition bc when subtracting, we initialize a PlayerState with fields that are Same,
         #   which fails the second condition of this if.

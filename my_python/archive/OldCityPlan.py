@@ -1,4 +1,4 @@
-from my_python.my_contracts_OldGameState import *
+from archive.my_contracts_OldGameState import *
 class OldCityPlan:
     def __init__(self, in_cp: dict):
         """

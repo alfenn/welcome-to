@@ -1,4 +1,4 @@
-from my_python.OldCityPlan import *
+from archive.OldCityPlan import *
 
 class OldGameState:
     def __init__(self, in_gs):

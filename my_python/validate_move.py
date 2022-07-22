@@ -97,8 +97,8 @@ def get_claimed_plans(gs: GameState, ps1: PlayerState, ps2: PlayerState) -> list
             advanced_city_plans_claimed.append(curr_city_plan_criteria)
     return [non_advanced_criteria_estates, advanced_city_plans_claimed]
 
-def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
-    """Errors if advanced plan is not satisfied or (when appropriate) house is not newly claimed as uip."""
+def check_advanced_plans(advanced_criteria, ps1: PlayerState, ps2: PlayerState) -> None:
+    """Errors if advanced plan criteria is not satisfied."""
     def _curr_street_has_all_parks(i: int) -> bool:
         return ps2.streets[i].parks == PARK_MAX[i]
 
@@ -106,8 +106,8 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         return ps2.streets[i].pools == [True, True, True]
 
     ## Case: ["all houses", ~0|2]
-    if type(ac) == list and ac[0] == "all houses":
-        street_ind = ac[1]
+    if type(advanced_criteria) == list and advanced_criteria[0] == "all houses":
+        street_ind = advanced_criteria[1]
         curr_street_1 = ps1.streets[street_ind]
         curr_street_2 = ps2.streets[street_ind]
         # Check every house in the street
@@ -121,7 +121,7 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
             if not (curr_house_2.used_in_plan and not curr_house_1.used_in_plan):
                 raise InvalidMove(f"Attempted to claim advanced plan but house at ind ({street_ind}, {house_ind}) wasn't newly claimed")
     ## Case: "end houses"
-    elif ac == "end houses":
+    elif advanced_criteria == "end houses":
         for street_ind in range(3):
             curr_street_1 = ps1.streets[street_ind]
             curr_street_2 = ps2.streets[street_ind]
@@ -135,11 +135,11 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
                 if not (curr_house_2.used_in_plan and not curr_house_1.used_in_plan):
                     raise InvalidMove(f"Attempted to claim advanced plan but house at ind ({street_ind}, {house_ind}) wasn't newly claimed")
     ## Case: "7 temps"
-    elif ac == "7 temps":
+    elif advanced_criteria == "7 temps":
         temps_played = ps2.temps
         if temps_played < 7: raise InvalidMove(f"Attempted to claim \"7 temps\" but there are only {temps_played} temps played")
     ## Case: "5 bis"
-    elif ac == "5 bis":
+    elif advanced_criteria == "5 bis":
         street_has_five_bis = False
         for street_ind in range(3):
             if street_has_five_bis: break
@@ -154,7 +154,7 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
                     break
         if not street_has_five_bis: raise InvalidMove(f"Attempted to claim \"5 bis\" but there is less than 5 bis played on the same street")
     ## Case: "two streets all parks"
-    elif ac == "two streets all parks":
+    elif advanced_criteria == "two streets all parks":
         streets_w_all_parks = []
         for street_ind in range(3):
             if _curr_street_has_all_parks(street_ind):
@@ -162,7 +162,7 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         if len(streets_w_all_parks) < 2:
             raise InvalidMove(f"Attempted to claim \"two streets all parks\" but only street ind {streets_w_all_parks} have all parks")
     ## Case: "two streets all pools"
-    elif ac == "two streets all pools":
+    elif advanced_criteria == "two streets all pools":
         streets_w_all_pools = []
         for street_ind in range(3):
             if _curr_street_has_all_pools(street_ind):
@@ -170,14 +170,14 @@ def check_advanced_plans(ac, ps1: PlayerState, ps2: PlayerState) -> None:
         if len(streets_w_all_pools) < 2:
             raise InvalidMove(f"Attempted to claim \"two streets all pools\" but only street ind {streets_w_all_pools} have all pools")
     ## Case: ["all pools all parks", ~1|2]
-    elif type(ac) == list and ac[0] == "all pools all parks":
-        street_ind = ac[1]
+    elif type(advanced_criteria) == list and advanced_criteria[0] == "all pools all parks":
+        street_ind = advanced_criteria[1]
         has_all_pools = _curr_street_has_all_pools(street_ind)
         has_all_parks = _curr_street_has_all_parks(street_ind)
         if not (has_all_pools and has_all_parks):
             raise InvalidMove(f"Attempted to claim [\"all pools all parks\", {street_ind}] but has_all_pools is {has_all_pools} and has_all_parks is {has_all_parks}")
     ## Case: "all pools all parks one roundabout"
-    elif ac == "all pools all parks one roundabout":
+    elif advanced_criteria == "all pools all parks one roundabout":
         street_w_all_pools_all_parks_exists = False
         for street_ind in range(3):
             curr_street: Street = ps2.streets[street_ind]

@@ -76,13 +76,3 @@ class TestStreet(TestCase):
         container["homes"] = invalid_dup2
         self.assertRaises(InvalidPlayerState, lambda: Street(inp_street=container))
 
-    def test_sub(self):
-        self.assertEqual(Street(inp_street=valid_num_houses1) - Street(inp_street=valid_num_houses1),
-                          Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"]))
-        temp_diff = Street(houses=all_same_street_len10["homes"], parks=all_same_street_len10["parks"], pools=all_same_street_len10["pools"])
-        temp_diff.homes[1] = House(is_bis=Same(), num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
-        temp_diff.homes[2] = House(is_bis=True, num=1, is_built=True, used_in_plan=Same(), l_fence=Same(), r_fence=Same())
-        temp_diff.parks = 1
-        self.assertEqual(Street(inp_street=valid_num_houses1_2) - Street(inp_street=valid_num_houses1),
-                         temp_diff)
-
